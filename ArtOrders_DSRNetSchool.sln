@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Api", "Systems\Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Api.Settings", "Systems\Api\ArtOrders.Api.Settings\ArtOrders.Api.Settings.csproj", "{27146307-A50B-43C9-ACB1-43C62474D696}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Common", "Shared\ArtOrders.Common\ArtOrders.Common.csproj", "{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{27146307-A50B-43C9-ACB1-43C62474D696}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27146307-A50B-43C9-ACB1-43C62474D696}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27146307-A50B-43C9-ACB1-43C62474D696}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +48,7 @@ Global
 		{046519A2-620B-432A-B87A-FC7471B820F2} = {1019493D-46BD-4851-9EB2-D4A0D4F1E42D}
 		{5814852E-F038-4710-A086-13F4ADB63CB9} = {41322EBC-E968-4C32-A0C3-A03FE0E9F0D6}
 		{27146307-A50B-43C9-ACB1-43C62474D696} = {41322EBC-E968-4C32-A0C3-A03FE0E9F0D6}
+		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD} = {3234FF81-D690-4FD3-9D4C-CABEFB16CC78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76ADB176-AD2F-463B-AF7E-C09EC32A3BDC}
