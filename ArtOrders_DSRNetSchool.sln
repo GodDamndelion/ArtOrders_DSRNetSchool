@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{DEF014EA-126A-479E-AC94-4BE11E361D5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{63A107FD-40C1-4336-845A-CA035CF8E7A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{3234FF81-D690-4FD3-9D4C-CABEFB16CC78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Systems", "Systems", "{1019493D-46BD-4851-9EB2-D4A0D4F1E42D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{41322EBC-E968-4C32-A0C3-A03FE0E9F0D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{046519A2-620B-432A-B87A-FC7471B820F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Api", "Systems\Api\ArtOrders.Api\ArtOrders.Api.csproj", "{5814852E-F038-4710-A086-13F4ADB63CB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Api.Settings", "Systems\Api\ArtOrders.Api.Settings\ArtOrders.Api.Settings.csproj", "{27146307-A50B-43C9-ACB1-43C62474D696}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5814852E-F038-4710-A086-13F4ADB63CB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5814852E-F038-4710-A086-13F4ADB63CB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5814852E-F038-4710-A086-13F4ADB63CB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5814852E-F038-4710-A086-13F4ADB63CB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27146307-A50B-43C9-ACB1-43C62474D696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27146307-A50B-43C9-ACB1-43C62474D696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27146307-A50B-43C9-ACB1-43C62474D696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27146307-A50B-43C9-ACB1-43C62474D696}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{41322EBC-E968-4C32-A0C3-A03FE0E9F0D6} = {1019493D-46BD-4851-9EB2-D4A0D4F1E42D}
+		{046519A2-620B-432A-B87A-FC7471B820F2} = {1019493D-46BD-4851-9EB2-D4A0D4F1E42D}
+		{5814852E-F038-4710-A086-13F4ADB63CB9} = {41322EBC-E968-4C32-A0C3-A03FE0E9F0D6}
+		{27146307-A50B-43C9-ACB1-43C62474D696} = {41322EBC-E968-4C32-A0C3-A03FE0E9F0D6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76ADB176-AD2F-463B-AF7E-C09EC32A3BDC}
+	EndGlobalSection
+EndGlobal
