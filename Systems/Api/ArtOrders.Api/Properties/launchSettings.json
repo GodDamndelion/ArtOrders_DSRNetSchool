@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "http": {
+    "ArtOrders.Systems.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
