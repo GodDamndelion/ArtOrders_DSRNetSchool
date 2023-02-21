@@ -10,18 +10,31 @@ builder.AddAppLogger();
 
 var services = builder.Services;
 
+services.AddHttpContextAccessor(); //Для CorrelationId
+services.AddAppCors();
+
 services.AddAppHealthChecks();
+services.AddAppVersioning();
+services.AddAppSwagger();
+services.AddAppAutoMappers();
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers(); Меняем стандартный на
+services.AddAppControllers();
 
-var app = builder.Build();
-
-app.UseAppHealthChecks();
 
 // Configure the HTTP request pipeline.
 
+var app = builder.Build();
+
+app.UseAppCors();
+
+app.UseAppHealthChecks();
+
+app.UseAppSwagger();
+
 app.UseAuthorization();
 
-app.MapControllers();
+//app.MapControllers(); Меняем стандартные на
+app.UseAppControllers();
 
 app.Run();
