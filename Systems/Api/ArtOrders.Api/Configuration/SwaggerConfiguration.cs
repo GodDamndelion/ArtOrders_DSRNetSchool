@@ -1,9 +1,9 @@
 ﻿namespace ArtOrders.Api.Configuration;
 
-// TODO: Settings и Security временно отключены, подключить обратно
+// TODO: Security временно отключён, подключить обратно
 
 //using ArtOrders.Common.Security;
-//using ArtOrders.Services.Settings;
+using ArtOrders.Services.Settings;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -22,12 +22,15 @@ public static class SwaggerConfiguration
     /// Add OpenAPI for API
     /// </summary>
     /// <param name="services">Services collection</param>
+    //  TODO: Потом поиенять на identity
     /// <param name="mainSettings"></param>
     /// <param name="swaggerSettings"></param>
-    public static IServiceCollection AddAppSwagger(this IServiceCollection services/*, IdentitySettings identitySettings, SwaggerSettings swaggerSettings*/)
+    //public static IServiceCollection AddAppSwagger(this IServiceCollection services/*, IdentitySettings identitySettings, SwaggerSettings swaggerSettings*/)
+    public static IServiceCollection AddAppSwagger(this IServiceCollection services, MainSettings mainSettings, SwaggerSettings swaggerSettings)
     {
-        //if (!swaggerSettings.Enabled)
-        //    return services;
+        // Если Swagger выключен, то его настраивать не нужно
+        if (!swaggerSettings.Enabled)
+            return services;
 
         services
             .AddOptions<SwaggerGenOptions>()
@@ -113,10 +116,10 @@ public static class SwaggerConfiguration
     /// <param name="app">Web application</param>
     public static void UseAppSwagger(this WebApplication app)
     {
-        //var swaggerSettings = app.Services.GetService<SwaggerSettings>();
+        var swaggerSettings = app.Services.GetService<SwaggerSettings>();
 
-        //if (!swaggerSettings?.Enabled ?? false)
-        //    return;
+        if (!swaggerSettings?.Enabled ?? false)
+            return;
 
         var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 

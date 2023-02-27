@@ -47,11 +47,7 @@
             Swagger configuration
             </summary>
         </member>
-        <member name="M:ArtOrders.Api.Configuration.SwaggerConfiguration.AddAppSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Add OpenAPI for API
-            </summary>
-            <param name="services">Services collection</param>
+        <member name="M:ArtOrders.Api.Configuration.SwaggerConfiguration.AddAppSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection,ArtOrders.Services.Settings.MainSettings,ArtOrders.Services.Settings.SwaggerSettings)">
             <param name="mainSettings"></param>
             <param name="swaggerSettings"></param>
         </member>
@@ -71,6 +67,18 @@
             Add version support for API
             </summary>
             <param name="services">Services collection</param>
+        </member>
+        <member name="M:ArtOrders.Api.Controllers.TestController.GetData1">
+            <summary>
+            Get data 1
+            </summary>
+            <response code="200">String items</response>
+        </member>
+        <member name="M:ArtOrders.Api.Controllers.TestController.GetData2(System.String)">
+            <summary>
+            Get data 2
+            </summary>
+            <response code="200">String items</response>
         </member>
     </members>
 </doc>

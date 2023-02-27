@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Api.Settings", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Common", "Shared\ArtOrders.Common\ArtOrders.Common.csproj", "{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Settings", "Shared\ArtOrders.Settings\ArtOrders.Settings.csproj", "{C3347734-2D54-47EE-AF1D-C2BB4298C5EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.Settings", "Services\ArtOrders.Services.Settings\ArtOrders.Services.Settings.csproj", "{DA617879-132D-44F5-A392-FFC7F9B4A95B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3347734-2D54-47EE-AF1D-C2BB4298C5EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3347734-2D54-47EE-AF1D-C2BB4298C5EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3347734-2D54-47EE-AF1D-C2BB4298C5EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3347734-2D54-47EE-AF1D-C2BB4298C5EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA617879-132D-44F5-A392-FFC7F9B4A95B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA617879-132D-44F5-A392-FFC7F9B4A95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA617879-132D-44F5-A392-FFC7F9B4A95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA617879-132D-44F5-A392-FFC7F9B4A95B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +61,8 @@ Global
 		{5814852E-F038-4710-A086-13F4ADB63CB9} = {41322EBC-E968-4C32-A0C3-A03FE0E9F0D6}
 		{27146307-A50B-43C9-ACB1-43C62474D696} = {41322EBC-E968-4C32-A0C3-A03FE0E9F0D6}
 		{FBFBA00D-A82B-4B82-9297-A4E185A0A3FD} = {3234FF81-D690-4FD3-9D4C-CABEFB16CC78}
+		{C3347734-2D54-47EE-AF1D-C2BB4298C5EE} = {3234FF81-D690-4FD3-9D4C-CABEFB16CC78}
+		{DA617879-132D-44F5-A392-FFC7F9B4A95B} = {63A107FD-40C1-4336-845A-CA035CF8E7A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76ADB176-AD2F-463B-AF7E-C09EC32A3BDC}

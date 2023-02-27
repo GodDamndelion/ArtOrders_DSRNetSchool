@@ -1,8 +1,14 @@
+using ArtOrders.Api;
 using ArtOrders.Api.Configuration;
+using ArtOrders.Services.Settings;
+using ArtOrders.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var mainSettings = Settings.Load<MainSettings>("Main");
+var swaggerSettings = Settings.Load<SwaggerSettings>("Swagger");
 
 builder.AddAppLogger();
 
@@ -15,11 +21,13 @@ services.AddAppCors();
 
 services.AddAppHealthChecks();
 services.AddAppVersioning();
-services.AddAppSwagger();
+services.AddAppSwagger(mainSettings, swaggerSettings);
 services.AddAppAutoMappers();
 
 //builder.Services.AddControllers(); Меняем стандартный на
 services.AddAppControllers();
+
+services.RegisterAppServices();
 
 
 // Configure the HTTP request pipeline.

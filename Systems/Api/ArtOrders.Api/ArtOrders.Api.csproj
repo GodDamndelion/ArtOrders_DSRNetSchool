@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Settings\ArtOrders.Services.Settings.csproj" />
     <ProjectReference Include="..\..\..\Shared\ArtOrders.Common\ArtOrders.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\ArtOrders.Settings\ArtOrders.Settings.csproj" />
   </ItemGroup>
 
 </Project>
