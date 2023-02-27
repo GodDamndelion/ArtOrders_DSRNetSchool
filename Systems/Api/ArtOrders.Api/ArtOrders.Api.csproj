@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Settings\ArtOrders.Services.Settings.csproj" />
     <ProjectReference Include="..\..\..\Shared\ArtOrders.Common\ArtOrders.Common.csproj" />
     <ProjectReference Include="..\..\..\Shared\ArtOrders.Settings\ArtOrders.Settings.csproj" />
+    <ProjectReference Include="..\ArtOrders.Api.Settings\ArtOrders.Api.Settings.csproj" />
   </ItemGroup>
 
 </Project>
