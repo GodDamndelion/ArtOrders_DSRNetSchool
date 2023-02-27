@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+
+  artorders_postgresql:
+    image: postgres:14.1
+    
+  artorders_redis:
+    image: redis
+
+  artorders_api:
+    image: ${DOCKER_REGISTRY-}artordersapi
+    build:
+      context: .
+      dockerfile: Systems/Api/ArtOrders.Api/Dockerfile
+    depends_on:
+      - artorders_postgresql
+      - artorders_redis
