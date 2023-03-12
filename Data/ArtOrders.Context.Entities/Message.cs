@@ -1,6 +1,6 @@
 ﻿namespace ArtOrders.Context.Entities;
 
-internal class Message : BaseEntity
+public class Message : BaseEntity
 {
     public int ChatId { get; set; }
     public virtual Chat Chat { get; set; }

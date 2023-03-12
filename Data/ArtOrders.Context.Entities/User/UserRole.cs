@@ -1,6 +1,6 @@
 ﻿namespace ArtOrders.Context.Entities;
 
-internal enum UserRole
+public enum UserRole
 {
     Administrator = 0,
     Customer = 1,

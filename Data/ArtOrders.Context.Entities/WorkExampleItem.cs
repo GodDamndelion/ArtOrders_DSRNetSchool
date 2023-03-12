@@ -1,6 +1,6 @@
 ﻿namespace ArtOrders.Context.Entities;
 
-internal class WorkExampleItem : BaseEntity
+public class WorkExampleItem : BaseEntity
 {
     public int UserId { get; set; }
     public virtual User User { get; set; }

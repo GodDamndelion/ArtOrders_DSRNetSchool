@@ -1,6 +1,6 @@
 ﻿namespace ArtOrders.Context.Entities;
 
-internal class Order : BaseEntity
+public class Order : BaseEntity
 {
     public string Name { get; set; }
 

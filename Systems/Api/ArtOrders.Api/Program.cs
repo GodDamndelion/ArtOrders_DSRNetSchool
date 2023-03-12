@@ -1,5 +1,6 @@
 using ArtOrders.Api;
 using ArtOrders.Api.Configuration;
+using ArtOrders.Context;
 using ArtOrders.Services.Settings;
 using ArtOrders.Settings;
 
@@ -18,6 +19,8 @@ var services = builder.Services;
 
 services.AddHttpContextAccessor(); //Äëÿ CorrelationId
 services.AddAppCors();
+
+services.AddAppDbContext(builder.Configuration);
 
 services.AddAppHealthChecks();
 services.AddAppVersioning();

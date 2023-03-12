@@ -18,6 +18,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
     <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
@@ -29,6 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\ArtOrders.Context\ArtOrders.Context.csproj" />
+    <ProjectReference Include="..\..\..\Data\Migrations\ArtOrders.Context.MigrationsPostgreSQL\ArtOrders.Context.MigrationsPostgreSQL.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Settings\ArtOrders.Services.Settings.csproj" />
     <ProjectReference Include="..\..\..\Shared\ArtOrders.Common\ArtOrders.Common.csproj" />
     <ProjectReference Include="..\..\..\Shared\ArtOrders.Settings\ArtOrders.Settings.csproj" />
