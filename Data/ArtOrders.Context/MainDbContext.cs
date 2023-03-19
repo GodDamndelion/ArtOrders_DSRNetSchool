@@ -68,6 +68,7 @@ namespace ArtOrders.Context
             modelBuilder.Entity<Order>().Property(o => o.ChatLink).IsRequired();
             modelBuilder.Entity<Order>().HasIndex(o => o.ChatLink).IsUnique();
             modelBuilder.Entity<Order>().Property(o => o.EditsNumber).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.Description).IsRequired();
             modelBuilder.Entity<Order>().HasOne(o => o.Customer).WithMany(u => u.OrdersUserOrdered).HasForeignKey(o => o.CustomerId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Order>().HasOne(o => o.Artist).WithMany(u => u.OrdersOrderedToUser).HasForeignKey(o => o.ArtistId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Order>().HasOne(o => o.CurrentResultImage).WithOne(i => i.Order).HasForeignKey<Order>(o => o.CurrentResultId).OnDelete(DeleteBehavior.Restrict);

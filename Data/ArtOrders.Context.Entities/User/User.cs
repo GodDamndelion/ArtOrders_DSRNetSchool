@@ -1,7 +1,6 @@
 ﻿namespace ArtOrders.Context.Entities;
 
 using Microsoft.AspNetCore.Identity;
-using System.Diagnostics.CodeAnalysis;
 
 public class User : IdentityUser<Guid>
 {

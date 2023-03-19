@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace ArtOrders.Context.Entities;
+﻿namespace ArtOrders.Context.Entities;
 
 public class Message : BaseEntity
 {

@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Context.Entities"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", "{79A8EF1B-0951-4ECE-9742-501BF76AD2D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Context.MigrationsPostgreSQL", "Data\Migrations\ArtOrders.Context.MigrationsPostgreSQL\ArtOrders.Context.MigrationsPostgreSQL.csproj", "{83EE2E76-86C9-4FE3-B4EB-D684E9BE92CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Context.MigrationsPostgreSQL", "Data\Migrations\ArtOrders.Context.MigrationsPostgreSQL\ArtOrders.Context.MigrationsPostgreSQL.csproj", "{83EE2E76-86C9-4FE3-B4EB-D684E9BE92CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.Orders", "Services\ArtOrders.Services.Orders\ArtOrders.Services.Orders.csproj", "{6D628884-E80D-4706-981D-865F80C5CBC1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{83EE2E76-86C9-4FE3-B4EB-D684E9BE92CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83EE2E76-86C9-4FE3-B4EB-D684E9BE92CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83EE2E76-86C9-4FE3-B4EB-D684E9BE92CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D628884-E80D-4706-981D-865F80C5CBC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D628884-E80D-4706-981D-865F80C5CBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D628884-E80D-4706-981D-865F80C5CBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D628884-E80D-4706-981D-865F80C5CBC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{E2692FD6-BEAB-47E3-8514-90A4A5F9DD30} = {DEF014EA-126A-479E-AC94-4BE11E361D5C}
 		{79A8EF1B-0951-4ECE-9742-501BF76AD2D9} = {DEF014EA-126A-479E-AC94-4BE11E361D5C}
 		{83EE2E76-86C9-4FE3-B4EB-D684E9BE92CC} = {79A8EF1B-0951-4ECE-9742-501BF76AD2D9}
+		{6D628884-E80D-4706-981D-865F80C5CBC1} = {63A107FD-40C1-4336-845A-CA035CF8E7A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76ADB176-AD2F-463B-AF7E-C09EC32A3BDC}

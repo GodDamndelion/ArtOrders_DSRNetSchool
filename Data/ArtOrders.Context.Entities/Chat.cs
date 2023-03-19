@@ -1,10 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace ArtOrders.Context.Entities;
+﻿namespace ArtOrders.Context.Entities;
 
 public class Chat : BaseEntity
 {
-    [AllowNull]
     public int? OrderId { get; set; }
     public virtual Order? Order { get; set; }
 

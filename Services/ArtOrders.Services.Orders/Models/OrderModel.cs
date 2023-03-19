@@ -1,23 +1,24 @@
-﻿namespace ArtOrders.Context.Entities;
+﻿namespace ArtOrders.Services.Orders;
 
-public class Order : BaseEntity
+using AutoMapper;
+using ArtOrders.Context.Entities;
+
+public class OrderModel
 {
     public string Name { get; set; }
-
     public Guid? CustomerId { get; set; }
-    public virtual User? Customer { get; set; }
-
     public Guid? ArtistId { get; set; }
-    public virtual User? Artist { get; set; }
-
     public OrderStatus Status { get; set; }
     public string ChatLink { get; set; }
-
     public int? CurrentResultId { get; set; }
-    public virtual Image? CurrentResultImage { get; set; }
-
     public int EditsNumber { get; set; }
     public string Description { get; set; }
+}
 
-    public virtual Chat Chat { get; set; }
+public class OrderModelProfile : Profile
+{
+    public OrderModelProfile()
+    {
+        CreateMap<Order, OrderModel>();
+    }
 }
