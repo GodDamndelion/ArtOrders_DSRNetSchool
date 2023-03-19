@@ -37,8 +37,7 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                 name: "AvatarId",
                 table: "users",
                 type: "integer",
-                nullable: false,
-                defaultValue: 0);
+                nullable: false);
 
             migrationBuilder.AlterColumn<int>(
                 name: "Id",

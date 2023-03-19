@@ -3,6 +3,7 @@ using System;
 using ArtOrders.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230319145332_NullsAdded")]
+    partial class NullsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,6 +40,7 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<int?>("OrderId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<Guid>("Uid")
@@ -47,9 +51,6 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                     b.HasIndex("ArtistId");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
 
                     b.HasIndex("Uid")
                         .IsUnique();
@@ -63,21 +64,31 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("OrderCurrentResultId")
+                        .HasColumnType("integer");
+
                     b.Property<Guid>("Uid")
                         .HasColumnType("uuid");
+
+                    b.Property<int>("WorkExampleItemImageId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Link")
                         .IsUnique();
 
+                    b.HasIndex("OrderCurrentResultId")
+                        .IsUnique();
+
                     b.HasIndex("Uid")
+                        .IsUnique();
+
+                    b.HasIndex("WorkExampleItemImageId")
                         .IsUnique();
 
                     b.ToTable("images", (string)null);
@@ -130,8 +141,6 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
                     b.Property<Guid?>("ArtistId")
                         .HasColumnType("uuid");
 
@@ -140,6 +149,7 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                         .HasColumnType("text");
 
                     b.Property<int?>("CurrentResultId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<Guid?>("CustomerId")
@@ -163,9 +173,6 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                     b.HasIndex("ArtistId");
 
                     b.HasIndex("ChatLink")
-                        .IsUnique();
-
-                    b.HasIndex("CurrentResultId")
                         .IsUnique();
 
                     b.HasIndex("CustomerId");
@@ -217,6 +224,7 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int?>("AvatarId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -275,9 +283,6 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AvatarId")
-                        .IsUnique();
-
                     b.HasIndex("Nickname")
                         .IsUnique();
 
@@ -312,9 +317,6 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ImageId")
-                        .IsUnique();
 
                     b.HasIndex("Uid")
                         .IsUnique();
@@ -466,16 +468,38 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("ArtOrders.Context.Entities.Order", "Order")
-                        .WithOne("Chat")
-                        .HasForeignKey("ArtOrders.Context.Entities.Chat", "OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("Artist");
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("ArtOrders.Context.Entities.Image", b =>
+                {
+                    b.HasOne("ArtOrders.Context.Entities.User", "User")
+                        .WithOne("Avatar")
+                        .HasForeignKey("ArtOrders.Context.Entities.Image", "Id")
+                        .HasPrincipalKey("ArtOrders.Context.Entities.User", "AvatarId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ArtOrders.Context.Entities.Order", "Order")
+                        .WithOne("CurrentResultImage")
+                        .HasForeignKey("ArtOrders.Context.Entities.Image", "OrderCurrentResultId")
+                        .HasPrincipalKey("ArtOrders.Context.Entities.Order", "CurrentResultId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ArtOrders.Context.Entities.WorkExampleItem", "WorkExampleItem")
+                        .WithOne("Image")
+                        .HasForeignKey("ArtOrders.Context.Entities.Image", "WorkExampleItemImageId")
+                        .HasPrincipalKey("ArtOrders.Context.Entities.WorkExampleItem", "ImageId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Order");
+
+                    b.Navigation("User");
+
+                    b.Navigation("WorkExampleItem");
                 });
 
             modelBuilder.Entity("ArtOrders.Context.Entities.Message", b =>
@@ -510,19 +534,21 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("ArtOrders.Context.Entities.Image", "CurrentResultImage")
-                        .WithOne("Order")
-                        .HasForeignKey("ArtOrders.Context.Entities.Order", "CurrentResultId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("ArtOrders.Context.Entities.User", "Customer")
                         .WithMany("OrdersUserOrdered")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.HasOne("ArtOrders.Context.Entities.Chat", "Chat")
+                        .WithOne("Order")
+                        .HasForeignKey("ArtOrders.Context.Entities.Order", "Id")
+                        .HasPrincipalKey("ArtOrders.Context.Entities.Chat", "OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Artist");
 
-                    b.Navigation("CurrentResultImage");
+                    b.Navigation("Chat");
 
                     b.Navigation("Customer");
                 });
@@ -538,31 +564,13 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ArtOrders.Context.Entities.User", b =>
-                {
-                    b.HasOne("ArtOrders.Context.Entities.Image", "Avatar")
-                        .WithOne("User")
-                        .HasForeignKey("ArtOrders.Context.Entities.User", "AvatarId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Avatar");
-                });
-
             modelBuilder.Entity("ArtOrders.Context.Entities.WorkExampleItem", b =>
                 {
-                    b.HasOne("ArtOrders.Context.Entities.Image", "Image")
-                        .WithOne("WorkExampleItem")
-                        .HasForeignKey("ArtOrders.Context.Entities.WorkExampleItem", "ImageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("ArtOrders.Context.Entities.User", "User")
                         .WithMany("WorkExamples")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Image");
 
                     b.Navigation("User");
                 });
@@ -621,30 +629,25 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
             modelBuilder.Entity("ArtOrders.Context.Entities.Chat", b =>
                 {
                     b.Navigation("Messages");
+
+                    b.Navigation("Order")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ArtOrders.Context.Entities.Image", b =>
                 {
                     b.Navigation("Messages");
-
-                    b.Navigation("Order")
-                        .IsRequired();
-
-                    b.Navigation("User")
-                        .IsRequired();
-
-                    b.Navigation("WorkExampleItem")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ArtOrders.Context.Entities.Order", b =>
                 {
-                    b.Navigation("Chat")
-                        .IsRequired();
+                    b.Navigation("CurrentResultImage");
                 });
 
             modelBuilder.Entity("ArtOrders.Context.Entities.User", b =>
                 {
+                    b.Navigation("Avatar");
+
                     b.Navigation("ChatsUserСreated");
 
                     b.Navigation("ChatsСreatedWithUser");
@@ -658,6 +661,12 @@ namespace ArtOrders.Context.MigrationsPostgreSQL.Migrations
                     b.Navigation("PriceList");
 
                     b.Navigation("WorkExamples");
+                });
+
+            modelBuilder.Entity("ArtOrders.Context.Entities.WorkExampleItem", b =>
+                {
+                    b.Navigation("Image")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

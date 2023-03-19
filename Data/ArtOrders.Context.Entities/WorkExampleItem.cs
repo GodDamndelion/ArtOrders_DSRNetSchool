@@ -10,5 +10,5 @@ public class WorkExampleItem : BaseEntity
     public int ImageId { get; set; }
     public virtual Image Image { get; set; }
 
-    public string? Description { get; set; } //[AllowNull] Необязательно...
+    public string? Description { get; set; }
 }

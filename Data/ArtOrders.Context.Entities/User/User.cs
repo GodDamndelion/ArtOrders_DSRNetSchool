@@ -5,13 +5,11 @@ using System.Diagnostics.CodeAnalysis;
 
 public class User : IdentityUser<Guid>
 {
-    [AllowNull]
     public int? AvatarId { get; set; }
-    public virtual Image Avatar { get; set; }
+    public virtual Image? Avatar { get; set; }
 
     public string Nickname { get; set; }
     public UserRole Role { get; set; }
-    [AllowNull]
     public string? Description { get; set; }
 
     public virtual ICollection<Chat> ChatsUserСreated { get; set; }
