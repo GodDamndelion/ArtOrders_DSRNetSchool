@@ -65,8 +65,6 @@ namespace ArtOrders.Context
             modelBuilder.Entity<Order>().ToTable("orders");
             modelBuilder.Entity<Order>().Property(o => o.Name).IsRequired();
             modelBuilder.Entity<Order>().Property(o => o.Status).IsRequired();
-            modelBuilder.Entity<Order>().Property(o => o.ChatLink).IsRequired();
-            modelBuilder.Entity<Order>().HasIndex(o => o.ChatLink).IsUnique();
             modelBuilder.Entity<Order>().Property(o => o.EditsNumber).IsRequired();
             modelBuilder.Entity<Order>().Property(o => o.Description).IsRequired();
             modelBuilder.Entity<Order>().HasOne(o => o.Customer).WithMany(u => u.OrdersUserOrdered).HasForeignKey(o => o.CustomerId).OnDelete(DeleteBehavior.NoAction);

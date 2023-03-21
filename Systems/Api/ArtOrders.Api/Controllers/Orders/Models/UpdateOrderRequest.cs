@@ -9,7 +9,8 @@ public class UpdateOrderRequest
 {
     public string Name { get; set; }
     public OrderStatus Status { get; set; }
-    public string? CurrentResultImageLink { get; set; }
+    // TODO: Вынести в отдельный Update!
+    //public string? CurrentResultImageLink { get; set; }
     public int EditsNumber { get; set; }
     public string Description { get; set; }
 }

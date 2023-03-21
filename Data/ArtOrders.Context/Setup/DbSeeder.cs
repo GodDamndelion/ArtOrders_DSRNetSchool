@@ -2,6 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 public static class DbSeeder
 {
@@ -69,23 +70,57 @@ public static class DbSeeder
     {
         await using var context = DbContext(serviceProvider);
 
-        // TODO: Добавить обратно инициализацию БД
-        //if (context.Messages.Any() || context.Users.Any() || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
-        //    return;
+        // TODO: Доделать инициализацию БД
+        if (context.Messages.Any() || context.Users.Any() || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
+            return;
 
-        //var u = new Entities.User()
-        //{
-        //    Nickname = "P.H.G.",
+        var i = new Entities.Image()
+        {
+            Link = "LocalData\\Images\\PHGAvatarImage.jpg",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(i);
+
+        var u1 = new Entities.User()
+        {
+            Nickname = "P.H.G.",
+            Avatar = i,
+            Role = Entities.UserRole.Artist,
+            Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy"
+        };
+        context.Users.Add(u1);
+
+        var u2 = new Entities.User()
+        {
+            Nickname = "Damndelion",
+            Role = Entities.UserRole.Customer
+        };
+        context.Users.Add(u2);
+
+        var c1 = new Entities.Chat()
+        {
+            Customer = u2,
+            Artist = u1
+        };
+        context.Chats.Add(c1);
+
+        var o1 = new Entities.Order()
+        {
+            Name = "Sans",
+            Customer = u2,
+            Artist = u1,
+            Status = Entities.OrderStatus.AtWork,
+            //Chat = c1,
+            EditsNumber = 0,
+            Description = "Санс стоит в Пустоте и заряжает Гастер бластер, который объят синим пламенем"
+        };
+        context.Orders.Add(o1);
+
+        c1.Order = o1;
 
 
-        //    /////////////////////////////////
-        //    Detail = new Entities.AuthorDetail()
-        //    {
-        //        Country = "USA",
-        //        Family = "",
-        //    }
-        //};
-        //context.Users.Add(u);
 
         //var c1 = new Entities.Category()
         //{

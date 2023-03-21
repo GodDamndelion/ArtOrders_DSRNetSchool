@@ -8,7 +8,8 @@ public class UpdateOrderModel
 {
     public string Name { get; set; }
     public OrderStatus Status { get; set; }
-    public string? CurrentResultImageLink { get; set; }
+    // TODO: Вынести в отдельный Update!
+    //public string? CurrentResultImageLink { get; set; }
     public int EditsNumber { get; set; }
     public string Description { get; set; }
 }
@@ -29,7 +30,6 @@ public class UpdateOrderModelProfile : Profile
 {
     public UpdateOrderModelProfile()
     {
-        CreateMap<Order, UpdateOrderModel>()
-            .ForMember(om => om.CurrentResultImageLink, opt => opt.MapFrom(o => o.CurrentResultImage.Link));
+        CreateMap<UpdateOrderModel, Order>();
     }
 }

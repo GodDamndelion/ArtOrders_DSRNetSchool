@@ -106,7 +106,7 @@
             <summary>
             Get orders by Id
             </summary>
-            <response code="200">BookResponse></response>
+            <response code="200">OrderResponse></response>
         </member>
     </members>
 </doc>

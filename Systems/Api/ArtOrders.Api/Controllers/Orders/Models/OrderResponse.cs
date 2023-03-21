@@ -14,7 +14,7 @@ public class OrderResponse
     public Guid? CustomerId { get; set; }
     public Guid? ArtistId { get; set; }
     public OrderStatus Status { get; set; }
-    public string ChatLink { get; set; }
+    public int ChatId { get; set; }
     public string? CurrentResultImageLink { get; set; }
     public int EditsNumber { get; set; }
     public string Description { get; set; }

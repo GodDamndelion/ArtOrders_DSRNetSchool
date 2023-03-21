@@ -61,6 +61,7 @@ internal class OrderService : IOrderService
         var orders = context
             .Orders
             .Include(x => x.CurrentResultImage)
+            .Include(x => x.Chat)
             .AsQueryable();
 
         orders = orders
@@ -78,7 +79,7 @@ internal class OrderService : IOrderService
     {
         using var context = await contextFactory.CreateDbContextAsync();
 
-        var order = await context.Orders.Include(x => x.CurrentResultImage).FirstOrDefaultAsync(x => x.Id.Equals(id));
+        var order = await context.Orders.Include(x => x.CurrentResultImage).Include(x => x.Chat).FirstOrDefaultAsync(x => x.Id.Equals(id));
 
         var data = mapper.Map<OrderModel>(order);
 
@@ -92,6 +93,7 @@ internal class OrderService : IOrderService
         using var context = await contextFactory.CreateDbContextAsync();
 
         var order = mapper.Map<Order>(model);
+
         await context.Orders.AddAsync(order);
         context.SaveChanges();
 
