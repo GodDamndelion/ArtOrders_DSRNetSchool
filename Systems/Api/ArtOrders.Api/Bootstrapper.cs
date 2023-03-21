@@ -1,10 +1,10 @@
 ﻿namespace ArtOrders.Api;
 
 using ArtOrders.Api.Settings;
+using ArtOrders.Services.Orders;
 // TODO: Есть выключенные сущности. Переделать в свои.
 //using ArtOrders.Services.Actions;
 //using ArtOrders.Services.Authors;
-//using ArtOrders.Services.Books;
 //using ArtOrders.Services.Cache;
 //using ArtOrders.Services.RabbitMq;
 using ArtOrders.Services.Settings;
@@ -20,7 +20,7 @@ public static class Bootstrapper
             .AddSwaggerSettings()
             //.AddIdentitySettings()
             .AddApiSpecialSettings()
-            //.AddBookService()
+            .AddOrderService()
             //.AddUserAccountService()
             //.AddCache()
             //.AddRabbitMq()

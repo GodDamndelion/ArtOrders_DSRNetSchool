@@ -1,10 +1,14 @@
-﻿namespace ArtOrders.Services.Orders;
+﻿namespace ArtOrders.API.Controllers.Models;
 
 using AutoMapper;
+using ArtOrders.Services.Orders;
 using ArtOrders.Context.Entities;
 
-public class OrderModel
+public class OrderResponse
 {
+    /// <summary>
+    /// Order Id
+    /// </summary>
     public int Id { get; set; }
     public string Name { get; set; }
     public Guid? CustomerId { get; set; }
@@ -16,11 +20,10 @@ public class OrderModel
     public string Description { get; set; }
 }
 
-public class OrderModelProfile : Profile
+public class OrderResponseProfile : Profile
 {
-    public OrderModelProfile()
+    public OrderResponseProfile()
     {
-        CreateMap<Order, OrderModel>()
-            .ForMember(om => om.CurrentResultImageLink, opt => opt.MapFrom(o => o.CurrentResultImage.Link));
+        CreateMap<OrderModel, OrderResponse>();
     }
 }

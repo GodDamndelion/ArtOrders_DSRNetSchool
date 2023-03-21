@@ -1,10 +1,11 @@
-﻿namespace ArtOrders.Services.Orders;
+﻿namespace ArtOrders.API.Controllers.Models;
 
 using AutoMapper;
-using ArtOrders.Context.Entities;
+using ArtOrders.Services.Orders;
 using FluentValidation;
+using ArtOrders.Context.Entities;
 
-public class UpdateOrderModel
+public class UpdateOrderRequest
 {
     public string Name { get; set; }
     public OrderStatus Status { get; set; }
@@ -13,9 +14,9 @@ public class UpdateOrderModel
     public string Description { get; set; }
 }
 
-public class UpdateOrderModelValidator : AbstractValidator<UpdateOrderModel>
+public class UpdateOrderRequestValidator : AbstractValidator<UpdateOrderRequest>
 {
-    public UpdateOrderModelValidator()
+    public UpdateOrderRequestValidator()
     {
         RuleFor(o => o.Name)
             .NotEmpty().WithMessage("Order name is required.");
@@ -25,11 +26,10 @@ public class UpdateOrderModelValidator : AbstractValidator<UpdateOrderModel>
     }
 }
 
-public class UpdateOrderModelProfile : Profile
+public class UpdateOrderRequestProfile : Profile
 {
-    public UpdateOrderModelProfile()
+    public UpdateOrderRequestProfile()
     {
-        CreateMap<Order, UpdateOrderModel>()
-            .ForMember(om => om.CurrentResultImageLink, opt => opt.MapFrom(o => o.CurrentResultImage.Link));
+        CreateMap<UpdateOrderRequest, UpdateOrderModel>();
     }
 }
