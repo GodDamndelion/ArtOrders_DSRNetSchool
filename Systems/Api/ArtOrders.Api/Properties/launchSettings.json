@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "ArtOrders.Systems.Api": {
+    "ArtOrders.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

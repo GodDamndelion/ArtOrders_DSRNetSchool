@@ -22,7 +22,7 @@ public static class SwaggerConfiguration
     /// Add OpenAPI for API
     /// </summary>
     /// <param name="services">Services collection</param>
-    //  TODO: Потом поиенять на identity
+    //  TODO: Потом поменять на identity !!!!!!!!!!!!!!!!!!!!!!!
     /// <param name="mainSettings"></param>
     /// <param name="swaggerSettings"></param>
     //public static IServiceCollection AddAppSwagger(this IServiceCollection services/*, IdentitySettings identitySettings, SwaggerSettings swaggerSettings*/)

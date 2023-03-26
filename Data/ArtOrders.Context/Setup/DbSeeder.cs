@@ -70,7 +70,7 @@ public static class DbSeeder
     {
         await using var context = DbContext(serviceProvider);
 
-        // TODO: Доделать инициализацию БД
+        // TODO: Доделать инициализацию БД (добавить админа и не админов)
         if (context.Messages.Any() || context.Users.Any() || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
             return;
 
