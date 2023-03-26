@@ -48,6 +48,8 @@ app.UseAuthorization();
 //app.MapControllers(); Меняем стандартные на
 app.UseAppControllers();
 
+app.UseAppMiddlewares();
+
 DbInitializer.Execute(app.Services);
 DbSeeder.Execute(app.Services, true, true);
 

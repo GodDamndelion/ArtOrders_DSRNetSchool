@@ -56,7 +56,7 @@ namespace ArtOrders.Api.Controllers
 
         //Для проверки ExceptionsMiddleware
 
-        /*
+
         [HttpGet("Pass")]
         [ApiVersion("1.0")]
         public string ActionWithoutError()
@@ -73,6 +73,6 @@ namespace ArtOrders.Api.Controllers
 
             return "All right!";
         }
-        */
+
     }
 }
