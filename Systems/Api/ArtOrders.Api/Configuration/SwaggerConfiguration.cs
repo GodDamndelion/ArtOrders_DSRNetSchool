@@ -1,8 +1,6 @@
 ﻿namespace ArtOrders.Api.Configuration;
 
-// TODO: Security временно отключён, подключить обратно
-
-//using ArtOrders.Common.Security;
+using ArtOrders.Common.Security;
 using ArtOrders.Services.Settings;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
@@ -22,11 +20,9 @@ public static class SwaggerConfiguration
     /// Add OpenAPI for API
     /// </summary>
     /// <param name="services">Services collection</param>
-    //  TODO: Потом поменять на identity !!!!!!!!!!!!!!!!!!!!!!!
-    /// <param name="mainSettings"></param>
+    /// <param name="identitySettings"></param>
     /// <param name="swaggerSettings"></param>
-    //public static IServiceCollection AddAppSwagger(this IServiceCollection services/*, IdentitySettings identitySettings, SwaggerSettings swaggerSettings*/)
-    public static IServiceCollection AddAppSwagger(this IServiceCollection services, MainSettings mainSettings, SwaggerSettings swaggerSettings)
+    public static IServiceCollection AddAppSwagger(this IServiceCollection services, IdentitySettings identitySettings, SwaggerSettings swaggerSettings)
     {
         // Если Swagger выключен, то его настраивать не нужно
         if (!swaggerSettings.Enabled)
@@ -69,15 +65,16 @@ public static class SwaggerConfiguration
                 In = ParameterLocation.Header,
                 Flows = new OpenApiOAuthFlows
                 {
-                    //Password = new OpenApiOAuthFlow
-                    //{
-                    //    TokenUrl = new Uri($"{identitySettings.Url}/connect/token"),
-                    //    Scopes = new Dictionary<string, string>
-                    //    {
-                    //        {AppScopes.BooksRead, "BooksRead"},
-                    //        {AppScopes.BooksWrite, "BooksWrite"}
-                    //    }
-                    //}
+                    Password = new OpenApiOAuthFlow
+                    {
+                        // TODO: Настроить список скопов для Сваггера (Все)
+                        TokenUrl = new Uri($"{identitySettings.Url}/connect/token"),
+                        Scopes = new Dictionary<string, string>
+                        {
+                            {AppScopes.BooksRead, "BooksRead"},
+                            {AppScopes.BooksWrite, "BooksWrite"}
+                        }
+                    }
                 }
             });
 
@@ -139,7 +136,8 @@ public static class SwaggerConfiguration
                 options.DocExpansion(DocExpansion.List);
                 options.DefaultModelsExpandDepth(-1);
                 options.OAuthAppName(AppTitle);
-
+                
+                // TODO: Выяснить, для чего эти две строки
                 //options.OAuthClientId(swaggerSettings?.OAuthClientId ?? "");
                 //options.OAuthClientSecret(swaggerSettings?.OAuthClientSecret ?? "");
             }

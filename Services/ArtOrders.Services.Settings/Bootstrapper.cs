@@ -14,14 +14,13 @@ public static class Bootstrapper
         return services;
     }
 
-    // TODO: Включить Identity Settings
-    //public static IServiceCollection AddIdentitySettings(this IServiceCollection services, IConfiguration configuration = null)
-    //{
-    //    var settings = Settings.Load<IdentitySettings>("Identity", configuration);
-    //    services.AddSingleton(settings);
+    public static IServiceCollection AddIdentitySettings(this IServiceCollection services, IConfiguration configuration = null)
+    {
+        var settings = Settings.Load<IdentitySettings>("Identity", configuration);
+        services.AddSingleton(settings);
 
-    //    return services;
-    //}
+        return services;
+    }
 
     public static IServiceCollection AddSwaggerSettings(this IServiceCollection services, IConfiguration configuration = null)
     {

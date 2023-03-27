@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var mainSettings = Settings.Load<MainSettings>("Main");
+//var mainSettings = Settings.Load<MainSettings>("Main");
+var identitySettings = Settings.Load<IdentitySettings>("Identity");
 var swaggerSettings = Settings.Load<SwaggerSettings>("Swagger");
 
 builder.AddAppLogger();
@@ -24,7 +25,7 @@ services.AddAppDbContext(builder.Configuration);
 
 services.AddAppHealthChecks();
 services.AddAppVersioning();
-services.AddAppSwagger(mainSettings, swaggerSettings);
+services.AddAppSwagger(identitySettings, swaggerSettings);
 services.AddAppAutoMappers();
 
 //builder.Services.AddControllers(); Меняем стандартный на
