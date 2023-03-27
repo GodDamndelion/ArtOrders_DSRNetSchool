@@ -16,3 +16,13 @@ services:
     depends_on:
       - artorders_postgresql
       - artorders_redis
+
+  artorders_identity:
+    image: ${DOCKER_REGISTRY-}artordersidentity
+    build:
+      context: .
+      dockerfile: Systems/Identity/ArtOrders.Identity/Dockerfile
+    depends_on: #Dependence (If they are not connected, then this one does not make sense)
+      - artorders_postgresql
+      - artorders_redis
+      - artorders_api

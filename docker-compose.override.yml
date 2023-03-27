@@ -29,6 +29,14 @@ services:
     env_file:
       - env.api
 
+  artorders_identity:
+    ports:
+      - "10001:80"
+    networks:
+      - shared_artorders_net
+    env_file:
+      - env.identity
+
 networks:
   shared_artorders_net:
     name: artorders

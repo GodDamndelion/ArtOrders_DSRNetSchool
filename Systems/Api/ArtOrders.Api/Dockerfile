@@ -7,9 +7,13 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Systems/Api/ArtOrders.Api/ArtOrders.Api.csproj", "Systems/Api/ArtOrders.Api/"]
-COPY ["Services/ArtOrders.Services.Settings/ArtOrders.Services.Settings.csproj", "Services/ArtOrders.Services.Settings/"]
+COPY ["Data/ArtOrders.Context/ArtOrders.Context.csproj", "Data/ArtOrders.Context/"]
 COPY ["Shared/ArtOrders.Settings/ArtOrders.Settings.csproj", "Shared/ArtOrders.Settings/"]
+COPY ["Data/ArtOrders.Context.Entities/ArtOrders.Context.Entities.csproj", "Data/ArtOrders.Context.Entities/"]
+COPY ["Data/Migrations/ArtOrders.Context.MigrationsPostgreSQL/ArtOrders.Context.MigrationsPostgreSQL.csproj", "Data/Migrations/ArtOrders.Context.MigrationsPostgreSQL/"]
+COPY ["Services/ArtOrders.Services.Orders/ArtOrders.Services.Orders.csproj", "Services/ArtOrders.Services.Orders/"]
 COPY ["Shared/ArtOrders.Common/ArtOrders.Common.csproj", "Shared/ArtOrders.Common/"]
+COPY ["Services/ArtOrders.Services.Settings/ArtOrders.Services.Settings.csproj", "Services/ArtOrders.Services.Settings/"]
 COPY ["Systems/Api/ArtOrders.Api.Settings/ArtOrders.Api.Settings.csproj", "Systems/Api/ArtOrders.Api.Settings/"]
 RUN dotnet restore "Systems/Api/ArtOrders.Api/ArtOrders.Api.csproj"
 COPY . .

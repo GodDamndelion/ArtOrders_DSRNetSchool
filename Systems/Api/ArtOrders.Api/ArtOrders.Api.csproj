@@ -8,7 +8,7 @@
     <DocumentationFile>api.xml</DocumentationFile>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
-    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath> <!--Вот эта строчка отвечает за подключение к оркестратору, просто копируем её в Identity-->
   </PropertyGroup>
 
   <ItemGroup>
