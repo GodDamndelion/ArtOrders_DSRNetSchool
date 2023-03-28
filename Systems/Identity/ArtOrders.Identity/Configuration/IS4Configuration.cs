@@ -32,7 +32,7 @@ public static class IS4Configuration
             .AddInMemoryApiResources(AppResources.Resources)
             .AddInMemoryIdentityResources(AppIdentityResources.Resources)
 
-            .AddTestUsers(AppApiTestUsers.ApiUsers) //Для промышленной БД эта строчка должна быть обязательно закомментированна
+            //.AddTestUsers(AppApiTestUsers.ApiUsers) //Для промышленной БД эта строчка должна быть обязательно закомментированна
 
             .AddDeveloperSigningCredential(); //Создаст константный сертификат при запуске (это для теста)
 

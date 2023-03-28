@@ -22,6 +22,7 @@ services.AddHttpContextAccessor(); //Для CorrelationId
 services.AddAppCors();
 
 services.AddAppDbContext(builder.Configuration);
+services.AddAppAuth(identitySettings);
 
 services.AddAppHealthChecks();
 services.AddAppVersioning();
@@ -33,7 +34,6 @@ services.AddAppControllers();
 
 services.RegisterAppServices();
 
-
 // Configure the HTTP request pipeline.
 
 var app = builder.Build();
@@ -44,7 +44,7 @@ app.UseAppHealthChecks();
 
 app.UseAppSwagger();
 
-app.UseAuthorization();
+app.UseAppAuth();
 
 //app.MapControllers(); Меняем стандартные на
 app.UseAppControllers();

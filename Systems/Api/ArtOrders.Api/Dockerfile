@@ -14,6 +14,7 @@ COPY ["Data/Migrations/ArtOrders.Context.MigrationsPostgreSQL/ArtOrders.Context.
 COPY ["Services/ArtOrders.Services.Orders/ArtOrders.Services.Orders.csproj", "Services/ArtOrders.Services.Orders/"]
 COPY ["Shared/ArtOrders.Common/ArtOrders.Common.csproj", "Shared/ArtOrders.Common/"]
 COPY ["Services/ArtOrders.Services.Settings/ArtOrders.Services.Settings.csproj", "Services/ArtOrders.Services.Settings/"]
+COPY ["Services/ArtOrders.Services.Users/ArtOrders.Services.Users.csproj", "Services/ArtOrders.Services.Users/"]
 COPY ["Systems/Api/ArtOrders.Api.Settings/ArtOrders.Api.Settings.csproj", "Systems/Api/ArtOrders.Api.Settings/"]
 RUN dotnet restore "Systems/Api/ArtOrders.Api/ArtOrders.Api.csproj"
 COPY . .

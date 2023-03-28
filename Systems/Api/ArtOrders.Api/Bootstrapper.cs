@@ -8,7 +8,7 @@ using ArtOrders.Services.Orders;
 //using ArtOrders.Services.Cache;
 //using ArtOrders.Services.RabbitMq;
 using ArtOrders.Services.Settings;
-//using ArtOrders.Services.UserAccount;
+using ArtOrders.Services.Users;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class Bootstrapper
@@ -21,7 +21,7 @@ public static class Bootstrapper
             .AddIdentitySettings()
             .AddApiSpecialSettings()
             .AddOrderService()
-            //.AddUserAccountService()
+            .AddUserService()
             //.AddCache()
             //.AddRabbitMq()
             //.AddActions()
