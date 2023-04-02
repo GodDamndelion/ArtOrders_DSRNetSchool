@@ -36,4 +36,3 @@ public class RegisterUserAccountRequestProfile : Profile
         CreateMap<RegisterUserAccountRequest, RegisterUserAccountModel>();
     }
 }
-
