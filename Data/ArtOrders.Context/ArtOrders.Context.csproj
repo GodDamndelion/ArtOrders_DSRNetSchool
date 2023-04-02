@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\ArtOrders.Services.Users\ArtOrders.Services.Users.csproj" />
     <ProjectReference Include="..\..\Shared\ArtOrders.Settings\ArtOrders.Settings.csproj" />
     <ProjectReference Include="..\ArtOrders.Context.Entities\ArtOrders.Context.Entities.csproj" />
   </ItemGroup>

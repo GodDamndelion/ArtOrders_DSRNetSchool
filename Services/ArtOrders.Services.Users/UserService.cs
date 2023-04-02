@@ -41,15 +41,16 @@ public class UserService : IUserService
         // Create user account
         user = new User()
         {
-            // TODO: Переделать Nickname в UserName
             //Status = UserStatus.Active,
             Nickname = model.Name,
-            UserName = model.Email,  // Это логин. Мы будем его приравнивать к email, хотя это и не обязательно
+            UserName = model.Email,  // Это логин. Регистрация и вход будут осуществляться через email
             Email = model.Email,
             EmailConfirmed = true, // Так как это учебный проект, то сразу считаем, что почта подтверждена. В реальном проекте, скорее всего, надо будет ее подтвердить через ссылку в письме
             PhoneNumber = null,
-            PhoneNumberConfirmed = false
-            // ... Также здесь есть еще интересные свойства. Посмотрите в документации.
+            PhoneNumberConfirmed = false,
+            AvatarId = model.AvatarId,
+            Role = model.Role,
+            Description = model.Description,
         };
 
         var result = await userManager.CreateAsync(user, model.Password);
