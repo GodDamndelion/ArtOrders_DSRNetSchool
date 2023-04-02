@@ -24,5 +24,8 @@ public class UserAccountModelProfile : Profile
             .ForMember(d => d.Name, o => o.MapFrom(s => s.Nickname))
             .ForMember(d => d.Email, o => o.MapFrom(s => s.Email))
             ;
+
+        CreateMap<UserAccountModel, User>()
+            .ForMember(s => s.Nickname, o => o.MapFrom(d => d.Name));
     }
 }

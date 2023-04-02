@@ -1,8 +1,8 @@
 ﻿namespace ArtOrders.Context;
 
-using ArtOrders.Common.Exceptions;
 using ArtOrders.Context.Entities;
 using ArtOrders.Services.Users;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -24,32 +24,27 @@ public static class DbSeeder
         //if (defaults != null)
         //{
             var userService = scope.ServiceProvider.GetService<IUserService>();
-            if (userService != null)
+            ArgumentNullException.ThrowIfNull(userService);
+            
+            using var context = DbContext(scope.ServiceProvider);
+            if (context.Users.FirstOrDefault(u => u.Email == masterUserEmail) == null)
             {
-                using var context = DbContext(scope.ServiceProvider);
-                if (context.Users.FirstOrDefault(u => u.Email == masterUserEmail) == null)
+                var user = userService.Create(new RegisterUserAccountModel
                 {
-                    var user = userService.Create(new RegisterUserAccountModel
-                    {
-                        Name = "Administrator",
-                        Email = masterUserEmail,
-                        Password = masterUserPassword,
-                        Role = UserRole.Administrator,
-                        Description = "Я здесь артами командую!",
-                        //Name = defaults.AdministratorName,
-                        //Password = defaults.AdministratorPassword,
-                        //Email = defaults.AdministratorEmail,
-                        //IsEmailConfirmed = !defaults.AdministratorEmail.IsNullOrEmpty(),
-                    })
-                    .GetAwaiter()
-                    .GetResult();
+                    Name = "Administrator",
+                    Email = masterUserEmail,
+                    Password = masterUserPassword,
+                    Role = UserRole.Administrator,
+                    Description = "Я здесь артами командую!",
+                    //Name = defaults.AdministratorName,
+                    //Password = defaults.AdministratorPassword,
+                    //Email = defaults.AdministratorEmail,
+                    //IsEmailConfirmed = !defaults.AdministratorEmail.IsNullOrEmpty(),
+                })
+                .GetAwaiter()
+                .GetResult(); // TODO: Тут мне результат и не нужен...
 
-                    //userService.SetUserRoles(user.Id, Infrastructure.User.UserRole.Administrator).GetAwaiter().GetResult();
-                }
-            }
-            else
-            {
-                throw new ProcessException("IUserService was null.");
+                //userService.SetUserRoles(user.Id, Infrastructure.User.UserRole.Administrator).GetAwaiter().GetResult();
             }
         //}
     }
@@ -66,24 +61,30 @@ public static class DbSeeder
 
         if (addDemoData)
         {
-            Task.Run(async () =>
-            {
-                await ConfigureDemoData(serviceProvider);
-            });
+            //Task.Run(async () =>
+            //{
+                /*await*/ ConfigureDemoData(scope);
+            //});
         }
     }
 
-    private static async Task ConfigureDemoData(IServiceProvider serviceProvider)
+    private static /*async Task*/ void ConfigureDemoData(IServiceScope scope)
     {
-        await AddDemoData(serviceProvider);
+        /*await*/ AddDemoData(scope);
     }
 
-    private static async Task AddDemoData(IServiceProvider serviceProvider)
+    private static /*async Task*/ void AddDemoData(IServiceScope scope)
     {
-        await using var context = DbContext(serviceProvider);
+        /*await*/ using var context = DbContext(scope.ServiceProvider);
 
-        // TODO: Доделать инициализацию БД (добавить админа и не админов)
-        if (context.Messages.Any() || context.Users.Any() || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
+        var userService = scope.ServiceProvider.GetService<IUserService>();
+        ArgumentNullException.ThrowIfNull(userService);
+
+        //var mapper = scope.ServiceProvider.GetService<IMapper>();
+        //ArgumentNullException.ThrowIfNull(mapper);
+
+        // TODO: Доделать инициализацию БД
+        if (context.Messages.Any() /*|| context.Users.Any()*/ || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
             return;
 
         var i = new Image()
@@ -94,35 +95,67 @@ public static class DbSeeder
             Order = null
         };
         context.Images.Add(i);
+        context.SaveChanges();
 
-        var u1 = new User()
+        var ua1 = /*mapper.Map<User>(*/userService.Create(new RegisterUserAccountModel
         {
-            Nickname = "P.H.G.",
-            Avatar = i,
+            Name = "P.H.G.",
+            Email = "PHG@dsr.com",
+            Password = "pumpheadguy",
+            AvatarId = context.Images.First(x => x.Link == i.Link).Id,
             Role = UserRole.Artist,
-            Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy"
-        };
-        context.Users.Add(u1);
+            Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy",
+        })
+        .GetAwaiter()
+        .GetResult()/*)*/;
+        
 
-        var u2 = new User()
+        //var u1 = new User()
+        //{
+        //    Nickname = "P.H.G.",
+        //    Avatar = i,
+        //    Role = UserRole.Artist,
+        //    Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy"
+        //};
+        //context.Users.Add(u1);
+
+        var ua2 = /*mapper.Map<User>(*/userService.Create(new RegisterUserAccountModel
         {
-            Nickname = "Damndelion",
-            Role = UserRole.Customer
-        };
-        context.Users.Add(u2);
+            Name = "Damndelion",
+            Email = "Damndelion@dsr.com",
+            Password = "password",
+            Role = UserRole.Customer,
+        })
+        .GetAwaiter()
+        .GetResult()/*)*/;
+
+        //var u2 = new User()
+        //{
+        //    Nickname = "Damndelion",
+        //    Role = UserRole.Customer
+        //};
+        //context.Users.Add(u2);
+
+
+
+
+
+
+        //var u1 = context.Users.First(u => u.Email == ua1.Email);
+        //var u2 = context.Users.First(u => u.Email == ua2.Email);
 
         var c1 = new Chat()
         {
-            Customer = u2,
-            Artist = u1
+            CustomerId = ua2.Id,
+            ArtistId = ua1.Id
         };
         context.Chats.Add(c1);
 
         var o1 = new Order()
         {
             Name = "Sans",
-            Customer = u2,
-            Artist = u1,
+            CustomerId = ua2.Id,
+            ArtistId = ua1.Id,
             Status = OrderStatus.AtWork,
             //Chat = c1,
             EditsNumber = 0,
@@ -131,6 +164,11 @@ public static class DbSeeder
         context.Orders.Add(o1);
 
         c1.Order = o1;
+
+
+
+
+
 
 
 
