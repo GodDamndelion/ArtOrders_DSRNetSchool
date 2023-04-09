@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\Data\ArtOrders.Context.Entities\ArtOrders.Context.Entities.csproj" />
     <ProjectReference Include="..\..\Data\ArtOrders.Context\ArtOrders.Context.csproj" />
     <ProjectReference Include="..\..\Shared\ArtOrders.Common\ArtOrders.Common.csproj" />
+    <ProjectReference Include="..\ArtOrders.Services.Cache\ArtOrders.Services.Cache.csproj" />
   </ItemGroup>
 
 </Project>
