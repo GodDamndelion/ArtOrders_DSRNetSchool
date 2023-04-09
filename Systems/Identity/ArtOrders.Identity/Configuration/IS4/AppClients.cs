@@ -22,8 +22,8 @@ public static class AppClients
                 AccessTokenLifetime = 3600, // 1 hour
 
                 AllowedScopes = {
-                    AppScopes.BooksRead,
-                    AppScopes.BooksWrite
+                    AppScopes.OrdersRead,
+                    AppScopes.OrdersWrite
                 }
             }
             ,
@@ -50,8 +50,8 @@ public static class AppClients
                 // TODO: Поменять книжные скопы
 
                 AllowedScopes = {
-                    AppScopes.BooksRead,
-                    AppScopes.BooksWrite
+                    AppScopes.OrdersRead,
+                    AppScopes.OrdersWrite
                 }
             }
         };
