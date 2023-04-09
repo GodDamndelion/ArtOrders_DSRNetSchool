@@ -2,9 +2,8 @@
 
 using ArtOrders.Api.Settings;
 using ArtOrders.Services.Orders;
-// TODO: Есть выключенные сущности. Переделать в свои.
+// TODO: При добавлении сервисов подключать их тут!!!
 //using ArtOrders.Services.Actions;
-//using ArtOrders.Services.Authors;
 //using ArtOrders.Services.Cache;
 //using ArtOrders.Services.RabbitMq;
 using ArtOrders.Services.Settings;
@@ -25,7 +24,6 @@ public static class Bootstrapper
             //.AddCache()
             //.AddRabbitMq()
             //.AddActions()
-            //.AddAuthorService()
             ;
 
         return services;

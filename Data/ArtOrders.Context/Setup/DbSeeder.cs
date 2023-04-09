@@ -1,5 +1,8 @@
 ﻿namespace ArtOrders.Context;
 
+using ArtOrders.Context.Entities;
+using ArtOrders.Services.Users;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -9,72 +12,73 @@ public static class DbSeeder
     private static IServiceScope ServiceScope(IServiceProvider serviceProvider) => serviceProvider.GetService<IServiceScopeFactory>()!.CreateScope();
     private static MainDbContext DbContext(IServiceProvider serviceProvider) => ServiceScope(serviceProvider).ServiceProvider.GetRequiredService<IDbContextFactory<MainDbContext>>().CreateDbContext();
 
-    //private static readonly string masterUserName = "Admin";
-    //private static readonly string masterUserEmail = "admin@dsrnetscool.com";
-    //private static readonly string masterUserPassword = "Pass123#";
+    //private static readonly string masterUserName = "admin@dsr.com";
+    private static readonly string masterUserEmail = "bestadmin@dsr.com";
+    private static readonly string masterUserPassword = "BestAdmin1234!";
 
-    //private static void ConfigureAdministrator(IServiceScope scope)
-    //{
-    //    //    var defaults = scope.ServiceProvider.GetService<IDefaultsSettings>();
+    private static void ConfigureAdministrator(IServiceScope scope)
+    {
+        // TODO: Данные админа вынести в настройки!?
+        //var defaults = scope.ServiceProvider.GetService<IDefaultsSettings>();
 
-    //    //    if (defaults != null)
-    //    //    {
-    //    //        var userService = scope.ServiceProvider.GetService<IUserService>();
-    //    //        if (addAdmin && (!userService?.Any() ?? false))
-    //    //        {
-    //    //            var user = userService.Create(new CreateUserModel
-    //    //            {
-    //    //                Type = UserType.ForPortal,
-    //    //                Status = UserStatus.Active,
-    //    //                Name = defaults.AdministratorName,
-    //    //                Password = defaults.AdministratorPassword,
-    //    //                Email = defaults.AdministratorEmail,
-    //    //                IsEmailConfirmed = !defaults.AdministratorEmail.IsNullOrEmpty(),
-    //    //                Phone = null,
-    //    //                IsPhoneConfirmed = false,
-    //    //                IsChangePasswordNeeded = true
-    //    //            })
-    //    //                .GetAwaiter()
-    //    //                .GetResult();
+        //if (defaults != null)
+        //{
+            var userService = scope.ServiceProvider.GetService<IUserService>();
+            ArgumentNullException.ThrowIfNull(userService);
+            
+            using var context = DbContext(scope.ServiceProvider);
+            if (context.Users.FirstOrDefault(u => u.Email == masterUserEmail) == null)
+            {
+                var user = userService.Create(new RegisterUserAccountModel
+                {
+                    Name = "Administrator",
+                    Email = masterUserEmail,
+                    Password = masterUserPassword,
+                    Role = UserRole.Administrator,
+                    Description = "Я здесь артами командую!",
+                })
+                .GetAwaiter()
+                .GetResult(); // TODO: Тут мне результат и не нужен...
 
-    //    //            userService.SetUserRoles(user.Id, Infrastructure.User.UserRole.Administrator).GetAwaiter().GetResult();
-    //    //        }
-    //    //    }
-    //}
+                //userService.SetUserRoles(user.Id, Infrastructure.User.UserRole.Administrator).GetAwaiter().GetResult();
+            }
+        //}
+    }
 
     public static void Execute(IServiceProvider serviceProvider, bool addDemoData, bool addAdmin = true)
     {
         using var scope = ServiceScope(serviceProvider);
         ArgumentNullException.ThrowIfNull(scope);
 
-        //if (addAdmin)
-        //{
-        //    ConfigureAdministrator(scope);
-        //}
+        if (addAdmin)
+        {
+            ConfigureAdministrator(scope);
+        }
 
         if (addDemoData)
         {
-            Task.Run(async () =>
-            {
-                await ConfigureDemoData(serviceProvider);
-            });
+            ConfigureDemoData(scope);
         }
     }
 
-    private static async Task ConfigureDemoData(IServiceProvider serviceProvider)
+    private static void ConfigureDemoData(IServiceScope scope)
     {
-        await AddDemoData(serviceProvider);
+        AddDemoData(scope);
     }
 
-    private static async Task AddDemoData(IServiceProvider serviceProvider)
+    private static void AddDemoData(IServiceScope scope)
     {
-        await using var context = DbContext(serviceProvider);
+        // Асинхронность тут не работает.
+        using var context = DbContext(scope.ServiceProvider);
 
-        // TODO: Доделать инициализацию БД (добавить админа и не админов)
-        if (context.Messages.Any() || context.Users.Any() || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
+        var userService = scope.ServiceProvider.GetService<IUserService>();
+        ArgumentNullException.ThrowIfNull(userService);
+
+        // TODO: Доделать инициализацию БД
+        if (context.Messages.Any() /*|| context.Users.Any()*/ || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
             return;
 
-        var i = new Entities.Image()
+        var i = new Image()
         {
             Link = "LocalData\\Images\\PHGAvatarImage.jpg",
             User = null,
@@ -82,36 +86,68 @@ public static class DbSeeder
             Order = null
         };
         context.Images.Add(i);
+        context.SaveChanges();
 
-        var u1 = new Entities.User()
+        var ua1 = userService.Create(new RegisterUserAccountModel
         {
-            Nickname = "P.H.G.",
-            Avatar = i,
-            Role = Entities.UserRole.Artist,
-            Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy"
-        };
-        context.Users.Add(u1);
+            Name = "P.H.G.",
+            Email = "PHG@dsr.com",
+            Password = "pumpheadguy",
+            AvatarId = context.Images.First(x => x.Link == i.Link).Id,
+            Role = UserRole.Artist,
+            Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy",
+        })
+        .GetAwaiter()
+        .GetResult();
+        
 
-        var u2 = new Entities.User()
-        {
-            Nickname = "Damndelion",
-            Role = Entities.UserRole.Customer
-        };
-        context.Users.Add(u2);
+        //var u1 = new User()
+        //{
+        //    Nickname = "P.H.G.",
+        //    Avatar = i,
+        //    Role = UserRole.Artist,
+        //    Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy"
+        //};
+        //context.Users.Add(u1);
 
-        var c1 = new Entities.Chat()
+        var ua2 = userService.Create(new RegisterUserAccountModel
         {
-            Customer = u2,
-            Artist = u1
+            Name = "Damndelion",
+            Email = "Damndelion@dsr.com",
+            Password = "password",
+            Role = UserRole.Customer,
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        //var u2 = new User()
+        //{
+        //    Nickname = "Damndelion",
+        //    Role = UserRole.Customer
+        //};
+        //context.Users.Add(u2);
+
+
+
+
+
+
+        //var u1 = context.Users.First(u => u.Email == ua1.Email);
+        //var u2 = context.Users.First(u => u.Email == ua2.Email);
+
+        var c1 = new Chat()
+        {
+            CustomerId = ua2.Id,
+            ArtistId = ua1.Id
         };
         context.Chats.Add(c1);
 
-        var o1 = new Entities.Order()
+        var o1 = new Order()
         {
             Name = "Sans",
-            Customer = u2,
-            Artist = u1,
-            Status = Entities.OrderStatus.AtWork,
+            CustomerId = ua2.Id,
+            ArtistId = ua1.Id,
+            Status = OrderStatus.AtWork,
             //Chat = c1,
             EditsNumber = 0,
             Description = "Санс стоит в Пустоте и заряжает Гастер бластер, который объят синим пламенем"
@@ -122,26 +158,31 @@ public static class DbSeeder
 
 
 
-        //var c1 = new Entities.Category()
+
+
+
+
+
+        //var c1 = new Category()
         //{
         //    Title = "Classic"
         //};
         //context.Categories.Add(c1);
 
-        //context.Books.Add(new Entities.Book()
+        //context.Books.Add(new Book()
         //{
         //    Title = "Tom Soyer",
         //    Description = "description description description description ",
         //    Author = a1,
-        //    Categories = new List<Entities.Category>() { c1 },
+        //    Categories = new List<Category>() { c1 },
         //});
 
-        //context.Books.Add(new Entities.Book()
+        //context.Books.Add(new Book()
         //{
         //    Title = "War and peace",
         //    Description = "description description description description ",
         //    Author = a2,
-        //    Categories = new List<Entities.Category>() { c1 },
+        //    Categories = new List<Category>() { c1 },
         //});
 
         context.SaveChanges();

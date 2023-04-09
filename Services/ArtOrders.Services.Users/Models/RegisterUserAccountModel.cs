@@ -1,14 +1,16 @@
 ﻿namespace ArtOrders.Services.Users;
 
+using ArtOrders.Context.Entities;
 using FluentValidation;
-
-// TODO: Переделать RegisterUserAccountModel
 
 public class RegisterUserAccountModel
 {
     public string Name { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public int? AvatarId { get; set; }
+    public UserRole Role { get; set; }
+    public string? Description { get; set; }
 }
 
 public class RegisterUserAccountModelValidator : AbstractValidator<RegisterUserAccountModel>

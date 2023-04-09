@@ -1,9 +1,9 @@
 ﻿namespace ArtOrders.Common.Security;
 
-// TODO: Поменять тут названия разрешений
+// TODO: Доделать Скопы (Политики)!
 
 public static class AppScopes
 {
-    public const string BooksRead = "books_read";
-    public const string BooksWrite = "books_write";
+    public const string OrdersRead = "orders_read";
+    public const string OrdersWrite = "orders_write";
 }

@@ -3,14 +3,16 @@
 using AutoMapper;
 using ArtOrders.Services.Users;
 using FluentValidation;
-
-// TODO: Переделать RegisterUserAccountRequest
+using ArtOrders.Context.Entities;
 
 public class RegisterUserAccountRequest
 {
     public string Name { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public int? AvatarId { get; set; }
+    public UserRole Role { get; set; }
+    public string? Description { get; set; }
 }
 
 public class RegisterUserAccountRequestValidator : AbstractValidator<RegisterUserAccountRequest>
@@ -36,4 +38,3 @@ public class RegisterUserAccountRequestProfile : Profile
         CreateMap<RegisterUserAccountRequest, RegisterUserAccountModel>();
     }
 }
-
