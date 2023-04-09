@@ -36,10 +36,6 @@ public static class DbSeeder
                     Password = masterUserPassword,
                     Role = UserRole.Administrator,
                     Description = "Я здесь артами командую!",
-                    //Name = defaults.AdministratorName,
-                    //Password = defaults.AdministratorPassword,
-                    //Email = defaults.AdministratorEmail,
-                    //IsEmailConfirmed = !defaults.AdministratorEmail.IsNullOrEmpty(),
                 })
                 .GetAwaiter()
                 .GetResult(); // TODO: Тут мне результат и не нужен...
@@ -61,27 +57,22 @@ public static class DbSeeder
 
         if (addDemoData)
         {
-            //Task.Run(async () =>
-            //{
-                /*await*/ ConfigureDemoData(scope);
-            //});
+            ConfigureDemoData(scope);
         }
     }
 
-    private static /*async Task*/ void ConfigureDemoData(IServiceScope scope)
+    private static void ConfigureDemoData(IServiceScope scope)
     {
-        /*await*/ AddDemoData(scope);
+        AddDemoData(scope);
     }
 
-    private static /*async Task*/ void AddDemoData(IServiceScope scope)
+    private static void AddDemoData(IServiceScope scope)
     {
-        /*await*/ using var context = DbContext(scope.ServiceProvider);
+        // Асинхронность тут не работает.
+        using var context = DbContext(scope.ServiceProvider);
 
         var userService = scope.ServiceProvider.GetService<IUserService>();
         ArgumentNullException.ThrowIfNull(userService);
-
-        //var mapper = scope.ServiceProvider.GetService<IMapper>();
-        //ArgumentNullException.ThrowIfNull(mapper);
 
         // TODO: Доделать инициализацию БД
         if (context.Messages.Any() /*|| context.Users.Any()*/ || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
@@ -97,7 +88,7 @@ public static class DbSeeder
         context.Images.Add(i);
         context.SaveChanges();
 
-        var ua1 = /*mapper.Map<User>(*/userService.Create(new RegisterUserAccountModel
+        var ua1 = userService.Create(new RegisterUserAccountModel
         {
             Name = "P.H.G.",
             Email = "PHG@dsr.com",
@@ -107,7 +98,7 @@ public static class DbSeeder
             Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy",
         })
         .GetAwaiter()
-        .GetResult()/*)*/;
+        .GetResult();
         
 
         //var u1 = new User()
@@ -119,7 +110,7 @@ public static class DbSeeder
         //};
         //context.Users.Add(u1);
 
-        var ua2 = /*mapper.Map<User>(*/userService.Create(new RegisterUserAccountModel
+        var ua2 = userService.Create(new RegisterUserAccountModel
         {
             Name = "Damndelion",
             Email = "Damndelion@dsr.com",
@@ -127,7 +118,7 @@ public static class DbSeeder
             Role = UserRole.Customer,
         })
         .GetAwaiter()
-        .GetResult()/*)*/;
+        .GetResult();
 
         //var u2 = new User()
         //{

@@ -3,8 +3,6 @@
 using AutoMapper;
 using ArtOrders.Context.Entities;
 
-// TODO: Переделать UserAccountModel (сделано?)
-
 public class UserAccountModel
 {
     public Guid Id { get; set; }

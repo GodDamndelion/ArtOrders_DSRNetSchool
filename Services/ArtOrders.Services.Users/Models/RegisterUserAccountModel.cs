@@ -3,8 +3,6 @@
 using ArtOrders.Context.Entities;
 using FluentValidation;
 
-// TODO: Переделать RegisterUserAccountModel (сделано?)
-
 public class RegisterUserAccountModel
 {
     public string Name { get; set; }

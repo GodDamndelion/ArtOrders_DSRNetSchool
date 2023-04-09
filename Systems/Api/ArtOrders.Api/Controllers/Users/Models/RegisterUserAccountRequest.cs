@@ -5,8 +5,6 @@ using ArtOrders.Services.Users;
 using FluentValidation;
 using ArtOrders.Context.Entities;
 
-// TODO: Переделать RegisterUserAccountRequest (сделано?)
-
 public class RegisterUserAccountRequest
 {
     public string Name { get; set; }

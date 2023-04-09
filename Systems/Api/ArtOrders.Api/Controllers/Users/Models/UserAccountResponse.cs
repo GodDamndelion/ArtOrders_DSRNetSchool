@@ -4,8 +4,6 @@ using AutoMapper;
 using ArtOrders.Services.Users;
 using ArtOrders.Context.Entities;
 
-// TODO: Переделать UserAccountResponse (сделано?)
-
 public class UserAccountResponse
 {
     public Guid Id { get; set; }
