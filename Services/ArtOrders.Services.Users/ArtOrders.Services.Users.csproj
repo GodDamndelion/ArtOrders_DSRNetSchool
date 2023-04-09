@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ArtOrders.Context.Entities\ArtOrders.Context.Entities.csproj" />
     <ProjectReference Include="..\..\Shared\ArtOrders.Common\ArtOrders.Common.csproj" />
+    <ProjectReference Include="..\ArtOrders.Services.Tasks\ArtOrders.Services.Tasks.csproj" />
   </ItemGroup>
 
 </Project>

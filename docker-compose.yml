@@ -8,6 +8,9 @@ services:
   artorders_redis:
     image: redis
 
+  artorders_rabbitmq:
+    image: rabbitmq:management
+
   artorders_api:
     image: ${DOCKER_REGISTRY-}artordersapi
     build:
