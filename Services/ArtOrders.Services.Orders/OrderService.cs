@@ -5,38 +5,37 @@ using ArtOrders.Common.Exceptions;
 using ArtOrders.Common.Validator;
 using ArtOrders.Context;
 using ArtOrders.Context.Entities;
-// TODO: Вернуть Кэш
-//using ArtOrders.Services.Cache;
+using ArtOrders.Services.Cache;
 using Microsoft.EntityFrameworkCore;
 
 internal class OrderService : IOrderService
 {
-    //private const string contextCacheKey = "orders_cache_key";
+    private const string contextCacheKey = "orders_cache_key";
 
     private readonly IDbContextFactory<MainDbContext> contextFactory;
     private readonly IMapper mapper;
-    //private readonly ICacheService cacheService;
+    private readonly ICacheService cacheService;
     private readonly IModelValidator<AddOrderModel> addOrderModelValidator;
     private readonly IModelValidator<UpdateOrderModel> updateOrderModelValidator;
 
     public OrderService(
         IDbContextFactory<MainDbContext> contextFactory,
         IMapper mapper,
-        //ICacheService cacheService,
+        ICacheService cacheService,
         IModelValidator<AddOrderModel> addOrderModelValidator,
         IModelValidator<UpdateOrderModel> updateOrderModelValidator
         )
     {
         this.contextFactory = contextFactory;
         this.mapper = mapper;
-        //this.cacheService = cacheService;
+        this.cacheService = cacheService;
         this.addOrderModelValidator = addOrderModelValidator;
         this.updateOrderModelValidator = updateOrderModelValidator;
     }
 
     public async Task<IEnumerable<OrderModel>> GetOrders(int offset = 0, int limit = 10)
     {
-        /* Пока закроем кэширование на время отладки
+        // Пока (не) закроем кэширование на время отладки
         try
         {
             //Пока кэш не устареет, будут показываться одни и те же данные, даже если в БД они уже изменились
@@ -54,7 +53,6 @@ internal class OrderService : IOrderService
         }
 
         await Task.Delay(5000); //Эмуляция долгой работы
-        */
 
         using var context = await contextFactory.CreateDbContextAsync();
 
@@ -70,7 +68,7 @@ internal class OrderService : IOrderService
 
         var data = (await orders.ToListAsync()).Select(order => mapper.Map<OrderModel>(order)); //Сформировали
 
-        //await cacheService.Put(contextCacheKey, data, TimeSpan.FromSeconds(30)); //И положили в кэш
+        await cacheService.Put(contextCacheKey, data, TimeSpan.FromSeconds(30)); //И положили в кэш
 
         return data;
     }
@@ -97,7 +95,7 @@ internal class OrderService : IOrderService
         await context.Orders.AddAsync(order);
         context.SaveChanges();
 
-        //await cacheService.Delete(contextCacheKey);
+        await cacheService.Delete(contextCacheKey);
 
         return mapper.Map<OrderModel>(order);
     }
@@ -116,7 +114,7 @@ internal class OrderService : IOrderService
 
         context.Orders.Update(order);
         context.SaveChanges();
-        //await cacheService.Delete(contextCacheKey);
+        await cacheService.Delete(contextCacheKey);
     }
 
     public async Task DeleteOrder(int orderId)
@@ -128,6 +126,6 @@ internal class OrderService : IOrderService
 
         context.Remove(order);
         context.SaveChanges();
-        //await cacheService.Delete(contextCacheKey);
+        await cacheService.Delete(contextCacheKey);
     }
 }

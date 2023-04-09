@@ -35,6 +35,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Data\ArtOrders.Context\ArtOrders.Context.csproj" />
     <ProjectReference Include="..\..\..\Data\Migrations\ArtOrders.Context.MigrationsPostgreSQL\ArtOrders.Context.MigrationsPostgreSQL.csproj" />
+    <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Cache\ArtOrders.Services.Cache.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Orders\ArtOrders.Services.Orders.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Settings\ArtOrders.Services.Settings.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Users\ArtOrders.Services.Users.csproj" />

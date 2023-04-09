@@ -41,7 +41,6 @@ public class UserService : IUserService
         // Create user account
         user = new User()
         {
-            //Status = UserStatus.Active,
             Nickname = model.Name,
             UserName = model.Email,  // Это логин. Регистрация и вход будут осуществляться через email
             Email = model.Email,
