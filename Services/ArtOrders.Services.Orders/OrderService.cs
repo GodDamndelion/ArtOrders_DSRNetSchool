@@ -7,6 +7,7 @@ using ArtOrders.Context;
 using ArtOrders.Context.Entities;
 using ArtOrders.Services.Cache;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 internal class OrderService : IOrderService
 {
@@ -17,13 +18,15 @@ internal class OrderService : IOrderService
     private readonly ICacheService cacheService;
     private readonly IModelValidator<AddOrderModel> addOrderModelValidator;
     private readonly IModelValidator<UpdateOrderModel> updateOrderModelValidator;
+    private readonly ILogger<OrderService> logger;
 
     public OrderService(
         IDbContextFactory<MainDbContext> contextFactory,
         IMapper mapper,
         ICacheService cacheService,
         IModelValidator<AddOrderModel> addOrderModelValidator,
-        IModelValidator<UpdateOrderModel> updateOrderModelValidator
+        IModelValidator<UpdateOrderModel> updateOrderModelValidator,
+        ILogger<OrderService> logger
         )
     {
         this.contextFactory = contextFactory;
@@ -31,6 +34,7 @@ internal class OrderService : IOrderService
         this.cacheService = cacheService;
         this.addOrderModelValidator = addOrderModelValidator;
         this.updateOrderModelValidator = updateOrderModelValidator;
+        this.logger = logger;
     }
 
     public async Task<IEnumerable<OrderModel>> GetOrders(int offset = 0, int limit = 10)
@@ -47,13 +51,14 @@ internal class OrderService : IOrderService
             if (cached_data != null)
                 return cached_data; // Если нашли данные в кэше, то тут же вернули. Иначе...
         }
-        catch
+        catch (Exception ex)
         {
-            // TODO: Put log message here from exception message (CacheService.Get)
+            // Log message from exception message (CacheService.Get)
             // "Не исключение, так как Кэш - это не что-то критичное"
+            logger.LogDebug("CacheService exception: ", ex);
         }
 
-        await Task.Delay(5000); //Эмуляция долгой работы
+        await Task.Delay(3000); //Эмуляция долгой работы
 
         using var context = await contextFactory.CreateDbContextAsync();
 

@@ -41,20 +41,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Identity", "Syste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.Users", "Services\ArtOrders.Services.Users\ArtOrders.Services.Users.csproj", "{4E4CB782-3652-4343-B315-665ED09FE600}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.Cache", "Services\ArtOrders.Services.Cache\ArtOrders.Services.Cache.csproj", "{2E9CF5F7-3295-459B-BAE6-18EEB59D4885}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.Cache", "Services\ArtOrders.Services.Cache\ArtOrders.Services.Cache.csproj", "{2E9CF5F7-3295-459B-BAE6-18EEB59D4885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.RabbitMq", "Services\ArtOrders.Services.RabbitMq\ArtOrders.Services.RabbitMq.csproj", "{A6F5378E-F012-47E7-94AC-944BFE82A2BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.RabbitMq", "Services\ArtOrders.Services.RabbitMq\ArtOrders.Services.RabbitMq.csproj", "{A6F5378E-F012-47E7-94AC-944BFE82A2BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.Tasks", "Services\ArtOrders.Services.Tasks\ArtOrders.Services.Tasks.csproj", "{7B36961A-F0B7-4C54-AF40-73D599657961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.Tasks", "Services\ArtOrders.Services.Tasks\ArtOrders.Services.Tasks.csproj", "{7B36961A-F0B7-4C54-AF40-73D599657961}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.EmailSender", "Services\ArtOrders.Services.EmailSender\ArtOrders.Services.EmailSender.csproj", "{98D091D3-314F-4ADE-8E5A-94C6047ABDAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.EmailSender", "Services\ArtOrders.Services.EmailSender\ArtOrders.Services.EmailSender.csproj", "{98D091D3-314F-4ADE-8E5A-94C6047ABDAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{1C06A5B9-9AD7-47F3-A985-AFC8F8122E16}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Consts", "Shared\ArtOrders.Consts\ArtOrders.Consts.csproj", "{1068795A-EBD9-45A8-BE71-306CEDF7A07D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Consts", "Shared\ArtOrders.Consts\ArtOrders.Consts.csproj", "{1068795A-EBD9-45A8-BE71-306CEDF7A07D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workers", "Workers", "{51E21652-1B7B-4CF9-9765-C049249BF768}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.EmailSenderWorker", "Systems\Workers\ArtOrders.EmailSenderWorker\ArtOrders.EmailSenderWorker.csproj", "{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +134,10 @@ Global
 		{1068795A-EBD9-45A8-BE71-306CEDF7A07D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1068795A-EBD9-45A8-BE71-306CEDF7A07D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1068795A-EBD9-45A8-BE71-306CEDF7A07D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +162,8 @@ Global
 		{7B36961A-F0B7-4C54-AF40-73D599657961} = {63A107FD-40C1-4336-845A-CA035CF8E7A2}
 		{98D091D3-314F-4ADE-8E5A-94C6047ABDAD} = {63A107FD-40C1-4336-845A-CA035CF8E7A2}
 		{1068795A-EBD9-45A8-BE71-306CEDF7A07D} = {3234FF81-D690-4FD3-9D4C-CABEFB16CC78}
+		{51E21652-1B7B-4CF9-9765-C049249BF768} = {1019493D-46BD-4851-9EB2-D4A0D4F1E42D}
+		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA} = {51E21652-1B7B-4CF9-9765-C049249BF768}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76ADB176-AD2F-463B-AF7E-C09EC32A3BDC}

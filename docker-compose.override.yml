@@ -47,6 +47,12 @@ services:
     env_file:
       - env.identity
 
+  artorders_worker:
+    networks:
+      - shared_artorders_net
+    env_file:
+      - env.worker
+
 networks:
   shared_artorders_net:
     name: artorders
