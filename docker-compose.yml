@@ -30,7 +30,18 @@ services:
       - artorders_redis
       - artorders_api
 
-  artorders_worker:
+  artorders_worker_1:
+    image: ${DOCKER_REGISTRY-}artordersworker
+    build:
+      context: .
+      dockerfile: Systems/Workers/ArtOrders.EmailSenderWorker/Dockerfile
+    depends_on:
+      - artorders_postgresql
+      - artorders_redis
+      - artorders_rabbitmq
+      - artorders_api
+
+  artorders_worker_2:
     image: ${DOCKER_REGISTRY-}artordersworker
     build:
       context: .
