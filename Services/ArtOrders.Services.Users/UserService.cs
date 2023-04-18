@@ -4,28 +4,25 @@ using AutoMapper;
 using ArtOrders.Common.Exceptions;
 using ArtOrders.Common.Validator;
 using ArtOrders.Context.Entities;
-//using ArtOrders.Services.Actions;
-//using ArtOrders.Services.EmailSender;
+using ArtOrders.Services.Tasks;
 using Microsoft.AspNetCore.Identity;
-
-// TODO: Доделать действия и почту
 
 public class UserService : IUserService
 {
     private readonly IMapper mapper;
     private readonly UserManager<User> userManager;
-    //private readonly IAction action;
+    private readonly ITaskService taskService;
     private readonly IModelValidator<RegisterUserAccountModel> registerUserAccountModelValidator; // Validator в Сервисе без Контроллера работать не хочет.
 
     public UserService(
         IMapper mapper,
         UserManager<User> userManager,
-        //IAction action,
+        ITaskService taskService,
         IModelValidator<RegisterUserAccountModel> registerUserAccountModelValidator)
     {
         this.mapper = mapper;
         this.userManager = userManager;
-        //this.action = action;
+        this.taskService = taskService;
         this.registerUserAccountModelValidator = registerUserAccountModelValidator;
     }
 
@@ -56,12 +53,12 @@ public class UserService : IUserService
         if (!result.Succeeded)
             throw new ProcessException($"Creating user account is wrong. {String.Join(", ", result.Errors.Select(s => s.Description))}");
 
-        //await action.SendEmail(new EmailModel
-        //{
-        //    Email = model.Email,
-        //    Subject = "ArtOrders notification",
-        //    Message = "You are registered"
-        //});
+        await taskService.SendEmail(new SendEmailTaskModel
+        {
+            Email = model.Email,
+            Subject = "ArtOrders notification",
+            Message = "You are registered"
+        });
 
         // Returning the created user
         return mapper.Map<UserAccountModel>(user);

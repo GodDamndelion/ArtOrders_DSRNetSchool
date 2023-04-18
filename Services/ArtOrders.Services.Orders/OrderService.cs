@@ -7,6 +7,7 @@ using ArtOrders.Context;
 using ArtOrders.Context.Entities;
 using ArtOrders.Services.Cache;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 internal class OrderService : IOrderService
 {
@@ -17,13 +18,15 @@ internal class OrderService : IOrderService
     private readonly ICacheService cacheService;
     private readonly IModelValidator<AddOrderModel> addOrderModelValidator;
     private readonly IModelValidator<UpdateOrderModel> updateOrderModelValidator;
+    private readonly ILogger<OrderService> logger;
 
     public OrderService(
         IDbContextFactory<MainDbContext> contextFactory,
         IMapper mapper,
         ICacheService cacheService,
         IModelValidator<AddOrderModel> addOrderModelValidator,
-        IModelValidator<UpdateOrderModel> updateOrderModelValidator
+        IModelValidator<UpdateOrderModel> updateOrderModelValidator,
+        ILogger<OrderService> logger
         )
     {
         this.contextFactory = contextFactory;
@@ -31,6 +34,7 @@ internal class OrderService : IOrderService
         this.cacheService = cacheService;
         this.addOrderModelValidator = addOrderModelValidator;
         this.updateOrderModelValidator = updateOrderModelValidator;
+        this.logger = logger;
     }
 
     public async Task<IEnumerable<OrderModel>> GetOrders(int offset = 0, int limit = 10)
@@ -38,21 +42,23 @@ internal class OrderService : IOrderService
         // Пока (не) закроем кэширование на время отладки
         try
         {
-            //Пока кэш не устареет, будут показываться одни и те же данные, даже если в БД они уже изменились
-            //Кэш используется для данных, которые долго доставать из БД и которые гарантированно не поменяются за время его жизни или если изменения не будут критичными.
-            //Также он может использоваться для каких-либо расчётных данных, например для матрицы прав на время жизни сессии.
-            //Ещё кэш может использоваться для настроек.
-            //Кэш может применяться, когда идёт огромное количество запросов. Например, время жизни кэша 1 минута, и за это время делаются тысячи или миллионы запросов.
+            // Пока кэш не устареет, будут показываться одни и те же данные, даже если в БД они уже изменились (Избегать этого!)
+            // Кэш используется для данных, которые долго доставать из БД и которые гарантированно не поменяются за время его жизни или если изменения не будут критичными.
+            // Также он может использоваться для каких-либо расчётных данных, например для матрицы прав на время жизни сессии.
+            // Ещё кэш может использоваться для настроек.
+            // Кэш может применяться, когда идёт огромное количество запросов. Например, время жизни кэша 1 минута, и за это время делаются тысячи или миллионы запросов.
             var cached_data = await cacheService.Get<IEnumerable<OrderModel>>(contextCacheKey);
             if (cached_data != null)
-                return cached_data; //Если нашли данные в кэше, то тут же вернули. Иначе...
+                return cached_data; // Если нашли данные в кэше, то тут же вернули. Иначе...
         }
-        catch
+        catch (Exception ex)
         {
-            // TODO: Put log message here
+            // Log message from exception message (CacheService.Get)
+            // "Не исключение, так как Кэш - это не что-то критичное"
+            logger.LogDebug("CacheService exception: ", ex);
         }
 
-        await Task.Delay(5000); //Эмуляция долгой работы
+        await Task.Delay(3000); //Эмуляция долгой работы
 
         using var context = await contextFactory.CreateDbContextAsync();
 

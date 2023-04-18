@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+	<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+	<PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
+	<PackageReference Include="Serilog.Expressions" Version="3.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\ArtOrders.Context\ArtOrders.Context.csproj" />
+    <ProjectReference Include="..\..\..\Services\ArtOrders.Services.EmailSender\ArtOrders.Services.EmailSender.csproj" />
+    <ProjectReference Include="..\..\..\Services\ArtOrders.Services.RabbitMq\ArtOrders.Services.RabbitMq.csproj" />
+    <ProjectReference Include="..\..\..\Shared\ArtOrders.Common\ArtOrders.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\ArtOrders.Consts\ArtOrders.Consts.csproj" />
+    <ProjectReference Include="..\..\..\Shared\ArtOrders.Settings\ArtOrders.Settings.csproj" />
+  </ItemGroup>
+
+</Project>

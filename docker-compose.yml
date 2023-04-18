@@ -8,6 +8,9 @@ services:
   artorders_redis:
     image: redis
 
+  artorders_rabbitmq:
+    image: rabbitmq:management
+
   artorders_api:
     image: ${DOCKER_REGISTRY-}artordersapi
     build:
@@ -25,4 +28,26 @@ services:
     depends_on: #Dependence (If they are not connected, then this one does not make sense)
       - artorders_postgresql
       - artorders_redis
+      - artorders_api
+
+  artorders_worker_1:
+    image: ${DOCKER_REGISTRY-}artordersworker
+    build:
+      context: .
+      dockerfile: Systems/Workers/ArtOrders.EmailSenderWorker/Dockerfile
+    depends_on:
+      - artorders_postgresql
+      - artorders_redis
+      - artorders_rabbitmq
+      - artorders_api
+
+  artorders_worker_2:
+    image: ${DOCKER_REGISTRY-}artordersworker
+    build:
+      context: .
+      dockerfile: Systems/Workers/ArtOrders.EmailSenderWorker/Dockerfile
+    depends_on:
+      - artorders_postgresql
+      - artorders_redis
+      - artorders_rabbitmq
       - artorders_api
