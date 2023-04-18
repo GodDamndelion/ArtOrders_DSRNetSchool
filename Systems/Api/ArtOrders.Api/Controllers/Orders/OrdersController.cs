@@ -19,7 +19,8 @@ using Microsoft.AspNetCore.Mvc;
 [ProducesResponseType(typeof(ErrorResponse), 400)]
 [Produces("application/json")]
 [Route("api/v{version:apiVersion}/orders")]
-[Authorize]
+//[Authorize]
+// TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 [ApiController]
 [ApiVersion("1.0")]
 public class OrdersController : ControllerBase
@@ -43,7 +44,8 @@ public class OrdersController : ControllerBase
     /// <param name="limit">Count elements on the page</param>
     /// <response code="200">List of OrderResponses</response>
     [ProducesResponseType(typeof(IEnumerable<OrderResponse>), 200)] //Показывает, что придёт по такому коду
-    [Authorize(Policy = AppScopes.OrdersRead)]
+    //[Authorize(Policy = AppScopes.OrdersRead)]
+    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     [HttpGet("")]
     public async Task<IEnumerable<OrderResponse>> GetOrders([FromQuery] int offset = 0, [FromQuery] int limit = 10)
     {
