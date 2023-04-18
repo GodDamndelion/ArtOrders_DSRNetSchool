@@ -60,6 +60,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workers", "Workers", "{51E2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.EmailSenderWorker", "Systems\Workers\ArtOrders.EmailSenderWorker\ArtOrders.EmailSenderWorker.csproj", "{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{13D63F38-F9C5-4791-8955-FE0CA443AB08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Web", "Systems\Web\ArtOrders.Web\ArtOrders.Web.csproj", "{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,6 +142,10 @@ Global
 		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +172,8 @@ Global
 		{1068795A-EBD9-45A8-BE71-306CEDF7A07D} = {3234FF81-D690-4FD3-9D4C-CABEFB16CC78}
 		{51E21652-1B7B-4CF9-9765-C049249BF768} = {1019493D-46BD-4851-9EB2-D4A0D4F1E42D}
 		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA} = {51E21652-1B7B-4CF9-9765-C049249BF768}
+		{13D63F38-F9C5-4791-8955-FE0CA443AB08} = {1019493D-46BD-4851-9EB2-D4A0D4F1E42D}
+		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB} = {13D63F38-F9C5-4791-8955-FE0CA443AB08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76ADB176-AD2F-463B-AF7E-C09EC32A3BDC}
