@@ -6,7 +6,7 @@
     }
   },
   "profiles": {
-    "http": {
+    "ArtOrders.Web": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
