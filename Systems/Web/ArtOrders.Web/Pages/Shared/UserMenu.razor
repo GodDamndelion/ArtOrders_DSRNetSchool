@@ -1,12 +1,7 @@
-﻿<div>
-    <a href="/profile">Profile</a>
-    <a href="/logout">Logoff</a>
-</div>
-
-@*@attribute [Authorize]
+﻿@*@attribute [Authorize]*@
 
 <MudMenu Color="Color.Inherit" Icon="@Icons.Material.Filled.Face" AnchorOrigin="Origin.BottomRight" >
     <MudMenuItem Link="/profile">Profile</MudMenuItem>
     <MudDivider />
     <MudMenuItem Link="/logout">Logoff</MudMenuItem>
-</MudMenu>*@
+</MudMenu>
