@@ -1,18 +1,35 @@
 ﻿@inherits LayoutComponentBase
 
-<div>
-    <div>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudSpacer />
         <UserMenu />
-    </div>
-
-    <div>
+    </MudAppBar>
+    <MudDrawer @bind-Open="(_navigationMenuVisible)" Elevation="2">
         <NavMenu />
-    </div>
-
-    <div>
+    </MudDrawer>
+    <MudMainContent>
         @Body
-    </div>
-</div>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _navigationMenuVisible = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    async void DrawerToggle()
+    {
+        _navigationMenuVisible = !_navigationMenuVisible;
+    }
+}
 
 @*@inject IConfigurationService configuration
 
