@@ -1,19 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
-
-<MudLayout>
-    <MudAppBar Elevation="0">
-        <MudText Typo="Typo.h5">ArtOrders</MudText>
-    </MudAppBar>
-    <MudMainContent>
-        @Body
-    </MudMainContent>
-</MudLayout>
-
-@*@inject IConfigurationService configuration
+@inject IConfigurationService configuration
 
 <MudThemeProvider @bind-IsDarkMode="@(_darkMode)" />
 
@@ -41,4 +28,4 @@
         _darkMode = !_darkMode;
         await configuration.SetDarkMode(_darkMode);
     }
-}*@
+}

@@ -19,8 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 [ProducesResponseType(typeof(ErrorResponse), 400)]
 [Produces("application/json")]
 [Route("api/v{version:apiVersion}/orders")]
-//[Authorize]
-// TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[Authorize]
 [ApiController]
 [ApiVersion("1.0")]
 public class OrdersController : ControllerBase
@@ -44,8 +43,7 @@ public class OrdersController : ControllerBase
     /// <param name="limit">Count elements on the page</param>
     /// <response code="200">List of OrderResponses</response>
     [ProducesResponseType(typeof(IEnumerable<OrderResponse>), 200)] //Показывает, что придёт по такому коду
-    //[Authorize(Policy = AppScopes.OrdersRead)]
-    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    [Authorize(Policy = AppScopes.OrdersRead)]
     [HttpGet("")]
     public async Task<IEnumerable<OrderResponse>> GetOrders([FromQuery] int offset = 0, [FromQuery] int limit = 10)
     {
@@ -60,8 +58,7 @@ public class OrdersController : ControllerBase
     /// </summary>
     /// <response code="200">OrderResponse></response>
     [ProducesResponseType(typeof(OrderResponse), 200)]
-    //[Authorize(Policy = AppScopes.OrdersRead)]
-    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    [Authorize(Policy = AppScopes.OrdersRead)]
     [HttpGet("{id}")]
     public async Task<OrderResponse> GetOrderById([FromRoute] int id)
     {
@@ -72,8 +69,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost("")]
-    //[Authorize(Policy = AppScopes.OrdersWrite)]
-    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    [Authorize(Policy = AppScopes.OrdersWrite)]
     public async Task<OrderResponse> AddOrder([FromBody] AddOrderRequest request)
     {
         var model = mapper.Map<AddOrderModel>(request);
@@ -84,8 +80,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    //[Authorize(Policy = AppScopes.OrdersWrite)]
-    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    [Authorize(Policy = AppScopes.OrdersWrite)]
     public async Task<IActionResult> UpdateOrder([FromRoute] int id, [FromBody] UpdateOrderRequest request)
     {
         var model = mapper.Map<UpdateOrderModel>(request);
@@ -95,8 +90,7 @@ public class OrdersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    //[Authorize(Policy = AppScopes.OrdersWrite)]
-    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    [Authorize(Policy = AppScopes.OrdersWrite)]
     public async Task<IActionResult> DeleteOrder([FromRoute] int id)
     {
         await orderService.DeleteOrder(id);
