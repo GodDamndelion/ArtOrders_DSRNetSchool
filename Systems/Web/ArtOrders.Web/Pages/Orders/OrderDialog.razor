@@ -1,0 +1,86 @@
+@inherits MudComponentBase
+
+@inject IOrderService orderService
+
+<MudDialog>
+    <DialogContent>
+        <MudForm Model="model" @ref="form" Validation="@(modelValidator.ValidateValue)">
+            <MudGrid>
+                <MudItem xs="12" sm="6">
+                    <MudTextField Label="Name" @bind-Value="model.Name"
+                                  For="@(() => model.Name)"
+                                  Required="true"
+                                  RequiredError="Order name is required!">
+                    </MudTextField>
+                </MudItem>
+                <MudItem xs="12" >
+                    <MudTextField Label="Description" @bind-Value="model.Description"
+                                  Lines="5"
+                                  For="@(() => model.Description)"
+                                  Required="true"
+                                  RequiredError="Description is required!">
+                    </MudTextField>
+                </MudItem>
+            </MudGrid>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="MudBlazor.Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    MudDialogInstance MudDialog { get; set; } = default!;
+
+    MudForm form = default!;
+
+    OrderModelValidator modelValidator = new OrderModelValidator();
+
+    bool isNew = false;
+
+    [Parameter]
+    public int? OrderId { get; set; } = default;
+
+    // TODO: Сделать тут создание Чата!!!!!!!!! (Или........)
+    [Parameter]
+    public OrderModel model { get; set; } = new() { ChatId = 1, 
+                                                    Status = Context.Entities.OrderStatus.Pending,
+                                                    EditsNumber = 0,
+                                                    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        isNew = OrderId == null;
+        if (!isNew)
+        {
+            var order = await orderService.GetOrder(OrderId ?? 0);
+
+            model.Id = order.Id;
+            model.Name = order.Name;
+            model.CustomerId = order.CustomerId;
+            model.ArtistId = order.ArtistId;
+            Context.Entities.OrderStatus someStatus;
+            Enum.TryParse(order.Status, out someStatus); //////////////////////
+            model.Status = someStatus;
+            model.ChatId = order.ChatId;
+            model.CurrentResultImageLink = order.CurrentResultImageLink;
+            model.EditsNumber = order.EditsNumber;
+            model.Description = order.Description;
+        }
+        await Task.Delay(500); //Нужен хотя бы 1 await, иначе form останется null... Мда...
+        form.ResetValidation();
+    }
+
+    async Task Submit()
+    {
+        await form.Validate();
+        if (form.IsValid)
+        {
+            MudDialog.Close(DialogResult.Ok(true));
+        }
+    }
+
+    void Cancel() => MudDialog.Cancel();
+}

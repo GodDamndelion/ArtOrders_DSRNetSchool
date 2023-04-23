@@ -48,49 +48,49 @@ public class OrderService : IOrderService
         return data;
     }
 
-    //public async Task AddOrder(OrderModel model)
-    //{
-    //    string url = $"{Settings.ApiRoot}/v1/orders";
+    public async Task AddOrder(OrderModel model)
+    {
+        string url = $"{Settings.ApiRoot}/v1/orders";
 
-    //    var body = JsonSerializer.Serialize(model);
-    //    var request = new StringContent(body, Encoding.UTF8, "application/json");
-    //    var response = await _httpClient.PostAsync(url, request);
+        var body = JsonSerializer.Serialize(model);
+        var request = new StringContent(body, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync(url, request);
 
-    //    var content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync();
 
-    //    if (!response.IsSuccessStatusCode)
-    //    {
-    //        throw new Exception(content);
-    //    }
-    //}
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+    }
 
-    //public async Task EditOrder(int orderId, OrderModel model)
-    //{
-    //    string url = $"{Settings.ApiRoot}/v1/orders/{orderId}";
+    public async Task EditOrder(int orderId, OrderModel model)
+    {
+        string url = $"{Settings.ApiRoot}/v1/orders/{orderId}";
 
-    //    var body = JsonSerializer.Serialize(model);
-    //    var request = new StringContent(body, Encoding.UTF8, "application/json");
+        var body = JsonSerializer.Serialize(model);
+        var request = new StringContent(body, Encoding.UTF8, "application/json");
 
-    //    var response = await _httpClient.PutAsync(url, request);
+        var response = await _httpClient.PutAsync(url, request);
 
-    //    var content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync();
 
-    //    if (!response.IsSuccessStatusCode)
-    //    {
-    //        throw new Exception(content);
-    //    }
-    //}
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+    }
 
-    //public async Task DeleteOrder(int orderId)
-    //{
-    //    string url = $"{Settings.ApiRoot}/v1/orders/{orderId}";
+    public async Task DeleteOrder(int orderId)
+    {
+        string url = $"{Settings.ApiRoot}/v1/orders/{orderId}";
 
-    //    var response = await _httpClient.DeleteAsync(url);
-    //    var content = await response.Content.ReadAsStringAsync();
+        var response = await _httpClient.DeleteAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
 
-    //    if (!response.IsSuccessStatusCode)
-    //    {
-    //        throw new Exception(content);
-    //    }
-    //}
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+    }
 }

@@ -60,7 +60,8 @@ public class OrdersController : ControllerBase
     /// </summary>
     /// <response code="200">OrderResponse></response>
     [ProducesResponseType(typeof(OrderResponse), 200)]
-    [Authorize(Policy = AppScopes.OrdersRead)]
+    //[Authorize(Policy = AppScopes.OrdersRead)]
+    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     [HttpGet("{id}")]
     public async Task<OrderResponse> GetOrderById([FromRoute] int id)
     {
@@ -71,7 +72,8 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost("")]
-    [Authorize(Policy = AppScopes.OrdersWrite)]
+    //[Authorize(Policy = AppScopes.OrdersWrite)]
+    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public async Task<OrderResponse> AddOrder([FromBody] AddOrderRequest request)
     {
         var model = mapper.Map<AddOrderModel>(request);
@@ -82,7 +84,8 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Policy = AppScopes.OrdersWrite)]
+    //[Authorize(Policy = AppScopes.OrdersWrite)]
+    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public async Task<IActionResult> UpdateOrder([FromRoute] int id, [FromBody] UpdateOrderRequest request)
     {
         var model = mapper.Map<UpdateOrderModel>(request);
@@ -92,7 +95,8 @@ public class OrdersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Policy = AppScopes.OrdersWrite)]
+    //[Authorize(Policy = AppScopes.OrdersWrite)]
+    // TODO: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Вернуть авторизацию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public async Task<IActionResult> DeleteOrder([FromRoute] int id)
     {
         await orderService.DeleteOrder(id);
