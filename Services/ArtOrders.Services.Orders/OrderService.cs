@@ -58,7 +58,7 @@ internal class OrderService : IOrderService
             logger.LogWarning("CacheService exception: ", ex);
         }
 
-        await Task.Delay(3000); //Эмуляция долгой работы
+        await Task.Delay(500); //Эмуляция долгой работы
 
         using var context = await contextFactory.CreateDbContextAsync();
 
