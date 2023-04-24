@@ -51,3 +51,14 @@ services:
       - artorders_redis
       - artorders_rabbitmq
       - artorders_api
+
+  artorders_web:
+    image: ${DOCKER_REGISTRY-}artordersweb
+    build:
+      context: .
+      dockerfile: Systems/Web/ArtOrders.Web/Dockerfile
+    depends_on:
+      - artorders_postgresql
+      - artorders_redis
+      - artorders_rabbitmq
+      - artorders_api

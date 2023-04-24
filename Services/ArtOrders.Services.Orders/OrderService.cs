@@ -55,10 +55,10 @@ internal class OrderService : IOrderService
         {
             // Log message from exception message (CacheService.Get)
             // "Не исключение, так как Кэш - это не что-то критичное"
-            logger.LogDebug("CacheService exception: ", ex);
+            logger.LogWarning("CacheService exception: ", ex);
         }
 
-        await Task.Delay(3000); //Эмуляция долгой работы
+        await Task.Delay(500); //Эмуляция долгой работы
 
         using var context = await contextFactory.CreateDbContextAsync();
 
@@ -92,6 +92,8 @@ internal class OrderService : IOrderService
 
     public async Task<OrderModel> AddOrder(AddOrderModel model)
     {
+        // TODO: Сделать тут создание Чата!!!!!!!!! (Или........)
+
         addOrderModelValidator.Check(model);
 
         using var context = await contextFactory.CreateDbContextAsync();
