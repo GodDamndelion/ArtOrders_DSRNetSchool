@@ -9,7 +9,7 @@ using ArtOrders.Services.Cache;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-internal class OrderService : IOrderService
+public class OrderService : IOrderService
 {
     private const string contextCacheKey = "orders_cache_key";
 
@@ -58,7 +58,7 @@ internal class OrderService : IOrderService
             logger.LogWarning("CacheService exception: ", ex);
         }
 
-        await Task.Delay(500); //Эмуляция долгой работы
+        //await Task.Delay(500); //Эмуляция долгой работы
 
         using var context = await contextFactory.CreateDbContextAsync();
 

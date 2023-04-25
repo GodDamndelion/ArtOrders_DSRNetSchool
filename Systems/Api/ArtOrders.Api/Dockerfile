@@ -18,6 +18,7 @@ COPY ["Services/ArtOrders.Services.RabbitMq/ArtOrders.Services.RabbitMq.csproj",
 COPY ["Shared/ArtOrders.Settings/ArtOrders.Settings.csproj", "Shared/ArtOrders.Settings/"]
 COPY ["Data/Migrations/ArtOrders.Context.MigrationsPostgreSQL/ArtOrders.Context.MigrationsPostgreSQL.csproj", "Data/Migrations/ArtOrders.Context.MigrationsPostgreSQL/"]
 COPY ["Services/ArtOrders.Services.Cache/ArtOrders.Services.Cache.csproj", "Services/ArtOrders.Services.Cache/"]
+COPY ["Services/ArtOrders.Services.Chats/ArtOrders.Services.Chats.csproj", "Services/ArtOrders.Services.Chats/"]
 COPY ["Services/ArtOrders.Services.Orders/ArtOrders.Services.Orders.csproj", "Services/ArtOrders.Services.Orders/"]
 COPY ["Services/ArtOrders.Services.Settings/ArtOrders.Services.Settings.csproj", "Services/ArtOrders.Services.Settings/"]
 COPY ["Systems/Api/ArtOrders.Api.Settings/ArtOrders.Api.Settings.csproj", "Systems/Api/ArtOrders.Api.Settings/"]

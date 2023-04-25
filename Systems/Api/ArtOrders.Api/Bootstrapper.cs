@@ -3,6 +3,7 @@
 // TODO: При добавлении сервисов подключать их тут!!!
 using ArtOrders.Api.Settings;
 using ArtOrders.Services.Orders;
+using ArtOrders.Services.Chats;
 using ArtOrders.Services.Tasks;
 using ArtOrders.Services.Cache;
 using ArtOrders.Services.RabbitMq;
@@ -20,6 +21,7 @@ public static class Bootstrapper
             .AddIdentitySettings()
             .AddApiSpecialSettings()
             .AddOrderService()
+            .AddChatService()
             .AddUserService()
             .AddCache()
             .AddRabbitMq()
