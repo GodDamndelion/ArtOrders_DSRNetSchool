@@ -7,6 +7,7 @@ using ArtOrders.Common.Security;
 using ArtOrders.Services.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 /// <summary>
@@ -68,11 +69,20 @@ public class OrdersController : ControllerBase
         return response;
     }
 
+    /// <summary>
+    /// Create order
+    /// </summary>
     [HttpPost("")]
     [Authorize(Policy = AppScopes.OrdersWrite)]
     public async Task<OrderResponse> AddOrder([FromBody] AddOrderRequest request)
     {
         var model = mapper.Map<AddOrderModel>(request);
+        bool success = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid customerId);
+        if (!success)
+        {
+            throw new Exception("User not found! Order creation failed!");
+        }
+        model.CustomerId = customerId;
         var order = await orderService.AddOrder(model);
         var response = mapper.Map<OrderResponse>(order);
 
