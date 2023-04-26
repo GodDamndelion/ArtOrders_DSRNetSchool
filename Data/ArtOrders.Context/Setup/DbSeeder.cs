@@ -99,7 +99,7 @@ public static class DbSeeder
         })
         .GetAwaiter()
         .GetResult();
-        
+
 
         //var u1 = new User()
         //{
@@ -135,13 +135,6 @@ public static class DbSeeder
         //var u1 = context.Users.First(u => u.Email == ua1.Email);
         //var u2 = context.Users.First(u => u.Email == ua2.Email);
 
-        var c1 = new Chat()
-        {
-            CustomerId = ua2.Id,
-            ArtistId = ua1.Id
-        };
-        context.Chats.Add(c1);
-
         var o1 = new Order()
         {
             Name = "Sans",
@@ -150,11 +143,19 @@ public static class DbSeeder
             Status = OrderStatus.AtWork,
             //Chat = c1,
             EditsNumber = 0,
-            Description = "Санс стоит в Пустоте и заряжает Гастер бластер, который объят синим пламенем"
+            Description = "Санс стоит в Пустоте и заряжает Гастер бластер, который объят синим пламенем",
+            Date = DateTime.UtcNow,
         };
         context.Orders.Add(o1);
 
-        c1.Order = o1;
+        var c1 = new Chat()
+        {
+            CustomerId = ua2.Id,
+            ArtistId = ua1.Id,
+            Order = o1,
+            Name = o1.Name
+        };
+        context.Chats.Add(c1);
 
 
 

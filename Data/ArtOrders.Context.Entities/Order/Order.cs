@@ -17,6 +17,7 @@ public class Order : BaseEntity
 
     public int EditsNumber { get; set; }
     public string Description { get; set; }
+    public DateTime Date { get; set; }
 
     public virtual Chat Chat { get; set; }
 }

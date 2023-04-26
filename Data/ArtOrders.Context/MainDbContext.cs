@@ -57,6 +57,7 @@ namespace ArtOrders.Context
             modelBuilder.Entity<WorkExampleItem>().HasOne(w => w.Image).WithOne(i => i.WorkExampleItem).HasForeignKey<WorkExampleItem>(w => w.ImageId).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Chat>().ToTable("chats");
+            modelBuilder.Entity<Chat>().Property(c => c.Name).IsRequired();
             modelBuilder.Entity<Chat>().HasOne(c => c.Order).WithOne(o => o.Chat).HasForeignKey<Chat>(c => c.OrderId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Chat>().HasOne(c => c.Customer).WithMany(u => u.ChatsUserСreated).HasForeignKey(c => c.CustomerId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Chat>().HasOne(c => c.Artist).WithMany(u => u.ChatsСreatedWithUser).HasForeignKey(c => c.ArtistId).OnDelete(DeleteBehavior.NoAction);
@@ -66,6 +67,7 @@ namespace ArtOrders.Context
             modelBuilder.Entity<Order>().Property(o => o.Status).IsRequired();
             modelBuilder.Entity<Order>().Property(o => o.EditsNumber).IsRequired();
             modelBuilder.Entity<Order>().Property(o => o.Description).IsRequired();
+            modelBuilder.Entity<Order>().Property(o => o.Date).IsRequired();
             modelBuilder.Entity<Order>().HasOne(o => o.Customer).WithMany(u => u.OrdersUserOrdered).HasForeignKey(o => o.CustomerId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Order>().HasOne(o => o.Artist).WithMany(u => u.OrdersOrderedToUser).HasForeignKey(o => o.ArtistId).OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Order>().HasOne(o => o.CurrentResultImage).WithOne(i => i.Order).HasForeignKey<Order>(o => o.CurrentResultId).OnDelete(DeleteBehavior.Restrict);
