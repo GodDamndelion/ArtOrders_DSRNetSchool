@@ -3,7 +3,7 @@
 using AutoMapper;
 using ArtOrders.Api.Controllers.Models;
 using ArtOrders.Common.Responses;
-using ArtOrders.Common.Security;
+//using ArtOrders.Common.Security;
 using ArtOrders.Services.Chats;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -72,7 +72,7 @@ public class ChatsController : ControllerBase
     }
 
     /// <summary>
-    /// Create chat
+    /// Create chat with current user ID
     /// </summary>
     [HttpPost("")]
     // TODO: Посмотреть авторизацию чатов
@@ -86,6 +86,21 @@ public class ChatsController : ControllerBase
             throw new Exception("User not found! Chat creation failed!");
         }
         model.CustomerId = customerId;
+        var chat = await chatService.AddChat(model);
+        var response = mapper.Map<ChatRequestResponse>(chat);
+
+        return response;
+    }
+
+    /// <summary>
+    /// Create chat with given customer ID
+    /// </summary>
+    [HttpPost("order")]
+    // TODO: Посмотреть авторизацию чатов
+    //[Authorize(Policy = AppScopes.ChatsWrite)]
+    public async Task<ChatRequestResponse> AddOrderChat([FromBody] ChatRequestResponse request)
+    {
+        var model = mapper.Map<ChatModel>(request);
         var chat = await chatService.AddChat(model);
         var response = mapper.Map<ChatRequestResponse>(chat);
 

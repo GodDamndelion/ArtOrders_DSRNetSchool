@@ -97,7 +97,12 @@
         </member>
         <member name="M:ArtOrders.Api.Controllers.ChatsController.AddChat(ArtOrders.Api.Controllers.Models.ChatRequestResponse)">
             <summary>
-            Create chat
+            Create chat with current user ID
+            </summary>
+        </member>
+        <member name="M:ArtOrders.Api.Controllers.ChatsController.AddOrderChat(ArtOrders.Api.Controllers.Models.ChatRequestResponse)">
+            <summary>
+            Create chat with given customer ID
             </summary>
         </member>
         <member name="M:ArtOrders.Api.Controllers.ChatsController.UpdateChat(System.Int32,ArtOrders.Api.Controllers.Models.ChatRequestResponse)">
