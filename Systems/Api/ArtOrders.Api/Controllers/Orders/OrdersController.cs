@@ -83,6 +83,7 @@ public class OrdersController : ControllerBase
             throw new Exception("User not found! Order creation failed!");
         }
         model.CustomerId = customerId;
+        model.Date = DateTime.UtcNow;
         var order = await orderService.AddOrder(model);
         var response = mapper.Map<OrderResponse>(order);
 

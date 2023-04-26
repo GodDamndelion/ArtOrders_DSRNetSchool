@@ -9,6 +9,7 @@ public class ChatRequestResponse
     public int? OrderId { get; set; }
     public Guid? CustomerId { get; set; }
     public Guid? ArtistId { get; set; }
+    public string Name { get; set; }
 }
 
 public class ChatRequestResponseValidator : AbstractValidator<ChatRequestResponse>

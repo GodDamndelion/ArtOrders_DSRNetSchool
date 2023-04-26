@@ -10,6 +10,7 @@ public class AddOrderModel
     public Guid? CustomerId { get; set; } //Заполняется автоматически
     public Guid? ArtistId { get; set; } //Заполняется автоматически
     public string Description { get; set; }
+    public DateTime Date { get; set; }
 }
 
 public class AddOrderModelValidator : AbstractValidator<AddOrderModel>
