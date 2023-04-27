@@ -8,9 +8,20 @@
 
 <MudContainer Class="pa-8">
     <MudGrid>
+        <MudItem xs="2">
+            <MudSelect @bind-Value="@_papers" Label="Rows per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="10" />
+                <MudSelectItem Value="25" />
+                <MudSelectItem Value="50" />
+                <MudSelectItem Value="100" />
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="10" Class="d-flex flex-column align-center justify-center">
+            <MudPagination BoundaryCount="2" MiddleCount="5" Count="22" @bind-Selected="@_page" />
+        </MudItem>
         <MudItem xs="12">
             <MudGrid Justify="Justify.FlexStart">
-                @for (int i = 0; i < papers; i++)
+                @for (int i = 0; i < _papers; i++)
                 {
                     <MudItem xs="3">
                         <MudCard>
@@ -23,15 +34,21 @@
                 }
             </MudGrid>
         </MudItem>
+        <MudItem xs="2">
+            <MudSelect @bind-Value="@_papers" Label="Rows per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="10" />
+                <MudSelectItem Value="25" />
+                <MudSelectItem Value="50" />
+                <MudSelectItem Value="100" />
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="10" Class="d-flex flex-column align-center justify-center">
+            <MudPagination BoundaryCount="2" MiddleCount="5" Count="22" @bind-Selected="@_page"/>
+        </MudItem>
     </MudGrid>
 </MudContainer>
 
 @code {
     int _papers = 10;
-    int papers { get { return _papers; } set { UpdatePapers(value); } }
-
-    void UpdatePapers(int value)
-    {
-        StateHasChanged();
-    }
+    int _page = 1;
 }
