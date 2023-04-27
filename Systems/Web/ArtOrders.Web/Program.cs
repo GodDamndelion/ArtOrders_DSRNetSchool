@@ -22,3 +22,5 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 
 await builder.Build().RunAsync();
+
+// TODO: !!!!!!бепмсрэ днйеп дкъ WEB!!!!!!!!

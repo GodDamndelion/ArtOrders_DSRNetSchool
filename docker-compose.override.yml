@@ -59,11 +59,11 @@ services:
     env_file:
       - env.worker
 
-  artorders_web:
-    ports:
-      - "10002:80"
-    networks:
-      - shared_artorders_net
+  #artorders_web:
+  #  ports:
+  #    - "10002:80"
+  #  networks:
+  #    - shared_artorders_net
 
 networks:
   shared_artorders_net:

@@ -30,4 +30,20 @@ public class UsersController : ControllerBase
 
         return response;
     }
+
+    /// <summary>
+    /// Get artists
+    /// </summary>
+    /// <param name="offset">Offset to the first element</param>
+    /// <param name="limit">Count of elements on the page</param>
+    /// <response code="200">List of UserAccountResponses</response>
+    [ProducesResponseType(typeof(IEnumerable<UserAccountResponse>), 200)] //Показывает, что придёт по такому коду
+    [HttpGet("")]
+    public async Task<IEnumerable<UserAccountResponse>> GetArtists([FromQuery] int offset = 0, [FromQuery] int limit = 10)
+    {
+        var artists = await userService.GetArtists(offset, limit);
+        var response = mapper.Map<IEnumerable<UserAccountResponse>>(artists);
+
+        return response;
+    }
 }

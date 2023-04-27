@@ -160,5 +160,13 @@
             Create order
             </summary>
         </member>
+        <member name="M:ArtOrders.API.Controllers.UsersController.GetArtists(System.Int32,System.Int32)">
+            <summary>
+            Get artists
+            </summary>
+            <param name="offset">Offset to the first element</param>
+            <param name="limit">Count of elements on the page</param>
+            <response code="200">List of UserAccountResponses</response>
+        </member>
     </members>
 </doc>

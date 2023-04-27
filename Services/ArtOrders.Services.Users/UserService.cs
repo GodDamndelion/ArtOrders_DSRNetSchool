@@ -6,6 +6,7 @@ using ArtOrders.Common.Validator;
 using ArtOrders.Context.Entities;
 using ArtOrders.Services.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 public class UserService : IUserService
 {
@@ -62,5 +63,18 @@ public class UserService : IUserService
 
         // Returning the created user
         return mapper.Map<UserAccountModel>(user);
+    }
+
+    public async Task<IEnumerable<UserAccountModel>> GetArtists(int offset = 0, int limit = 10)
+    {
+        var users = userManager
+                    .Users
+                    .Where(user => user.Role == UserRole.Artist)
+                    .Skip(Math.Max(offset, 0))
+                    .Take(Math.Max(0, Math.Min(limit, 100)));
+
+        var data = (await users.ToListAsync()).Select(user => mapper.Map<UserAccountModel>(user));
+
+        return data;
     }
 }
