@@ -75,7 +75,7 @@ public static class DbSeeder
         ArgumentNullException.ThrowIfNull(userService);
 
         // TODO: Доделать инициализацию БД
-        if (context.Messages.Any() /*|| context.Users.Any()*/ || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
+        if (context.Messages.Any() || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
             return;
 
         var i = new Image()
@@ -86,9 +86,92 @@ public static class DbSeeder
             Order = null
         };
         context.Images.Add(i);
+
+        var iPHG1 = new Image()
+        {
+            Link = "LocalData\\Images\\PHGImage1.jpg",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(iPHG1);
+
+        var iPHG2 = new Image()
+        {
+            Link = "LocalData\\Images\\PHGImage2.jpg",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(iPHG2);
+
+        var iPHG3 = new Image()
+        {
+            Link = "LocalData\\Images\\PHGImage3.jpg",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(iPHG3);
+
+        var ia1 = new Image()
+        {
+            Link = @"LocalData\Images\Avatar1.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia1);
+
+        var ia2 = new Image()
+        {
+            Link = @"LocalData\Images\Avatar2.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia2);
+
+        var ia3 = new Image()
+        {
+            Link = @"LocalData\Images\Avatar3.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia3);
+
+        var ia4 = new Image()
+        {
+            Link = @"LocalData\Images\Avatar4.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia4);
+
+        var ia7 = new Image()
+        {
+            Link = @"LocalData\Images\Avatar7.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia7);
+
+        var iamnyam = new Image()
+        {
+            Link = "LocalData\\Images\\Лягушка пластиковая Ам-Ням.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(iamnyam);
         context.SaveChanges();
 
-        var ua1 = userService.Create(new RegisterUserAccountModel
+
+
+        var u1 = userService.Create(new RegisterUserAccountModel
         {
             Name = "P.H.G.",
             Email = "PHG@dsr.com",
@@ -100,46 +183,103 @@ public static class DbSeeder
         .GetAwaiter()
         .GetResult();
 
-
-        //var u1 = new User()
-        //{
-        //    Nickname = "P.H.G.",
-        //    Avatar = i,
-        //    Role = UserRole.Artist,
-        //    Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy"
-        //};
-        //context.Users.Add(u1);
-
-        var ua2 = userService.Create(new RegisterUserAccountModel
+        var u2 = userService.Create(new RegisterUserAccountModel
         {
             Name = "Damndelion",
             Email = "Damndelion@dsr.com",
             Password = "password",
+            AvatarId = context.Images.First(x => x.Link == iamnyam.Link).Id,
             Role = UserRole.Customer,
         })
         .GetAwaiter()
         .GetResult();
 
-        //var u2 = new User()
-        //{
-        //    Nickname = "Damndelion",
-        //    Role = UserRole.Customer
-        //};
-        //context.Users.Add(u2);
+        var ua1 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist1",
+            Email = "Artist1@dsr.com",
+            Password = "Artist1",
+            AvatarId = context.Images.First(x => x.Link == ia1.Link).Id,
+            Role = UserRole.Artist,
+            Description = "I am artist 1",
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua2 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist2",
+            Email = "Artist2@dsr.com",
+            Password = "Artist2",
+            AvatarId = context.Images.First(x => x.Link == ia2.Link).Id,
+            Role = UserRole.Artist,
+            Description = "I am artist 2",
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua3 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist3",
+            Email = "Artist3@dsr.com",
+            Password = "Artist3",
+            AvatarId = context.Images.First(x => x.Link == ia3.Link).Id,
+            Role = UserRole.Artist,
+            Description = "I am artist 3",
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua4 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist4",
+            Email = "Artist4@dsr.com",
+            Password = "Artist4",
+            AvatarId = context.Images.First(x => x.Link == ia4.Link).Id,
+            Role = UserRole.Artist,
+            Description = "I am artist 4",
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua5 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist5",
+            Email = "Artist5@dsr.com",
+            Password = "Artist5",
+            Role = UserRole.Artist,
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua6 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist6",
+            Email = "Artist6@dsr.com",
+            Password = "Artist6",
+            Role = UserRole.Artist,
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua7 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist7",
+            Email = "Artist7@dsr.com",
+            Password = "Artist7",
+            AvatarId = context.Images.First(x => x.Link == ia7.Link).Id,
+            Role = UserRole.Artist,
+        })
+        .GetAwaiter()
+        .GetResult();
 
 
-
-
-
-
-        //var u1 = context.Users.First(u => u.Email == ua1.Email);
-        //var u2 = context.Users.First(u => u.Email == ua2.Email);
 
         var o1 = new Order()
         {
             Name = "Sans",
-            CustomerId = ua2.Id,
-            ArtistId = ua1.Id,
+            CustomerId = u2.Id,
+            ArtistId = u1.Id,
             Status = OrderStatus.AtWork,
             //Chat = c1,
             EditsNumber = 0,
@@ -150,8 +290,8 @@ public static class DbSeeder
 
         var c1 = new Chat()
         {
-            CustomerId = ua2.Id,
-            ArtistId = ua1.Id,
+            CustomerId = u2.Id,
+            ArtistId = u1.Id,
             Order = o1,
             Name = o1.Name
         };
