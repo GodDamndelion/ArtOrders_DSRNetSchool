@@ -1,6 +1,4 @@
-﻿using ArtOrders.Context.Entities;
-
-namespace ArtOrders.Web;
+﻿namespace ArtOrders.Web;
 
 public class OrderListItem
 {

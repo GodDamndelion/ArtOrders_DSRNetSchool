@@ -1,0 +1,37 @@
+﻿@page "/artists"
+
+@layout MainLayout
+
+@inject IUserService userService
+
+<MudText Typo="Typo.h4" Class="ma-8">Artists</MudText>
+
+<MudContainer Class="pa-8">
+    <MudGrid>
+        <MudItem xs="12">
+            <MudGrid Justify="Justify.FlexStart">
+                @for (int i = 0; i < papers; i++)
+                {
+                    <MudItem xs="3">
+                        <MudCard>
+                            <MudCardMedia Image="LocalData/Images/PHGAvatarImage.jpg" Height="200" />
+                            <MudCardContent>
+                                <MudText Typo="Typo.h6">Я кирпич</MudText>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                }
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    int _papers = 10;
+    int papers { get { return _papers; } set { UpdatePapers(value); } }
+
+    void UpdatePapers(int value)
+    {
+        StateHasChanged();
+    }
+}
