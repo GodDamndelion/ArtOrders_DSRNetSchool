@@ -69,9 +69,10 @@ public class UserService : IUserService
     {
         var users = userManager
                     .Users
+                    .Include(u => u.Avatar)
                     .Where(user => user.Role == UserRole.Artist)
                     .Skip(Math.Max(offset, 0))
-                    .Take(Math.Max(0, Math.Min(limit, 100)));
+                    .Take(Math.Max(0, Math.Min(limit, 1000)));
 
         var data = (await users.ToListAsync()).Select(user => mapper.Map<UserAccountModel>(user));
 

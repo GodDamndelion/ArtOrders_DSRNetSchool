@@ -3,13 +3,15 @@
 @layout MainLayout
 
 @inject IUserService userService
+@inject ISnackbar Snackbar
 
 <MudText Typo="Typo.h4" Class="ma-8">Artists</MudText>
 
 <MudContainer Class="pa-8">
     <MudGrid>
         <MudItem xs="2">
-            <MudSelect @bind-Value="@_papers" Label="Rows per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+            <MudSelect @bind-Value="@papers" Label="Rows per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="3" />
                 <MudSelectItem Value="10" />
                 <MudSelectItem Value="25" />
                 <MudSelectItem Value="50" />
@@ -17,25 +19,37 @@
             </MudSelect>
         </MudItem>
         <MudItem xs="10" Class="d-flex flex-column align-center justify-center">
-            <MudPagination BoundaryCount="2" MiddleCount="5" Count="22" @bind-Selected="@_page" />
+            <MudPagination BoundaryCount="2" MiddleCount="5" Count="@_max" @bind-Selected="@currentpage" />
         </MudItem>
         <MudItem xs="12">
             <MudGrid Justify="Justify.FlexStart">
-                @for (int i = 0; i < _papers; i++)
+                @foreach (var a in userListItems)
                 {
                     <MudItem xs="3">
                         <MudCard>
-                            <MudCardMedia Image="LocalData/Images/PHGAvatarImage.jpg" Height="200" />
+                            <MudCardMedia Image="@a.AvatarLink?.Replace("\\", "/")" Height="200" />
                             <MudCardContent>
-                                <MudText Typo="Typo.h6">Я кирпич</MudText>
+                                <MudText Typo="Typo.h6">@a.Name</MudText>
                             </MudCardContent>
                         </MudCard>
                     </MudItem>
                 }
+                @*@for (int i = 0; i < Math.Min(_papers, userListItems.Count() - 1); ++i)
+                {
+                    <MudItem xs="3">
+                        <MudCard>
+                            <MudCardMedia Image="@userListItems.ElementAt(i).AvatarLink" Height="200" />
+                            <MudCardContent>
+                                <MudText Typo="Typo.h6">@userListItems.ElementAt(i).Name</MudText>
+                            </MudCardContent>
+                        </MudCard>
+                    </MudItem>
+                }*@
             </MudGrid>
         </MudItem>
         <MudItem xs="2">
-            <MudSelect @bind-Value="@_papers" Label="Rows per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+            <MudSelect @bind-Value="@papers" Label="Rows per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="3" />
                 <MudSelectItem Value="10" />
                 <MudSelectItem Value="25" />
                 <MudSelectItem Value="50" />
@@ -43,12 +57,59 @@
             </MudSelect>
         </MudItem>
         <MudItem xs="10" Class="d-flex flex-column align-center justify-center">
-            <MudPagination BoundaryCount="2" MiddleCount="5" Count="22" @bind-Selected="@_page"/>
+            <MudPagination BoundaryCount="2" MiddleCount="5" Count="@_max" @bind-Selected="@currentpage" />
         </MudItem>
     </MudGrid>
 </MudContainer>
 
 @code {
-    int _papers = 10;
+    int _papers = 3;
     int _page = 1;
+    int _max = 100;
+    int papers { get { return _papers; } set { _papers = value; ReloadData(); StateHasChanged(); } }
+    int currentpage { get { return _page; } set { _page = value; ReloadData(); StateHasChanged(); } }
+
+    private string searchString = "";
+
+    private IEnumerable<UserListItem> userListItems = new List<UserListItem>(); 
+    private IEnumerable<UserListItem> allUserListItems = new List<UserListItem>();
+
+    //(currentpage - 1) * papers, papers
+
+    private void ReloadData()
+    {
+        userListItems = allUserListItems.Skip((currentpage - 1) * papers).Take(papers);
+        _max = allUserListItems.Count() / _papers + (allUserListItems.Count() % _papers > 0 ? 1 : 0);
+    }
+
+    private async Task LoadData()
+    {
+        allUserListItems = await userService.GetArtists(0, 10000);
+        ReloadData();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadData();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error); //Всплывающие уведомления в левом нижнем углу
+        }
+    }
+
+    private bool FilterFuncSimple(UserListItem userListItem) => FilterFunc(userListItem, searchString);
+
+    private bool FilterFunc(UserListItem userListItem, string searchString)
+    {
+        return
+            string.IsNullOrWhiteSpace(searchString)
+            ||
+            userListItem.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+            ||
+            userListItem.Description.Contains(searchString)
+        ;
+    }
 }
