@@ -1,0 +1,25 @@
+﻿@inherits MudComponentBase
+
+@inject IUserService userService
+
+<MudDialog>
+	<DialogContent>
+		<MudGrid>
+			<MudItem xs="12">
+				<MudText Typo="Typo.h4" Class="ma-4">@artist.Name</MudText>
+			</MudItem>
+			<MudItem xs="12">
+				<MudImage ObjectFit="ObjectFit.ScaleDown" Fluid="true" Src="@artist.AvatarLink" />
+			</MudItem>
+			<MudItem xs="12">
+				<MudText Typo="Typo.h5" Class="ma-4" Style="white-space:pre-wrap">@artist.Description</MudText>
+			</MudItem>
+		</MudGrid>
+	</DialogContent>
+</MudDialog>
+
+@code {
+	[Parameter]
+	public UserListItem? artist { get; set; }
+
+}

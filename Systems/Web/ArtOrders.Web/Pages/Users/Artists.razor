@@ -4,6 +4,7 @@
 
 @inject IUserService userService
 @inject ISnackbar Snackbar
+@inject IDialogService DialogService
 
 <MudText Typo="Typo.h4" Class="ma-8">Artists</MudText>
 
@@ -29,7 +30,7 @@
                 @foreach (var a in userListItems)
                 {
                     <MudItem xs="3">
-                        <MudCard onclick="@(() => Console.WriteLine(a.Name))">
+                        <MudCard onclick="@(() => ShowArtist(a))">
                             <MudCardMedia Image="@a.AvatarLink" Height="200" />
                             <MudCardContent>
                                 <MudText Typo="Typo.h6">@a.Name</MudText>
@@ -103,5 +104,14 @@
             ||
             (userListItem.Description != null ? userListItem.Description.Contains(searchString) : false)
         ;
+    }
+
+    private async Task ShowArtist(UserListItem a)
+    {
+        var parameters = new DialogParameters { };
+        parameters.Add("artist", a);
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+        var dialog = DialogService.Show<ArtistDialog>("Profile", parameters, options);
+        var result = await dialog.Result;
     }
 }
