@@ -9,8 +9,8 @@
 
 <MudContainer Class="pa-8">
     <MudGrid>
-        <MudItem xs="2">
-            <MudSelect @bind-Value="@papers" Label="Rows per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+        <MudItem xs="3">
+            <MudSelect @bind-Value="@papers" Label="Elements per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
                 <MudSelectItem Value="3" />
                 <MudSelectItem Value="10" />
                 <MudSelectItem Value="25" />
@@ -18,7 +18,7 @@
                 <MudSelectItem Value="100" />
             </MudSelect>
         </MudItem>
-        <MudItem xs="10" Class="d-flex flex-column align-center justify-center">
+        <MudItem xs="9" Class="d-flex flex-column align-center justify-center">
             <MudPagination BoundaryCount="2" MiddleCount="5" Count="@_max" @bind-Selected="@currentpage" />
         </MudItem>
         <MudItem xs="12">
@@ -27,28 +27,17 @@
                 {
                     <MudItem xs="3">
                         <MudCard>
-                            <MudCardMedia Image="@a.AvatarLink?.Replace("\\", "/")" Height="200" />
+                            <MudCardMedia Image="@a.AvatarLink" Height="200" />
                             <MudCardContent>
                                 <MudText Typo="Typo.h6">@a.Name</MudText>
                             </MudCardContent>
                         </MudCard>
                     </MudItem>
                 }
-                @*@for (int i = 0; i < Math.Min(_papers, userListItems.Count() - 1); ++i)
-                {
-                    <MudItem xs="3">
-                        <MudCard>
-                            <MudCardMedia Image="@userListItems.ElementAt(i).AvatarLink" Height="200" />
-                            <MudCardContent>
-                                <MudText Typo="Typo.h6">@userListItems.ElementAt(i).Name</MudText>
-                            </MudCardContent>
-                        </MudCard>
-                    </MudItem>
-                }*@
             </MudGrid>
         </MudItem>
-        <MudItem xs="2">
-            <MudSelect @bind-Value="@papers" Label="Rows per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+        <MudItem xs="3">
+            <MudSelect @bind-Value="@papers" Label="Elements per page" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
                 <MudSelectItem Value="3" />
                 <MudSelectItem Value="10" />
                 <MudSelectItem Value="25" />
@@ -56,7 +45,7 @@
                 <MudSelectItem Value="100" />
             </MudSelect>
         </MudItem>
-        <MudItem xs="10" Class="d-flex flex-column align-center justify-center">
+        <MudItem xs="9" Class="d-flex flex-column align-center justify-center">
             <MudPagination BoundaryCount="2" MiddleCount="5" Count="@_max" @bind-Selected="@currentpage" />
         </MudItem>
     </MudGrid>
@@ -73,8 +62,6 @@
 
     private IEnumerable<UserListItem> userListItems = new List<UserListItem>(); 
     private IEnumerable<UserListItem> allUserListItems = new List<UserListItem>();
-
-    //(currentpage - 1) * papers, papers
 
     private void ReloadData()
     {

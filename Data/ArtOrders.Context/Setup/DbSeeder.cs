@@ -80,7 +80,7 @@ public static class DbSeeder
 
         var i = new Image()
         {
-            Link = "LocalData\\Images\\PHGAvatarImage.jpg",
+            Link = "LocalData/Images/PHGAvatarImage.jpg",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -89,7 +89,7 @@ public static class DbSeeder
 
         var iPHG1 = new Image()
         {
-            Link = "LocalData\\Images\\PHGImage1.jpg",
+            Link = "LocalData/Images/PHGImage1.jpg",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -98,7 +98,7 @@ public static class DbSeeder
 
         var iPHG2 = new Image()
         {
-            Link = "LocalData\\Images\\PHGImage2.jpg",
+            Link = "LocalData/Images/PHGImage2.jpg",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -107,7 +107,7 @@ public static class DbSeeder
 
         var iPHG3 = new Image()
         {
-            Link = "LocalData\\Images\\PHGImage3.jpg",
+            Link = "LocalData/Images/PHGImage3.jpg",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -116,7 +116,7 @@ public static class DbSeeder
 
         var ia1 = new Image()
         {
-            Link = @"LocalData\Images\Avatar1.png",
+            Link = @"LocalData/Images/Avatar1.png",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -125,7 +125,7 @@ public static class DbSeeder
 
         var ia2 = new Image()
         {
-            Link = @"LocalData\Images\Avatar2.png",
+            Link = @"LocalData/Images/Avatar2.png",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -134,7 +134,7 @@ public static class DbSeeder
 
         var ia3 = new Image()
         {
-            Link = @"LocalData\Images\Avatar3.png",
+            Link = @"LocalData/Images/Avatar3.png",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -143,7 +143,7 @@ public static class DbSeeder
 
         var ia4 = new Image()
         {
-            Link = @"LocalData\Images\Avatar4.png",
+            Link = @"LocalData/Images/Avatar4.png",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -152,7 +152,7 @@ public static class DbSeeder
 
         var ia7 = new Image()
         {
-            Link = @"LocalData\Images\Avatar7.png",
+            Link = @"LocalData/Images/Avatar7.png",
             User = null,
             WorkExampleItem = null,
             Order = null
@@ -161,7 +161,7 @@ public static class DbSeeder
 
         var iamnyam = new Image()
         {
-            Link = "LocalData\\Images\\Лягушка пластиковая Ам-Ням.png",
+            Link = "LocalData/Images/Лягушка пластиковая Ам-Ням.png",
             User = null,
             WorkExampleItem = null,
             Order = null
