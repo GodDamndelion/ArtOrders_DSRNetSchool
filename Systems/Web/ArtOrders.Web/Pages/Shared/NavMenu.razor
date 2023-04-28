@@ -1,6 +1,4 @@
-﻿@using Microsoft.AspNetCore.Components.Authorization
-
-<MudNavMenu>
+﻿<MudNavMenu>
     <MudText Typo="Typo.h5" Class="pa-4">ArtOrders</MudText>
     <MudDivider />
     <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
@@ -8,10 +6,3 @@
     <MudNavLink Href="/chats" Match="NavLinkMatch.Prefix">Chats</MudNavLink>
     <MudNavLink Href="/orders" Match="NavLinkMatch.Prefix">My orders</MudNavLink>
 </MudNavMenu>
-
-<AuthorizeView>
-    <Authorized>
-    </Authorized>
-    <NotAuthorized>
-    </NotAuthorized>
-</AuthorizeView>

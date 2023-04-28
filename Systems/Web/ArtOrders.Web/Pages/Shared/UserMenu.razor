@@ -3,40 +3,12 @@
 <MudMenu Color="Color.Inherit" Icon="@Icons.Material.Filled.Face" AnchorOrigin="Origin.BottomRight" >
     <MudMenuItem Link="/profile">Profile</MudMenuItem>
     <MudDivider />
-    @if (userIsAuthorized)
-    {
-        <MudMenuItem Link="/logout">Logoff</MudMenuItem>
-    }
-    else
-    {
-        <MudMenuItem Link="/login">Login</MudMenuItem>
-    }
+    <AuthorizeView>
+        <Authorized>
+            <MudMenuItem Link="/logout">Logoff</MudMenuItem>
+        </Authorized>
+        <NotAuthorized>
+            <MudMenuItem Link="/login">Login</MudMenuItem>
+        </NotAuthorized>
+    </AuthorizeView>
 </MudMenu>
-
-@code {
-    [CascadingParameter]
-    private Task<AuthenticationState>? authenticationState { get; set; }
-
-    private bool userIsAuthorized = false;
-
-    private async Task ReloadData()
-    {
-        if (authenticationState is not null)
-        {
-            var authState = await authenticationState;
-            var user = authState?.User;
-
-            userIsAuthorized = user?.Identity is not null && user.Identity.IsAuthenticated;
-        }
-        else
-        {
-            userIsAuthorized = false;
-        }
-        StateHasChanged();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await ReloadData();
-    }
-}
