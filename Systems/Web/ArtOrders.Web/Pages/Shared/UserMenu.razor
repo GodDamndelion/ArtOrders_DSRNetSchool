@@ -1,44 +1,5 @@
-﻿@using Microsoft.AspNetCore.Components.Authorization
-
-@* TODO: Как-то сделать так, чтобы ТУТ было Login, если не авторизован...*@
-
-<MudMenu Color="Color.Inherit" Icon="@Icons.Material.Filled.Face" AnchorOrigin="Origin.BottomRight" onclick="@(() => ReloadData())" >
+﻿<MudMenu Color="Color.Inherit" Icon="@Icons.Material.Filled.Face" AnchorOrigin="Origin.BottomRight" >
     <MudMenuItem Link="/profile">Profile</MudMenuItem>
     <MudDivider />
-    @if (userIsAuthorized)
-    {
-        <MudMenuItem Link="/logout" OnClick="@(() => ReloadData())">Logoff</MudMenuItem>
-    }
-    else
-    {
-        <MudMenuItem Link="/login">Login</MudMenuItem>
-    }
+    <MudMenuItem Link="/logout">Logoff</MudMenuItem>
 </MudMenu>
-
-@code {
-    [CascadingParameter]
-    private Task<AuthenticationState>? authenticationState { get; set; }
-
-    private bool userIsAuthorized = false;
-
-    private async Task ReloadData()
-    {
-        if (authenticationState is not null)
-        {
-            var authState = await authenticationState;
-            var user = authState?.User;
-
-            userIsAuthorized = user?.Identity is not null && user.Identity.IsAuthenticated;
-        }
-        else
-        {
-            userIsAuthorized = false;
-        }
-        StateHasChanged();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await ReloadData();
-    }
-}
