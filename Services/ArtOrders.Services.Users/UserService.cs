@@ -78,4 +78,13 @@ public class UserService : IUserService
 
         return data;
     }
+
+    public async Task<UserAccountModel> GetUser(Guid id)
+    {
+        var user = await userManager.Users.Include(u => u.Avatar).FirstOrDefaultAsync(u => u.Id.Equals(id));
+
+        var data = mapper.Map<UserAccountModel>(user);
+
+        return data;
+    }
 }

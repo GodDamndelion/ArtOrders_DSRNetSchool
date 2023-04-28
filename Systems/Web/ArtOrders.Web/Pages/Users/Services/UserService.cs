@@ -28,4 +28,21 @@ public class UserService : IUserService
 
         return data;
     }
+
+    public async Task<UserListItem> GetCurrentUser()
+    {
+        string url = $"{Settings.ApiRoot}/v1/users/current";
+
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        var data = JsonSerializer.Deserialize<UserListItem>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new UserListItem();
+
+        return data;
+    }
 }

@@ -4,6 +4,8 @@ using AutoMapper;
 using ArtOrders.API.Controllers.Models;
 using ArtOrders.Services.Users;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 [Route("api/v{version:apiVersion}/users")]
 [ApiController]
@@ -43,6 +45,40 @@ public class UsersController : ControllerBase
     {
         var artists = await userService.GetArtists(offset, limit);
         var response = mapper.Map<IEnumerable<UserAccountResponse>>(artists);
+
+        return response;
+    }
+
+    /// <summary>
+    /// Get user by Id
+    /// </summary>
+    /// <response code="200">UserAccountResponse></response>
+    [ProducesResponseType(typeof(UserAccountResponse), 200)]
+    [HttpGet("{id}")]
+    public async Task<UserAccountResponse> GetUserById([FromRoute] Guid id)
+    {
+        var user = await userService.GetUser(id);
+        var response = mapper.Map<UserAccountResponse>(user);
+
+        return response;
+    }
+
+    /// <summary>
+    /// Get current user
+    /// </summary>
+    /// <response code="200">UserAccountResponse></response>
+    [ProducesResponseType(typeof(UserAccountResponse), 200)]
+    [Authorize]
+    [HttpGet("current")]
+    public async Task<UserAccountResponse> GetCurrentUser()
+    {
+        bool success = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId);
+        if (!success)
+        {
+            throw new Exception("Current user not found!");
+        }
+        var user = await userService.GetUser(userId);
+        var response = mapper.Map<UserAccountResponse>(user);
 
         return response;
     }

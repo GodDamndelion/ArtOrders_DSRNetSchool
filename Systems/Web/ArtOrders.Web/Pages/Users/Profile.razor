@@ -1,0 +1,40 @@
+﻿@page "/profile"
+
+@layout MainLayout
+
+@inject IUserService userService
+@inject ISnackbar Snackbar
+
+@attribute [Authorize]
+
+<MudTHeadRow>
+    <MudText Typo="Typo.h4" Class="ma-8">Profile</MudText>
+</MudTHeadRow>
+
+<MudAvatar Class="ma-8" Style="height:200px; width:200px;">
+    <MudImage Src="@user.AvatarLink"></MudImage>
+</MudAvatar>
+
+<MudText Typo="Typo.h4" Class="ma-8">@user.Name</MudText>
+<MudText Typo="Typo.h4" Class="ma-8">Description: @user.Description</MudText>
+
+@code {
+    private UserListItem user = new UserListItem();
+
+    private async Task LoadData()
+    {
+        user = await userService.GetCurrentUser();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await LoadData();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error);
+        }
+    }
+}
