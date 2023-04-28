@@ -7,6 +7,9 @@
 
 <MudText Typo="Typo.h4" Class="ma-8">Artists</MudText>
 
+<MudTextField Class="ma-8" @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
+<MudSpacer />
+
 <MudContainer Class="pa-8">
     <MudGrid>
         <MudItem xs="3">
@@ -52,21 +55,23 @@
 </MudContainer>
 
 @code {
-    int _papers = 3;
+    int _papers = 10;
     int _page = 1;
     int _max = 100;
-    int papers { get { return _papers; } set { _papers = value; ReloadData(); StateHasChanged(); } }
-    int currentpage { get { return _page; } set { _page = value; ReloadData(); StateHasChanged(); } }
+    int papers { get { return _papers; } set { _papers = value; ReloadData(); } }
+    int currentpage { get { return _page; } set { _page = value; ReloadData(); } }
 
-    private string searchString = "";
+    private string _searchString = "";
+    private string searchString { get { return _searchString; } set { _searchString = value; ReloadData(); } }
 
     private IEnumerable<UserListItem> userListItems = new List<UserListItem>(); 
     private IEnumerable<UserListItem> allUserListItems = new List<UserListItem>();
 
     private void ReloadData()
     {
-        userListItems = allUserListItems.Skip((currentpage - 1) * papers).Take(papers);
-        _max = allUserListItems.Count() / _papers + (allUserListItems.Count() % _papers > 0 ? 1 : 0);
+        userListItems = allUserListItems.Where(u => FilterFuncSimple(u)).Skip((currentpage - 1) * papers).Take(papers);
+        _max = allUserListItems.Where(u => FilterFuncSimple(u)).Count() / _papers + (allUserListItems.Count() % _papers > 0 ? 1 : 0);
+        StateHasChanged();
     }
 
     private async Task LoadData()
@@ -96,7 +101,7 @@
             ||
             userListItem.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)
             ||
-            userListItem.Description.Contains(searchString)
+            (userListItem.Description != null ? userListItem.Description.Contains(searchString) : false)
         ;
     }
 }
