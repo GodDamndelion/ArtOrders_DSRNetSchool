@@ -45,10 +45,33 @@ public class OrdersController : ControllerBase
     /// <response code="200">List of OrderResponses</response>
     [ProducesResponseType(typeof(IEnumerable<OrderResponse>), 200)] //Показывает, что придёт по такому коду
     [Authorize(Policy = AppScopes.OrdersRead)]
-    [HttpGet("")]
+    [HttpGet("all")]
     public async Task<IEnumerable<OrderResponse>> GetOrders([FromQuery] int offset = 0, [FromQuery] int limit = 10)
     {
         var orders = await orderService.GetOrders(offset, limit);
+        var response = mapper.Map<IEnumerable<OrderResponse>>(orders);
+
+        return response;
+    }
+
+    /// <summary>
+    /// Get users orders
+    /// </summary>
+    /// <param name="offset">Offset to the first element</param>
+    /// <param name="limit">Count elements on the page</param>
+    /// <response code="200">List of OrderResponses</response>
+    [ProducesResponseType(typeof(IEnumerable<OrderResponse>), 200)] //Показывает, что придёт по такому коду
+    [Authorize(Policy = AppScopes.OrdersRead)]
+    [HttpGet("")]
+    public async Task<IEnumerable<OrderResponse>> GetMyOrders([FromQuery] int offset = 0, [FromQuery] int limit = 10)
+    {
+        var orders = await orderService.GetOrders(offset, limit);
+        bool success = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId);
+        if (!success)
+        {
+            throw new Exception("User not found!");
+        }
+        orders = orders.Where(o => o.CustomerId == userId || o.ArtistId == userId);
         var response = mapper.Map<IEnumerable<OrderResponse>>(orders);
 
         return response;
