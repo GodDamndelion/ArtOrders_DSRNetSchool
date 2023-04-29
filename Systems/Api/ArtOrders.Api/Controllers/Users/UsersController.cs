@@ -24,11 +24,13 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("")]
-    public async Task<UserAccountResponse> Register([FromQuery] RegisterUserAccountRequest request)
+    public async Task<UserAccountResponse> Register([FromBody] RegisterUserAccountRequest request)
     {
-        var user = await userService.Create(mapper.Map<RegisterUserAccountModel>(request));
+        var user = mapper.Map<RegisterUserAccountModel>(request);
+        user.Role = Context.Entities.UserRole.Customer;
+        var createdUser = await userService.Create(user);
 
-        var response = mapper.Map<UserAccountResponse>(user);
+        var response = mapper.Map<UserAccountResponse>(createdUser);
 
         return response;
     }

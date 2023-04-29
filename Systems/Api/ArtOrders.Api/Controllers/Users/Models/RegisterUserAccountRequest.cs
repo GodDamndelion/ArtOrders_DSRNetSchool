@@ -11,7 +11,7 @@ public class RegisterUserAccountRequest
     public string Email { get; set; }
     public string Password { get; set; }
     public int? AvatarId { get; set; }
-    public UserRole Role { get; set; }
+    public UserRole? Role { get; set; } = UserRole.Customer;
     public string? Description { get; set; }
 }
 

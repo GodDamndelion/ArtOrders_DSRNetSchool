@@ -22,7 +22,7 @@
                                 Label="Email" 
                                 Required="true" 
                                 RequiredError="Email is required!"
-                                HelperText="Input your username"
+                                HelperText="Input your email"
                                 Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})"/>
                 <MudTextField @bind-Value="model.Password" For="@(() => model.Password)"
                                 Label="Password" 
@@ -43,6 +43,7 @@
                            Color="Color.Primary"
                            Size="Size.Large"
                            ButtonType="ButtonType.Submit">Sign In</MudButton>
+                <MudLink Class="ma-8" Href="/sign-up">Sign Up</MudLink>
             </EditForm>
         </MudPaper>
     </MudItem>

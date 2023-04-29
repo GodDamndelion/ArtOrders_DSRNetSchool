@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 
 namespace ArtOrders.Web;
@@ -45,4 +46,20 @@ public class UserService : IUserService
 
         return data;
     }
+
+	public async Task SingUp(RegisterUserAccountModel userModel)
+    {
+		string url = $"{Settings.ApiRoot}/v1/users";
+
+		var body = JsonSerializer.Serialize(userModel);
+		var request = new StringContent(body, Encoding.UTF8, "application/json");
+		var response = await _httpClient.PostAsync(url, request);
+
+		var content = await response.Content.ReadAsStringAsync();
+
+		if (!response.IsSuccessStatusCode)
+		{
+			throw new Exception(content);
+		}
+	}
 }
