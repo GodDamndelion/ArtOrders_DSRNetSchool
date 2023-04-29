@@ -92,7 +92,13 @@
 
         if (result.Successful)
         {
-            NavigationManager.NavigateTo("/");
+            // Чтобы обновить данные на странице, куда пользователь пытался попасть
+            NavigationManager.NavigateTo(
+                              NavigationManager.Uri == NavigationManager.BaseUri + "login" ?
+                              "/"
+                              : 
+                              $"/redirect/{NavigationManager.Uri.Replace(NavigationManager.BaseUri, "")}"
+                              );
         }
         else
         {
