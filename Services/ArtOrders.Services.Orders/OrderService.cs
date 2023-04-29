@@ -96,8 +96,6 @@ public class OrderService : IOrderService
 
     public async Task<OrderModel> AddOrder(AddOrderModel model)
     {
-        // TODO: Сделать тут создание Чата!!!!!!!!! (Или........)
-
         addOrderModelValidator.Check(model);
 
         using var context = await contextFactory.CreateDbContextAsync();

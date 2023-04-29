@@ -1,12 +1,19 @@
-﻿@inherits MudComponentBase
+﻿@using ArtOrders.Web.Pages.Orders;
+@inherits MudComponentBase
 
 @inject IUserService userService
+@inject IDialogService DialogService
+@inject IOrderService orderService
+@inject NavigationManager navigationManager
 
 <MudDialog>
 	<DialogContent>
 		<MudGrid>
-			<MudItem xs="12">
+			<MudItem xs="8">
 				<MudText Typo="Typo.h4" Class="ma-4">@artist.Name</MudText>
+			</MudItem>
+			<MudItem xs="4">
+				<MudButton Class="ma-4 d-flex flex-column align-center justify-right" Variant="Variant.Filled" Color="Color.Primary" OnClick="@((e) => AddOrder())">Make order</MudButton>
 			</MudItem>
 			<MudItem xs="12">
 				<MudImage ObjectFit="ObjectFit.ScaleDown" Fluid="true" Src="@artist.AvatarLink" />
@@ -22,4 +29,8 @@
 	[Parameter]
 	public UserListItem? artist { get; set; }
 
+	private async Task AddOrder()
+	{
+		navigationManager.NavigateTo($"/neworder/?artistid={artist.Id}");
+	}
 }

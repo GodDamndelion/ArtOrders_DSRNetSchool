@@ -9,7 +9,7 @@
 @inject IOrderService orderService
 @inject NavigationManager navigationManager
 
-<MudText Typo="Typo.h4" Class="ma-8">Orders</MudText>
+<MudText Typo="Typo.h4" Class="ma-8">My orders</MudText>
 
 <MudTable Items="@OrderListItems" Class="ma-8" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<OrderListItem,bool>(FilterFuncSimple)">
     <ColGroup>
@@ -21,8 +21,6 @@
         <col style="width:100px;" />
     </ColGroup>
     <ToolBarContent>
-        <MudButton StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" OnClick="@((e) => AddOrder())">Add</MudButton>
-        <MudSpacer />
         <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
@@ -95,7 +93,6 @@
     }
 
     // TODO: Тут должно быть запихивание ID Художника...
-    // TODO: Сделать тут создание Чата!!!!!!!!! (Или........)
     private async Task AddOrder()
     {
         var parameters = new DialogParameters { };

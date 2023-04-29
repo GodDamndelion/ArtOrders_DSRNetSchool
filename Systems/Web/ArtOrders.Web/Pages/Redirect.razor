@@ -8,6 +8,6 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		NavigationManager.NavigateTo("/" + uri);
+		NavigationManager.NavigateTo(NavigationManager.Uri.Replace("/redirect", ""));
 	}
 }

@@ -96,7 +96,7 @@
             NavigationManager.NavigateTo(
                               NavigationManager.Uri == NavigationManager.BaseUri + "login" ?
                               "/"
-                              : 
+                              :
                               $"/redirect/{NavigationManager.Uri.Replace(NavigationManager.BaseUri, "")}"
                               );
         }
