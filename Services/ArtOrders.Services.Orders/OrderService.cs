@@ -8,6 +8,7 @@ using ArtOrders.Context.Entities;
 using ArtOrders.Services.Cache;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using ArtOrders.Services.Chats;
 
 public class OrderService : IOrderService
 {
@@ -19,14 +20,16 @@ public class OrderService : IOrderService
     private readonly IModelValidator<AddOrderModel> addOrderModelValidator;
     private readonly IModelValidator<UpdateOrderModel> updateOrderModelValidator;
     private readonly ILogger<OrderService> logger;
+    private readonly IChatService chatService;
 
-    public OrderService(
+	public OrderService(
         IDbContextFactory<MainDbContext> contextFactory,
         IMapper mapper,
         ICacheService cacheService,
         IModelValidator<AddOrderModel> addOrderModelValidator,
         IModelValidator<UpdateOrderModel> updateOrderModelValidator,
-        ILogger<OrderService> logger
+        ILogger<OrderService> logger,
+        IChatService chatService
         )
     {
         this.contextFactory = contextFactory;
@@ -35,6 +38,7 @@ public class OrderService : IOrderService
         this.addOrderModelValidator = addOrderModelValidator;
         this.updateOrderModelValidator = updateOrderModelValidator;
         this.logger = logger;
+        this.chatService = chatService;
     }
 
     public async Task<IEnumerable<OrderModel>> GetOrders(int offset = 0, int limit = 10)
@@ -102,6 +106,22 @@ public class OrderService : IOrderService
 
         await context.Orders.AddAsync(order);
         context.SaveChanges();
+
+        var foundOrder = context.Orders.First(o => o.ArtistId == order.ArtistId &&
+                                           o.CustomerId == order.CustomerId &&
+                                           o.Name == order.Name &&
+                                           o.Description == order.Description &&
+                                           o.Date == order.Date);
+
+        ChatModel chatModel = new ChatModel()
+        {
+            OrderId = foundOrder.Id,
+            CustomerId = foundOrder.CustomerId,
+            ArtistId = foundOrder.ArtistId,
+            Name = foundOrder.Name
+        };
+
+        await chatService.AddChat(chatModel);
 
         await cacheService.Delete(contextCacheKey);
 
