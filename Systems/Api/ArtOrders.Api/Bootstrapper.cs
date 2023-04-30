@@ -10,6 +10,7 @@ using ArtOrders.Services.RabbitMq;
 using ArtOrders.Services.Settings;
 using ArtOrders.Services.Users;
 using Microsoft.Extensions.DependencyInjection;
+using ArtOrders.Services.Messages;
 
 public static class Bootstrapper
 {
@@ -26,6 +27,7 @@ public static class Bootstrapper
             .AddCache()
             .AddRabbitMq()
             .AddTaskService()
+            .AddMessageService()
             ;
 
         return services;

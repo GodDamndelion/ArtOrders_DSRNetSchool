@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Web", "Systems\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.Chats", "Services\ArtOrders.Services.Chats\ArtOrders.Services.Chats.csproj", "{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.Messages", "Services\ArtOrders.Services.Messages\ArtOrders.Services.Messages.csproj", "{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,6 +188,7 @@ Global
 		{13D63F38-F9C5-4791-8955-FE0CA443AB08} = {1019493D-46BD-4851-9EB2-D4A0D4F1E42D}
 		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB} = {13D63F38-F9C5-4791-8955-FE0CA443AB08}
 		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0} = {63A107FD-40C1-4336-845A-CA035CF8E7A2}
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36} = {63A107FD-40C1-4336-845A-CA035CF8E7A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76ADB176-AD2F-463B-AF7E-C09EC32A3BDC}

@@ -89,23 +89,31 @@
             <param name="limit">Count of elements on the page</param>
             <response code="200">List of ChatRequestResponses</response>
         </member>
+        <member name="M:ArtOrders.Api.Controllers.ChatsController.GetMyChats(System.Int32,System.Int32)">
+            <summary>
+            Get users chats
+            </summary>
+            <param name="offset">Offset to the first element</param>
+            <param name="limit">Count of elements on the page</param>
+            <response code="200">List of ChatResponses</response>
+        </member>
         <member name="M:ArtOrders.Api.Controllers.ChatsController.GetChatById(System.Int32)">
             <summary>
             Get chat by Id
             </summary>
-            <response code="200">ChatRequestResponse></response>
+            <response code="200">ChatResponse></response>
         </member>
-        <member name="M:ArtOrders.Api.Controllers.ChatsController.AddChat(ArtOrders.Api.Controllers.Models.ChatRequestResponse)">
+        <member name="M:ArtOrders.Api.Controllers.ChatsController.AddChat(ArtOrders.Api.Controllers.Models.AddChatRequest)">
             <summary>
             Create chat with current user ID
             </summary>
         </member>
-        <member name="M:ArtOrders.Api.Controllers.ChatsController.AddOrderChat(ArtOrders.Api.Controllers.Models.ChatRequestResponse)">
+        <member name="M:ArtOrders.Api.Controllers.ChatsController.AddOrderChat(ArtOrders.Api.Controllers.Models.AddChatRequest)">
             <summary>
             Create chat with given customer ID
             </summary>
         </member>
-        <member name="M:ArtOrders.Api.Controllers.ChatsController.UpdateChat(System.Int32,ArtOrders.Api.Controllers.Models.ChatRequestResponse)">
+        <member name="M:ArtOrders.Api.Controllers.ChatsController.UpdateChat(System.Int32,ArtOrders.Api.Controllers.Models.UpdateChatRequest)">
             <summary>
             Update chat
             </summary>
@@ -126,6 +134,43 @@
             Get data 2
             </summary>
             <response code="200">String items</response>
+        </member>
+        <member name="T:ArtOrders.API.Controllers.MessagesController">
+            <summary>
+            Messages controller
+            </summary>
+            <response code="400">Bad Request</response>
+            <response code="401">Unauthorized</response>
+            <response code="403">Forbidden</response>
+            <response code="404">Not Found</response>
+        </member>
+        <member name="M:ArtOrders.API.Controllers.MessagesController.GetMessages(System.Int32,System.Int32)">
+            <summary>
+            Get messages
+            </summary>
+            <param name="offset">Offset to the first element</param>
+            <param name="limit">Count elements on the page</param>
+            <response code="200">List of MessageResponses</response>
+        </member>
+        <member name="M:ArtOrders.API.Controllers.MessagesController.GetChatMessages(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Get messages by chat Id
+            </summary>
+            <param name="offset">Offset to the first element</param>
+            <param name="limit">Count elements on the page</param>
+            <param name="chatId">Chat Id</param>
+            <response code="200">List of MessageResponses</response>
+        </member>
+        <member name="M:ArtOrders.API.Controllers.MessagesController.GetMessageById(System.Int32)">
+            <summary>
+            Get message by Id
+            </summary>
+            <response code="200">MessageResponse></response>
+        </member>
+        <member name="M:ArtOrders.API.Controllers.MessagesController.AddMessage(ArtOrders.API.Controllers.Models.AddMessageRequest)">
+            <summary>
+            Create message
+            </summary>
         </member>
         <member name="P:ArtOrders.API.Controllers.Models.OrderResponse.Id">
             <summary>
@@ -149,6 +194,14 @@
             <param name="limit">Count elements on the page</param>
             <response code="200">List of OrderResponses</response>
         </member>
+        <member name="M:ArtOrders.API.Controllers.OrdersController.GetMyOrders(System.Int32,System.Int32)">
+            <summary>
+            Get users orders
+            </summary>
+            <param name="offset">Offset to the first element</param>
+            <param name="limit">Count elements on the page</param>
+            <response code="200">List of OrderResponses</response>
+        </member>
         <member name="M:ArtOrders.API.Controllers.OrdersController.GetOrderById(System.Int32)">
             <summary>
             Get orders by Id
@@ -167,6 +220,18 @@
             <param name="offset">Offset to the first element</param>
             <param name="limit">Count of elements on the page</param>
             <response code="200">List of UserAccountResponses</response>
+        </member>
+        <member name="M:ArtOrders.API.Controllers.UsersController.GetUserById(System.Guid)">
+            <summary>
+            Get user by Id
+            </summary>
+            <response code="200">UserAccountResponse></response>
+        </member>
+        <member name="M:ArtOrders.API.Controllers.UsersController.GetCurrentUser">
+            <summary>
+            Get current user
+            </summary>
+            <response code="200">UserAccountResponse></response>
         </member>
     </members>
 </doc>

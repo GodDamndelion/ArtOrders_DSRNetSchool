@@ -12,19 +12,22 @@ public class ChatService : IChatService
 {
     private readonly IDbContextFactory<MainDbContext> contextFactory;
     private readonly IMapper mapper;
-    private readonly IModelValidator<ChatModel> chatModelValidator;
+    private readonly IModelValidator<AddChatModel> addChatModelValidator;
+    private readonly IModelValidator<UpdateChatModel> updateChatModelValidator;
     private readonly ILogger<ChatService> logger;
 
     public ChatService(
         IDbContextFactory<MainDbContext> contextFactory,
         IMapper mapper,
-        IModelValidator<ChatModel> chatModelValidator,
+        IModelValidator<AddChatModel> addChatModelValidator,
+        IModelValidator<UpdateChatModel> updateChatModelValidator,
         ILogger<ChatService> logger
         )
     {
         this.contextFactory = contextFactory;
         this.mapper = mapper;
-        this.chatModelValidator = chatModelValidator;
+        this.addChatModelValidator = addChatModelValidator;
+        this.updateChatModelValidator = updateChatModelValidator;
         this.logger = logger;
     }
 
@@ -56,9 +59,9 @@ public class ChatService : IChatService
         return data;
     }
 
-    public async Task<ChatModel> AddChat(ChatModel model)
+    public async Task<ChatModel> AddChat(AddChatModel model)
     {
-        chatModelValidator.Check(model);
+        addChatModelValidator.Check(model);
 
         using var context = await contextFactory.CreateDbContextAsync();
 
@@ -70,9 +73,9 @@ public class ChatService : IChatService
         return mapper.Map<ChatModel>(chat);
     }
 
-    public async Task UpdateChat(int chatId, ChatModel model)
+    public async Task UpdateChat(int chatId, UpdateChatModel model)
     {
-        chatModelValidator.Check(model);
+        updateChatModelValidator.Check(model);
 
         using var context = await contextFactory.CreateDbContextAsync();
 

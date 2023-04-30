@@ -43,14 +43,37 @@ public class ChatsController : ControllerBase
     /// <param name="offset">Offset to the first element</param>
     /// <param name="limit">Count of elements on the page</param>
     /// <response code="200">List of ChatRequestResponses</response>
-    [ProducesResponseType(typeof(IEnumerable<ChatRequestResponse>), 200)] //Показывает, что придёт по такому коду
+    [ProducesResponseType(typeof(IEnumerable<ChatResponse>), 200)]
     // TODO: Посмотреть авторизацию чатов
     //[Authorize(Policy = AppScopes.ChatsRead)]
-    [HttpGet("")]
-    public async Task<IEnumerable<ChatRequestResponse>> GetChats([FromQuery] int offset = 0, [FromQuery] int limit = 10)
+    [HttpGet("all")]
+    public async Task<IEnumerable<ChatResponse>> GetChats([FromQuery] int offset = 0, [FromQuery] int limit = 10)
     {
         var chats = await chatService.GetChats(offset, limit);
-        var response = mapper.Map<IEnumerable<ChatRequestResponse>>(chats);
+        var response = mapper.Map<IEnumerable<ChatResponse>>(chats);
+
+        return response;
+    }
+
+    /// <summary>
+    /// Get users chats
+    /// </summary>
+    /// <param name="offset">Offset to the first element</param>
+    /// <param name="limit">Count of elements on the page</param>
+    /// <response code="200">List of ChatResponses</response>
+    [ProducesResponseType(typeof(IEnumerable<ChatResponse>), 200)]
+    //[Authorize(Policy = AppScopes.ChatsRead)]
+    [HttpGet("")]
+    public async Task<IEnumerable<ChatResponse>> GetMyChats([FromQuery] int offset = 0, [FromQuery] int limit = 10)
+    {
+        var chats = await chatService.GetChats(offset, limit);
+        bool success = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId);
+        if (!success)
+        {
+            throw new Exception("User not found!");
+        }
+        chats = chats.Where(c => c.CustomerId == userId || c.ArtistId == userId);
+        var response = mapper.Map<IEnumerable<ChatResponse>>(chats);
 
         return response;
     }
@@ -58,15 +81,15 @@ public class ChatsController : ControllerBase
     /// <summary>
     /// Get chat by Id
     /// </summary>
-    /// <response code="200">ChatRequestResponse></response>
-    [ProducesResponseType(typeof(ChatRequestResponse), 200)]
+    /// <response code="200">ChatResponse></response>
+    [ProducesResponseType(typeof(ChatResponse), 200)]
     // TODO: Посмотреть авторизацию чатов
     //[Authorize(Policy = AppScopes.ChatsRead)]
     [HttpGet("{id}")]
-    public async Task<ChatRequestResponse> GetChatById([FromRoute] int id)
+    public async Task<ChatResponse> GetChatById([FromRoute] int id)
     {
         var chat = await chatService.GetChat(id);
-        var response = mapper.Map<ChatRequestResponse>(chat);
+        var response = mapper.Map<ChatResponse>(chat);
 
         return response;
     }
@@ -77,9 +100,9 @@ public class ChatsController : ControllerBase
     [HttpPost("")]
     // TODO: Посмотреть авторизацию чатов
     //[Authorize(Policy = AppScopes.ChatsWrite)]
-    public async Task<ChatRequestResponse> AddChat([FromBody] ChatRequestResponse request)
+    public async Task<ChatResponse> AddChat([FromBody] AddChatRequest request)
     {
-        var model = mapper.Map<ChatModel>(request);
+        var model = mapper.Map<AddChatModel>(request);
         bool success = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid customerId);
         if (!success)
         {
@@ -87,7 +110,7 @@ public class ChatsController : ControllerBase
         }
         model.CustomerId = customerId;
         var chat = await chatService.AddChat(model);
-        var response = mapper.Map<ChatRequestResponse>(chat);
+        var response = mapper.Map<ChatResponse>(chat);
 
         return response;
     }
@@ -98,11 +121,11 @@ public class ChatsController : ControllerBase
     [HttpPost("order")]
     // TODO: Посмотреть авторизацию чатов
     //[Authorize(Policy = AppScopes.ChatsWrite)]
-    public async Task<ChatRequestResponse> AddOrderChat([FromBody] ChatRequestResponse request)
+    public async Task<ChatResponse> AddOrderChat([FromBody] AddChatRequest request)
     {
-        var model = mapper.Map<ChatModel>(request);
+        var model = mapper.Map<AddChatModel>(request);
         var chat = await chatService.AddChat(model);
-        var response = mapper.Map<ChatRequestResponse>(chat);
+        var response = mapper.Map<ChatResponse>(chat);
 
         return response;
     }
@@ -113,9 +136,9 @@ public class ChatsController : ControllerBase
     [HttpPut("{id}")]
     // TODO: Посмотреть авторизацию чатов
     //[Authorize(Policy = AppScopes.ChatsWrite)]
-    public async Task<IActionResult> UpdateChat([FromRoute] int id, [FromBody] ChatRequestResponse request)
+    public async Task<IActionResult> UpdateChat([FromRoute] int id, [FromBody] UpdateChatRequest request)
     {
-        var model = mapper.Map<ChatModel>(request);
+        var model = mapper.Map<UpdateChatModel>(request);
         await chatService.UpdateChat(id, model);
 
         return Ok();

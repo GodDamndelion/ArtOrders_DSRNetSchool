@@ -111,7 +111,7 @@ public class OrderService : IOrderService
                                            o.Description == order.Description &&
                                            o.Date == order.Date);
 
-        ChatModel chatModel = new ChatModel()
+        AddChatModel chatModel = new AddChatModel()
         {
             OrderId = foundOrder.Id,
             CustomerId = foundOrder.CustomerId,

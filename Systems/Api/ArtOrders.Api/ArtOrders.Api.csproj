@@ -37,6 +37,7 @@
     <ProjectReference Include="..\..\..\Data\Migrations\ArtOrders.Context.MigrationsPostgreSQL\ArtOrders.Context.MigrationsPostgreSQL.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Cache\ArtOrders.Services.Cache.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Chats\ArtOrders.Services.Chats.csproj" />
+    <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Messages\ArtOrders.Services.Messages.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Orders\ArtOrders.Services.Orders.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.RabbitMq\ArtOrders.Services.RabbitMq.csproj" />
     <ProjectReference Include="..\..\..\Services\ArtOrders.Services.Settings\ArtOrders.Services.Settings.csproj" />

@@ -4,19 +4,23 @@ using AutoMapper;
 using ArtOrders.Context.Entities;
 using FluentValidation;
 
-public class ChatModel
+public class AddChatModel
 {
-    public int Id { get; set; }
     public int? OrderId { get; set; }
     public Guid? CustomerId { get; set; }
     public Guid? ArtistId { get; set; }
     public string Name { get; set; }
 }
 
-public class ChatModelProfile : Profile
+public class AddChatModelValidator : AbstractValidator<AddChatModel>
 {
-    public ChatModelProfile()
+    public AddChatModelValidator() { }
+}
+
+public class AddChatModelProfile : Profile
+{
+    public AddChatModelProfile()
     {
-        CreateMap<Chat, ChatModel>();
+        CreateMap<AddChatModel, Chat>();
     }
 }
