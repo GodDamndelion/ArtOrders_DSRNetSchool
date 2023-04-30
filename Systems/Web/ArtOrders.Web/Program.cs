@@ -20,6 +20,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStatePr
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 
 await builder.Build().RunAsync();

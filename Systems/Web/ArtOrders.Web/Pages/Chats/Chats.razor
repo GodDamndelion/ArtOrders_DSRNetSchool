@@ -3,6 +3,153 @@
 
 @attribute [Authorize]
 
-<MudTHeadRow>
-    <MudText Typo="Typo.h4" Class="ma-4">Chats</MudText><br />
-</MudTHeadRow>
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+@inject IChatService chatService
+@inject IUserService userService
+@inject NavigationManager navigationManager
+
+<MudText Typo="Typo.h4" Class="ma-8">Chats</MudText>
+
+<MudTable Items="@CoolerChatListItems" Class="ma-8" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<CoolerChatListItem,bool>(FilterFuncSimple)">
+    <ColGroup>
+        <col style="width:50px;" />
+        <col />
+    </ColGroup>
+    <ToolBarContent>
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
+    </ToolBarContent>
+    <RowTemplate>
+        <MudTd DataLabel="User avatar">
+            <MudAvatar Class="ma-2" Size="Size.Medium">
+                <MudImage Src="@context.User.AvatarLink"></MudImage>
+            </MudAvatar>
+        </MudTd>
+        <MudTd DataLabel="Info">
+            <MudText Typo="Typo.h5">@context.User.Name</MudText>
+            <MudText Typo="Typo.h6" Class="ml-8">@context.Name</MudText>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+
+    @code {
+    // TODO: Переделать Chats.razor!!!
+
+    private bool dense = false;
+    private bool hover = true;
+    private bool striped = false;
+    private bool bordered = false;
+
+    private string searchString = "";
+
+    private List<CoolerChatListItem> CoolerChatListItems = new List<CoolerChatListItem>();
+    private IEnumerable<ChatListItem> ChatListItems = new List<ChatListItem>();
+    private UserListItem currentUser = new UserListItem();
+
+    private async Task ReloadData()
+    {
+        ChatListItems = await chatService.GetMyChats(0, 10000);
+        currentUser = await userService.GetCurrentUser();
+        await ToCoolerChatListItems();
+    }
+
+    private async Task<UserListItem> GetUserById(Guid? id)
+    {
+        return await userService.GetUserById(id.Value);
+    }
+
+    private async Task ToCoolerChatListItems()
+    {
+        CoolerChatListItems = ChatListItems.Select(c => new CoolerChatListItem()
+        {
+            Id = c.Id,
+            OrderId = c.OrderId,
+            CustomerId = c.CustomerId,
+            ArtistId = c.ArtistId,
+            Name = c.Name
+        }).ToList();
+        for (int i = 0; i < CoolerChatListItems.Count(); ++i )
+        {
+            CoolerChatListItems[i].User = await GetUserById(CoolerChatListItems[i].ArtistId == currentUser.Id ? CoolerChatListItems[i].CustomerId : CoolerChatListItems[i].ArtistId);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await ReloadData();
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add(ex.Message, Severity.Error); //Всплывающие уведомления в левом нижнем углу
+        }
+    }
+
+    private bool FilterFuncSimple(CoolerChatListItem ChatListItem) => FilterFunc(ChatListItem, searchString);
+
+    private bool FilterFunc(CoolerChatListItem ChatListItem, string searchString)
+    {
+        return
+            string.IsNullOrWhiteSpace(searchString)
+            ||
+            ChatListItem.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+            ||
+            ChatListItem.User.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)
+        ;
+    }
+
+    //private async Task AddChat()
+    //{
+    //    var parameters = new DialogParameters { };
+    //    var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Large, FullWidth = true };
+
+    //    var dialog = DialogService.Show<ChatDialog>("Add chat", parameters, options);
+    //    var result = await dialog.Result;
+
+    //    if (!result.Cancelled)
+    //    {
+    //        await chatService.AddChat(((ChatDialog)dialog.Dialog).model);
+    //        await ReloadData();
+    //    }
+    //}
+
+    //private async Task EditChat(int chatId)
+    //{
+    //    var parameters = new DialogParameters();
+    //    parameters.Add("ChatId", chatId);
+
+    //    var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Large, FullWidth = true };
+    //    var dialog = DialogService.Show<ChatDialog>("Edit chat", parameters, options);
+    //    var result = await dialog.Result;
+
+    //    if (!result.Cancelled)
+    //    {
+    //        await chatService.EditChat(chatId, ((ChatDialog)dialog.Dialog).model);
+    //        await ReloadData();
+    //    }
+    //}
+
+    //private async Task DeleteChat(int chatId)
+    //{
+    //    var parameters = new DialogParameters();
+    //    parameters.Add("ContentText", "Do you really want to delete this chat? This process cannot be undone.");
+    //    parameters.Add("ButtonText", "Delete");
+    //    parameters.Add("Color", Color.Error);
+
+    //    var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+    //    var dialog = DialogService.Show<ConfirmationDialog>("Delete chat", parameters, options);
+    //    var result = await dialog.Result;
+
+    //    if (!result.Cancelled)
+    //    {
+    //        await chatService.DeleteChat(chatId);
+    //        await ReloadData();
+    //    }
+    //}
+}
