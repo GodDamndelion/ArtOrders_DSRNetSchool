@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Web", "Systems\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.Chats", "Services\ArtOrders.Services.Chats\ArtOrders.Services.Chats.csproj", "{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.Messages", "Services\ArtOrders.Services.Messages\ArtOrders.Services.Messages.csproj", "{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.Messages", "Services\ArtOrders.Services.Messages\ArtOrders.Services.Messages.csproj", "{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
