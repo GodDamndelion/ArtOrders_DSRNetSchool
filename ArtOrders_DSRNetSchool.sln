@@ -52,6 +52,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{1C06A5B9-9AD7-47F3-A985-AFC8F8122E16}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Consts", "Shared\ArtOrders.Consts\ArtOrders.Consts.csproj", "{1068795A-EBD9-45A8-BE71-306CEDF7A07D}"

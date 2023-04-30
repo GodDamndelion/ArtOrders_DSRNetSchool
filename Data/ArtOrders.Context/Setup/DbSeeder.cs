@@ -299,32 +299,95 @@ public static class DbSeeder
 
 
 
+        var m1c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "Привет, Сева! Я тебя нашёл))) Нарисуй Санса, подажуйста! Крутого такого! Я всё в описании написал!"
+        };
+        context.Messages.Add(m1c1);
 
+        var m2c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u1.Id,
+            Date = DateTime.UtcNow,
+            Text = "Паша, ты? Ну привет. Мог бы в вк просто написать, зачем заказ то делать?"
+        };
+        context.Messages.Add(m2c1);
 
+        var m3c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "Ну так чтобы твои труды были не напрасны)"
+        };
+        context.Messages.Add(m3c1);
 
+        var m4c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "К тому же хочу проверить, как этот сервис работает..."
+        };
+        context.Messages.Add(m4c1);
 
+        var m5c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u1.Id,
+            Date = DateTime.UtcNow,
+            Text = "Ладно..."
+        };
+        context.Messages.Add(m5c1);
 
-        //var c1 = new Category()
-        //{
-        //    Title = "Classic"
-        //};
-        //context.Categories.Add(c1);
+        var m6c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "Ладно"
+        };
+        context.Messages.Add(m6c1);
 
-        //context.Books.Add(new Book()
-        //{
-        //    Title = "Tom Soyer",
-        //    Description = "description description description description ",
-        //    Author = a1,
-        //    Categories = new List<Category>() { c1 },
-        //});
+        var m7c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u1.Id,
+            Date = DateTime.UtcNow,
+            Text = "ладно"
+        };
+        context.Messages.Add(m7c1);
 
-        //context.Books.Add(new Book()
-        //{
-        //    Title = "War and peace",
-        //    Description = "description description description description ",
-        //    Author = a2,
-        //    Categories = new List<Category>() { c1 },
-        //});
+        var m8c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "ладно"
+        };
+        context.Messages.Add(m8c1);
+
+        var m9c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u1.Id,
+            Date = DateTime.UtcNow,
+            Text = "Достал..."
+        };
+        context.Messages.Add(m9c1);
+
+        var m10c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = ")"
+        };
+        context.Messages.Add(m10c1);
 
         context.SaveChanges();
     }
