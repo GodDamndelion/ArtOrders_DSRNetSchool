@@ -64,7 +64,7 @@ public class ChatsController : ControllerBase
     [ProducesResponseType(typeof(IEnumerable<ChatResponse>), 200)]
     //[Authorize(Policy = AppScopes.ChatsRead)]
     [HttpGet("")]
-    public async Task<IEnumerable<ChatResponse>> GetMyChats([FromQuery] int offset = 0, [FromQuery] int limit = 10)
+    public async Task<IEnumerable<ChatResponse>> GetMyChats([FromQuery] int offset = 0, [FromQuery] int limit = 100)
     {
         var chats = await chatService.GetChats(offset, limit);
         bool success = Guid.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out Guid userId);

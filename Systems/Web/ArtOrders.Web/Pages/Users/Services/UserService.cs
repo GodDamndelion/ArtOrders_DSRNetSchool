@@ -47,7 +47,24 @@ public class UserService : IUserService
         return data;
     }
 
-	public async Task<HttpResponseMessage> SingUp(RegisterUserAccountModel userModel)
+    public async Task<UserListItem> GetUserById(Guid id)
+    {
+        string url = $"{Settings.ApiRoot}/v1/users/{id}";
+
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        var data = JsonSerializer.Deserialize<UserListItem>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new UserListItem();
+
+        return data;
+    }
+
+    public async Task<HttpResponseMessage> SingUp(RegisterUserAccountModel userModel)
     {
 		string url = $"{Settings.ApiRoot}/v1/users";
 
