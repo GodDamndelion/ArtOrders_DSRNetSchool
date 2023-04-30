@@ -1,0 +1,12 @@
+﻿@page "/messages/{id:int}"
+@layout MainLayout
+
+@attribute [Authorize]
+
+<MudText Typo="Typo.h4" Class="ma-8">Messages</MudText>
+<MudText Typo="Typo.h5" Class="ma-8">Chat Id: @id</MudText>
+
+@code {
+	[Parameter]
+	public int id { get; set; }
+}

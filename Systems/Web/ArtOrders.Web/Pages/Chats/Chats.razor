@@ -20,12 +20,12 @@
         <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
     </ToolBarContent>
     <RowTemplate>
-        <MudTd DataLabel="User avatar">
+        <MudTd onclick="@(() => navigationManager.NavigateTo($"/messages/{context.Id}"))" DataLabel="User avatar">
             <MudAvatar Class="ma-2" Size="Size.Medium">
                 <MudImage Src="@context.User.AvatarLink"></MudImage>
             </MudAvatar>
         </MudTd>
-        <MudTd DataLabel="Info">
+        <MudTd onclick="@(() => navigationManager.NavigateTo($"/messages/{context.Id}"))" DataLabel="Info">
             <MudText Typo="Typo.h5">@context.User.Name</MudText>
             <MudText Typo="Typo.h6" Class="ml-8">@context.Name</MudText>
         </MudTd>
