@@ -75,20 +75,103 @@ public static class DbSeeder
         ArgumentNullException.ThrowIfNull(userService);
 
         // TODO: Доделать инициализацию БД
-        if (context.Messages.Any() /*|| context.Users.Any()*/ || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
+        if (context.Messages.Any() || context.Images.Any() || context.PriceListItems.Any() || context.WorkExampleItems.Any() || context.Orders.Any() || context.Chats.Any())
             return;
 
         var i = new Image()
         {
-            Link = "LocalData\\Images\\PHGAvatarImage.jpg",
+            Link = "LocalData/Images/PHGAvatarImage.jpg",
             User = null,
             WorkExampleItem = null,
             Order = null
         };
         context.Images.Add(i);
+
+        var iPHG1 = new Image()
+        {
+            Link = "LocalData/Images/PHGImage1.jpg",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(iPHG1);
+
+        var iPHG2 = new Image()
+        {
+            Link = "LocalData/Images/PHGImage2.jpg",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(iPHG2);
+
+        var iPHG3 = new Image()
+        {
+            Link = "LocalData/Images/PHGImage3.jpg",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(iPHG3);
+
+        var ia1 = new Image()
+        {
+            Link = @"LocalData/Images/Avatar1.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia1);
+
+        var ia2 = new Image()
+        {
+            Link = @"LocalData/Images/Avatar2.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia2);
+
+        var ia3 = new Image()
+        {
+            Link = @"LocalData/Images/Avatar3.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia3);
+
+        var ia4 = new Image()
+        {
+            Link = @"LocalData/Images/Avatar4.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia4);
+
+        var ia7 = new Image()
+        {
+            Link = @"LocalData/Images/Avatar7.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(ia7);
+
+        var iamnyam = new Image()
+        {
+            Link = "LocalData/Images/Лягушка пластиковая Ам-Ням.png",
+            User = null,
+            WorkExampleItem = null,
+            Order = null
+        };
+        context.Images.Add(iamnyam);
         context.SaveChanges();
 
-        var ua1 = userService.Create(new RegisterUserAccountModel
+
+
+        var u1 = userService.Create(new RegisterUserAccountModel
         {
             Name = "P.H.G.",
             Email = "PHG@dsr.com",
@@ -99,91 +182,212 @@ public static class DbSeeder
         })
         .GetAwaiter()
         .GetResult();
-        
 
-        //var u1 = new User()
-        //{
-        //    Nickname = "P.H.G.",
-        //    Avatar = i,
-        //    Role = UserRole.Artist,
-        //    Description = "Если кратко — я полуподвальный дровер, который шакалит арты и мангу.\n@pumpheadguy"
-        //};
-        //context.Users.Add(u1);
-
-        var ua2 = userService.Create(new RegisterUserAccountModel
+        var u2 = userService.Create(new RegisterUserAccountModel
         {
             Name = "Damndelion",
             Email = "Damndelion@dsr.com",
             Password = "password",
+            AvatarId = context.Images.First(x => x.Link == iamnyam.Link).Id,
             Role = UserRole.Customer,
         })
         .GetAwaiter()
         .GetResult();
 
-        //var u2 = new User()
-        //{
-        //    Nickname = "Damndelion",
-        //    Role = UserRole.Customer
-        //};
-        //context.Users.Add(u2);
-
-
-
-
-
-
-        //var u1 = context.Users.First(u => u.Email == ua1.Email);
-        //var u2 = context.Users.First(u => u.Email == ua2.Email);
-
-        var c1 = new Chat()
+        var ua1 = userService.Create(new RegisterUserAccountModel
         {
-            CustomerId = ua2.Id,
-            ArtistId = ua1.Id
-        };
-        context.Chats.Add(c1);
+            Name = "Artist1",
+            Email = "Artist1@dsr.com",
+            Password = "Artist1",
+            AvatarId = context.Images.First(x => x.Link == ia1.Link).Id,
+            Role = UserRole.Artist,
+            Description = "I am artist 1",
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua2 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist2",
+            Email = "Artist2@dsr.com",
+            Password = "Artist2",
+            AvatarId = context.Images.First(x => x.Link == ia2.Link).Id,
+            Role = UserRole.Artist,
+            Description = "I am artist 2",
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua3 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist3",
+            Email = "Artist3@dsr.com",
+            Password = "Artist3",
+            AvatarId = context.Images.First(x => x.Link == ia3.Link).Id,
+            Role = UserRole.Artist,
+            Description = "I am artist 3",
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua4 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist4",
+            Email = "Artist4@dsr.com",
+            Password = "Artist4",
+            AvatarId = context.Images.First(x => x.Link == ia4.Link).Id,
+            Role = UserRole.Artist,
+            Description = "I am artist 4",
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua5 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist5",
+            Email = "Artist5@dsr.com",
+            Password = "Artist5",
+            Role = UserRole.Artist,
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua6 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist6",
+            Email = "Artist6@dsr.com",
+            Password = "Artist6",
+            Role = UserRole.Artist,
+        })
+        .GetAwaiter()
+        .GetResult();
+
+        var ua7 = userService.Create(new RegisterUserAccountModel
+        {
+            Name = "Artist7",
+            Email = "Artist7@dsr.com",
+            Password = "Artist7",
+            AvatarId = context.Images.First(x => x.Link == ia7.Link).Id,
+            Role = UserRole.Artist,
+        })
+        .GetAwaiter()
+        .GetResult();
+
+
 
         var o1 = new Order()
         {
             Name = "Sans",
-            CustomerId = ua2.Id,
-            ArtistId = ua1.Id,
+            CustomerId = u2.Id,
+            ArtistId = u1.Id,
             Status = OrderStatus.AtWork,
             //Chat = c1,
             EditsNumber = 0,
-            Description = "Санс стоит в Пустоте и заряжает Гастер бластер, который объят синим пламенем"
+            Description = "Санс стоит в Пустоте и заряжает Гастер бластер, который объят синим пламенем",
+            Date = DateTime.UtcNow,
         };
         context.Orders.Add(o1);
 
-        c1.Order = o1;
+        var c1 = new Chat()
+        {
+            CustomerId = u2.Id,
+            ArtistId = u1.Id,
+            Order = o1,
+            Name = o1.Name
+        };
+        context.Chats.Add(c1);
 
 
 
+        var m1c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "Привет, Сева! Я тебя нашёл))) Нарисуй Санса, подажуйста! Крутого такого! Я всё в описании написал!"
+        };
+        context.Messages.Add(m1c1);
 
+        var m2c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u1.Id,
+            Date = DateTime.UtcNow,
+            Text = "Паша, ты? Ну привет. Мог бы в вк просто написать, зачем заказ то делать?"
+        };
+        context.Messages.Add(m2c1);
 
+        var m3c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "Ну так чтобы твои труды были не напрасны)"
+        };
+        context.Messages.Add(m3c1);
 
+        var m4c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "К тому же хочу проверить, как этот сервис работает..."
+        };
+        context.Messages.Add(m4c1);
 
+        var m5c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u1.Id,
+            Date = DateTime.UtcNow,
+            Text = "Ладно..."
+        };
+        context.Messages.Add(m5c1);
 
-        //var c1 = new Category()
-        //{
-        //    Title = "Classic"
-        //};
-        //context.Categories.Add(c1);
+        var m6c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "Ладно"
+        };
+        context.Messages.Add(m6c1);
 
-        //context.Books.Add(new Book()
-        //{
-        //    Title = "Tom Soyer",
-        //    Description = "description description description description ",
-        //    Author = a1,
-        //    Categories = new List<Category>() { c1 },
-        //});
+        var m7c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u1.Id,
+            Date = DateTime.UtcNow,
+            Text = "ладно"
+        };
+        context.Messages.Add(m7c1);
 
-        //context.Books.Add(new Book()
-        //{
-        //    Title = "War and peace",
-        //    Description = "description description description description ",
-        //    Author = a2,
-        //    Categories = new List<Category>() { c1 },
-        //});
+        var m8c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = "ладно"
+        };
+        context.Messages.Add(m8c1);
+
+        var m9c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u1.Id,
+            Date = DateTime.UtcNow,
+            Text = "Достал..."
+        };
+        context.Messages.Add(m9c1);
+
+        var m10c1 = new Message()
+        {
+            Chat = c1,
+            UserId = u2.Id,
+            Date = DateTime.UtcNow,
+            Text = ")"
+        };
+        context.Messages.Add(m10c1);
 
         context.SaveChanges();
     }

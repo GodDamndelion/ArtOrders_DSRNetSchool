@@ -1,0 +1,84 @@
+﻿@page "/neworder"
+
+@attribute [Authorize]
+
+@inject IOrderService orderService
+@inject NavigationManager navigationManager
+
+<MudForm Model="model" @ref="form" Validation="@(modelValidator.ValidateValue)">
+    <MudGrid>
+        <MudItem xs="12" sm="6" Class="ma-4">
+            <MudTextField Label="Name" @bind-Value="model.Name"
+                            For="@(() => model.Name)"
+                            Required="true"
+                            RequiredError="Order name is required!">
+            </MudTextField>
+        </MudItem>
+        <MudItem xs="12" Class="ma-4">
+            <MudTextField Label="Description" @bind-Value="model.Description"
+                            Lines="5"
+                            For="@(() => model.Description)"
+                            Required="true"
+                            RequiredError="Description is required!">
+            </MudTextField>
+        </MudItem>
+        <MudItem xs="12" Class="ma-4">
+            <MudButton OnClick="Cancel">Cancel</MudButton>
+            @if (!isProcessing)
+            {
+                <MudButton Color="MudBlazor.Color.Primary" OnClick="Submit">Ok</MudButton>
+            }
+            else
+            {
+                <MudButton Color="MudBlazor.Color.Primary" Disabled="true">Ok</MudButton>
+            }
+            
+        </MudItem>
+    </MudGrid>
+</MudForm>
+
+
+
+
+@code {
+    MudForm form = default!;
+    private bool isProcessing = false;
+
+    OrderModelValidator modelValidator = new OrderModelValidator();
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string artistid { get; set; }
+
+    public OrderModel model { get; set; } = new()
+    {
+        Status = Context.Entities.OrderStatus.Pending,
+        EditsNumber = 0,
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        Guid.TryParse(artistid, out Guid artistId);
+        model.ArtistId = artistId;
+
+        await Task.Delay(500); //Нужен хотя бы 1 await, иначе form останется null...
+        form.ResetValidation();
+    }
+
+    async Task Submit()
+    {
+        isProcessing = true;
+        await form.Validate();
+        if (form.IsValid)
+        {
+            await orderService.AddOrder(model);
+            navigationManager.NavigateTo("/orders");
+        }
+        else
+        {
+            isProcessing = false;
+        }
+    }
+
+    void Cancel() => navigationManager.NavigateTo("/artists");
+}

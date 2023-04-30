@@ -1,9 +1,14 @@
-﻿@attribute [Authorize]
-
-@* TODO: Как-то сделать так, чтобы ТУТ было Login, если не авторизован...*@
+﻿@using Microsoft.AspNetCore.Components.Authorization
 
 <MudMenu Color="Color.Inherit" Icon="@Icons.Material.Filled.Face" AnchorOrigin="Origin.BottomRight" >
     <MudMenuItem Link="/profile">Profile</MudMenuItem>
     <MudDivider />
-    <MudMenuItem Link="/logout">Logoff</MudMenuItem>
+    <AuthorizeView>
+        <Authorized>
+            <MudMenuItem Link="/logout">Logoff</MudMenuItem>
+        </Authorized>
+        <NotAuthorized>
+            <MudMenuItem Link="/login">Login</MudMenuItem>
+        </NotAuthorized>
+    </AuthorizeView>
 </MudMenu>

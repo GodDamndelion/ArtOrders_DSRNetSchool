@@ -9,7 +9,7 @@
 @inject IOrderService orderService
 @inject NavigationManager navigationManager
 
-<MudText Typo="Typo.h4" Class="ma-8">Orders</MudText>
+<MudText Typo="Typo.h4" Class="ma-8">My orders</MudText>
 
 <MudTable Items="@OrderListItems" Class="ma-8" Dense="@dense" Hover="@hover" Bordered="@bordered" Striped="@striped" Filter="new Func<OrderListItem,bool>(FilterFuncSimple)">
     <ColGroup>
@@ -17,17 +17,17 @@
         <col />
         <col />
         <col />
+        <col />
         <col style="width:100px;" />
     </ColGroup>
     <ToolBarContent>
-        <MudButton StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" OnClick="@((e) => AddOrder())">Add</MudButton>
-        <MudSpacer />
         <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Id</MudTh>
         <MudTh>Name</MudTh>
         <MudTh>Status</MudTh>
+        <MudTh>Date</MudTh>
         <MudTh>Description</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
@@ -35,10 +35,10 @@
         <MudTd DataLabel="Id">@context.Id</MudTd>
         <MudTd DataLabel="Name">@context.Name</MudTd>
         <MudTd DataLabel="Status">@OrderStatusTranslater.dictionary[context.Status]</MudTd>
+        <MudTd DataLabel="Date">@context.Date.ToLocalTime()</MudTd>
         <MudTd DataLabel="Description">@context.Description</MudTd>
         <MudTd>
             <MudIconButton Icon="@Icons.Material.Filled.Edit" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Small" OnClick="@((e) => EditOrder(context.Id))" />
-            <MudIconButton Icon="@Icons.Material.Filled.Delete" Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Small" OnClick="@((e) => DeleteOrder(context.Id))" />
         </MudTd>
     </RowTemplate>
     <PagerContent>
@@ -91,8 +91,7 @@
         ;
     }
 
-    // TODO: Тут должно быть запихивание ID Художника и Клиента, и вообще из другого места!...
-    // TODO: Сделать тут создание Чата!!!!!!!!! (Или........)
+    // TODO: Тут должно быть запихивание ID Художника...
     private async Task AddOrder()
     {
         var parameters = new DialogParameters { };

@@ -52,6 +52,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{1C06A5B9-9AD7-47F3-A985-AFC8F8122E16}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Consts", "Shared\ArtOrders.Consts\ArtOrders.Consts.csproj", "{1068795A-EBD9-45A8-BE71-306CEDF7A07D}"
@@ -63,6 +64,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{13D63F38-F9C5-4791-8955-FE0CA443AB08}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Web", "Systems\Web\ArtOrders.Web\ArtOrders.Web.csproj", "{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArtOrders.Services.Chats", "Services\ArtOrders.Services.Chats\ArtOrders.Services.Chats.csproj", "{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtOrders.Services.Messages", "Services\ArtOrders.Services.Messages\ArtOrders.Services.Messages.csproj", "{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -146,6 +151,14 @@ Global
 		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +187,8 @@ Global
 		{ACF82F1F-18A8-48B8-A29C-140BDEF9C3CA} = {51E21652-1B7B-4CF9-9765-C049249BF768}
 		{13D63F38-F9C5-4791-8955-FE0CA443AB08} = {1019493D-46BD-4851-9EB2-D4A0D4F1E42D}
 		{D7A54A6F-8484-4A6A-A20F-610D60BB5DDB} = {13D63F38-F9C5-4791-8955-FE0CA443AB08}
+		{0CEB6A31-1940-4579-9BD9-922AD5D6E8B0} = {63A107FD-40C1-4336-845A-CA035CF8E7A2}
+		{19884EF9-2C89-47F2-A6CC-E21BC1AE7D36} = {63A107FD-40C1-4336-845A-CA035CF8E7A2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76ADB176-AD2F-463B-AF7E-C09EC32A3BDC}

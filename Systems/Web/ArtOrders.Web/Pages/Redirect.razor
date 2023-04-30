@@ -1,0 +1,13 @@
+﻿@page "/redirect/{*uri}"
+
+@inject NavigationManager NavigationManager
+
+@code {
+	[Parameter]
+	public string uri { get; set; } = "";
+
+	protected override async Task OnInitializedAsync()
+	{
+		NavigationManager.NavigateTo(NavigationManager.Uri.Replace("/redirect", ""));
+	}
+}

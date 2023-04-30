@@ -1,0 +1,102 @@
+﻿@page "/sign-up"
+@layout MainLayout
+
+@inject IUserService userService
+@inject NavigationManager NavigationManager
+
+<MudGrid Justify="Justify.Center" Class="pa-10">
+    <MudItem xs="7" sm="4">
+        <MudPaper Class="pa-4">
+            <MudForm Model="@model" @ref="form" Validation="@(modelValidator.ValidateValue)">
+
+                <MudText Typo="Typo.h4" GutterBottom="true" Class="mb-3">Sign Up</MudText>
+
+                <MudAlert Severity="Severity.Error" Class="@(ShowErrors ? "mb-3 d-block" : "d-none")">
+                    @ErrorMessage
+                </MudAlert>
+
+                <MudTextField T="string"
+                              @bind-Value="model.Name" For="@(() => model.Name)"
+                              Label="Name"
+                              Required="true"
+                              RequiredError="Name is required!"
+                              HelperText="Input your nickname that users can see" />
+                <MudTextField T="string"
+                              @bind-Value="model.Email" For="@(() => model.Email)"
+                              Label="Email"
+                              Required="true"
+                              RequiredError="Email is required!"
+                              HelperText="Input your email"
+                              Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})" />
+                <MudTextField @bind-Value="model.Password" For="@(() => model.Password)"
+                              Label="Password"
+                              HelperText="Input your password"
+                              InputType="@PasswordInput"
+                              Adornment="Adornment.End"
+                              AdornmentIcon="@PasswordInputIcon"
+                              Required="true"
+                              RequiredError="Password is required!"
+                              OnAdornmentClick="TogglePasswordVisibility" />
+                <MudButton Class="ma-2" Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Size="Size.Large"
+                           OnClick="Submit">Sign Up</MudButton>
+                <MudLink Class="ma-8" Href="/login">Sign In</MudLink>
+            </MudForm>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    MudForm form;
+    RegisterUserAccountModelValidator modelValidator = new RegisterUserAccountModelValidator();
+
+    private bool ShowErrors;
+    private string ErrorMessage = "";
+
+    private RegisterUserAccountModel model = new RegisterUserAccountModel()
+        {
+            Name = "Alice",
+            Email = "alice@tst.com",
+            Password = "password"
+        };
+
+    bool PasswordVisibility;
+    InputType PasswordInput = InputType.Password;
+    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    void TogglePasswordVisibility()
+    {
+        @if (PasswordVisibility)
+        {
+            PasswordVisibility = false;
+            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+            PasswordInput = InputType.Password;
+        }
+        else
+        {
+            PasswordVisibility = true;
+            PasswordInputIcon = Icons.Material.Filled.Visibility;
+            PasswordInput = InputType.Text;
+        }
+    }
+
+    private async Task Submit()
+    {
+        await form.Validate();
+        if (form.IsValid)
+        {
+            var response = await userService.SingUp(model);
+            var content = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("/login");
+            }
+            else
+            {
+                ShowErrors = true;
+                ErrorMessage = content;
+            }
+        }
+    }
+}

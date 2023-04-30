@@ -12,9 +12,9 @@ public class AddOrderRequest
     public string Description { get; set; }
 }
 
-public class AddOrderResponseValidator : AbstractValidator<AddOrderRequest>
+public class AddOrderRequestValidator : AbstractValidator<AddOrderRequest>
 {
-    public AddOrderResponseValidator()
+    public AddOrderRequestValidator()
     {
         RuleFor(o => o.Name)
             .NotEmpty().WithMessage("Order name is required.");

@@ -1,6 +1,4 @@
-﻿using ArtOrders.Context.Entities;
-
-namespace ArtOrders.Web;
+﻿namespace ArtOrders.Web;
 
 public class OrderListItem
 {
@@ -13,4 +11,5 @@ public class OrderListItem
     public string? CurrentResultImageLink { get; set; }
     public int EditsNumber { get; set; }
     public string Description { get; set; }
+    public DateTime Date { get; set; }
 }

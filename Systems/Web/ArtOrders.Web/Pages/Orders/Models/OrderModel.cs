@@ -14,6 +14,7 @@ public class OrderModel
     public string? CurrentResultImageLink { get; set; }
     public int EditsNumber { get; set; }
     public string Description { get; set; } = string.Empty;
+    public DateTime Date { get; set; }
 }
 
 public class OrderModelValidator : AbstractValidator<OrderModel>
