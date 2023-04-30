@@ -41,12 +41,13 @@
 
     private List<CoolerChatListItem> CoolerChatListItems = new List<CoolerChatListItem>();
     private IEnumerable<ChatListItem> ChatListItems = new List<ChatListItem>();
+    private UserListItem currentUser = new UserListItem();
 
     private async Task ReloadData()
     {
         ChatListItems = await chatService.GetMyChats(0, 10000);
+        currentUser = await userService.GetCurrentUser();
         await ToCoolerChatListItems();
-
     }
 
     private async Task<UserListItem> GetUserById(Guid? id)
@@ -66,7 +67,7 @@
         }).ToList();
         for (int i = 0; i < CoolerChatListItems.Count(); ++i )
         {
-            CoolerChatListItems[i].User = await GetUserById(CoolerChatListItems[i].CustomerId);
+            CoolerChatListItems[i].User = await GetUserById(CoolerChatListItems[i].ArtistId == currentUser.Id ? CoolerChatListItems[i].CustomerId : CoolerChatListItems[i].ArtistId);
         }
     }
 
