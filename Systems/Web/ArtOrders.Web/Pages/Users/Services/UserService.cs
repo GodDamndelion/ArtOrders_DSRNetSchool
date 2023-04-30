@@ -47,7 +47,7 @@ public class UserService : IUserService
         return data;
     }
 
-	public async Task SingUp(RegisterUserAccountModel userModel)
+	public async Task<HttpResponseMessage> SingUp(RegisterUserAccountModel userModel)
     {
 		string url = $"{Settings.ApiRoot}/v1/users";
 
@@ -55,11 +55,6 @@ public class UserService : IUserService
 		var request = new StringContent(body, Encoding.UTF8, "application/json");
 		var response = await _httpClient.PostAsync(url, request);
 
-		var content = await response.Content.ReadAsStringAsync();
-
-		if (!response.IsSuccessStatusCode)
-		{
-			throw new Exception(content);
-		}
+        return response;
 	}
 }
