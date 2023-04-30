@@ -8,7 +8,7 @@ public static class OrderStatusTranslater
         {"atWork",                          "В работе" },
         {"readyAndWaitingForPayment",       "Готов и ждёт оплаты" },
         {"completed",                       "Завершён" },
-        {"cencelled",                       "Отменён" },
+        {"cancelled",                       "Отменён" },
         {"onEditing",                       "В правке" },
         {"readyAndWaitingForConfirmation",  "Готов и ждёт подтверждения" }
     };

@@ -24,7 +24,15 @@
         </MudItem>
         <MudItem xs="12" Class="ma-4">
             <MudButton OnClick="Cancel">Cancel</MudButton>
-            <MudButton Color="MudBlazor.Color.Primary" OnClick="Submit">Ok</MudButton>
+            @if (!isProcessing)
+            {
+                <MudButton Color="MudBlazor.Color.Primary" OnClick="Submit">Ok</MudButton>
+            }
+            else
+            {
+                <MudButton Color="MudBlazor.Color.Primary" Disabled="true">Ok</MudButton>
+            }
+            
         </MudItem>
     </MudGrid>
 </MudForm>
@@ -34,6 +42,7 @@
 
 @code {
     MudForm form = default!;
+    private bool isProcessing = false;
 
     OrderModelValidator modelValidator = new OrderModelValidator();
 
@@ -58,11 +67,16 @@
 
     async Task Submit()
     {
+        isProcessing = true;
         await form.Validate();
         if (form.IsValid)
         {
             await orderService.AddOrder(model);
             navigationManager.NavigateTo("/orders");
+        }
+        else
+        {
+            isProcessing = false;
         }
     }
 
